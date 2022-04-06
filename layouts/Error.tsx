@@ -12,7 +12,7 @@ const ErrorPage: React.FC<IProps> = ({ errorType, errorMessage }) => {
       <Head>
         <title>TomatoChat (Error)</title>
       </Head>
-      <div className="flex items-center justify-center w-full h-screen text-white">
+      <main className="flex items-center justify-center w-full h-screen text-white bg-gradient-to-br from-[#1B1325] via-[#12111B] to-[#18132A]">
         <div className="flex flex-col items-center w-full space-y-2">
           <span className="flex font-poppins text-3xl">
             <p className="font-rubikglitch text-white">TomatoChat</p>
@@ -22,7 +22,7 @@ const ErrorPage: React.FC<IProps> = ({ errorType, errorMessage }) => {
             <span className="font-light">{ errorMessage }</span>
           </div>
         </div>
-      </div>
+      </main>
     </React.Fragment>
   )
 }
