@@ -11,10 +11,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'mattblack': '#0D0D0D',
-        'purewhite': '#FFFFFF',
+        'tomato-white': '#FFFFFF',
+        'tomato-dark': '#120E18',
+        'tomato-cerulean': '#3F86C7',
+        'tomato-purple': '#4D38A2',
+        'tomato-scarlet': '#FF4848'
       },
       fontFamily: {
+        rowdies: ['Rowdies'],
         rubikglitch: ['Rubik Glitch'],
         poppins: ['Poppins', ...defaultTheme.fontFamily.sans]
       }

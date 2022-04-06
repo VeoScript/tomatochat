@@ -2,10 +2,11 @@ import type { NextPage } from 'next'
 import React from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
-import MainLayout from '../layouts/Main'
-import Rooms from '../layouts/Panels/Rooms'
-import NewsFeed from '../layouts/Panels/NewsFeed'
-import LoadingPage from '../layouts/Loading'
+import MainLayout from '../../layouts/Main'
+import Rooms from '../../layouts/Panels/Rooms'
+import Chats from '../../layouts/Panels/Chats'
+import Members from '../../layouts/Panels/Members'
+import LoadingPage from '../../layouts/Loading'
 import { useSession } from 'next-auth/react'
 
 const Home: NextPage = () => {
@@ -32,7 +33,8 @@ const Home: NextPage = () => {
       </Head>
       <MainLayout>
         <Rooms />
-        <NewsFeed />
+        <Chats />
+        <Members />
       </MainLayout>
     </React.Fragment>
   )

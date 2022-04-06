@@ -8,7 +8,7 @@ const LoadingPage = () => {
       <Head>
         <title>TomatoChat (Loading...)</title>
       </Head>
-      <div className="flex items-center justify-center w-full h-screen">
+      <main className="flex items-center justify-center w-full h-screen text-white bg-gradient-to-br from-[#1B1325] via-[#12111B] to-[#18132A]">
         <div className="flex flex-col items-center w-full space-y-2">
           <CubeLoader />
           <span className="flex font-poppins text-3xl">
@@ -16,7 +16,7 @@ const LoadingPage = () => {
           </span>
           <span className="font-light">Loading...</span>
         </div>
-      </div>
+      </main>
     </React.Fragment>
   )
 }
