@@ -1,12 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import RoomImage from '../../components/Images/RoomImage'
 import { RiHome5Line, RiSearchLine, RiAddLine, RiCompass3Line } from 'react-icons/ri'
 import { rooms } from '../../mock/rooms'
 
 const Rooms = () => {
+
+  const { pathname } = useRouter()
+
   return (
-    <div className="flex flex-col w-full max-w-sm h-full space-y-5 overflow-hidden">
+    <div className="flex flex-col w-full max-w-sm h-full overflow-hidden">
       <div className="flex flex-col w-full p-5 space-y-5">
         <div className="inline-flex items-center justify-between w-full">
           <h3 className="font-light">Rooms</h3>
@@ -16,16 +20,18 @@ const Rooms = () => {
                 title="Home"
                 className="outline-none"
               >
-                <RiHome5Line className="w-6 h-6 text-zinc-600 transition ease-in-out duration-200 transform hover:scale-90" />
+                <RiHome5Line className={`${pathname === '/' ? 'text-zinc-400' : 'text-zinc-600'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
               </a>
             </Link>
-            <button
-              title="Discover"
-              type="button"
-              className="outline-none"
-            >
-              <RiCompass3Line className="w-6 h-6 text-zinc-600 transition ease-in-out duration-200 transform hover:scale-90" />
-            </button>
+            <Link href="/discover">
+              <a
+                title="Discover"
+                type="button"
+                className="outline-none"
+              >
+                <RiCompass3Line className={`${pathname === '/discover' ? 'text-zinc-400' : 'text-zinc-600'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
+              </a>
+            </Link>
             <button
               title="Create Room"
               type="button"
@@ -40,7 +46,7 @@ const Rooms = () => {
             <input
               type="text"
               className="w-full outline-none bg-transparent text-sm"
-              placeholder="Search room"
+              placeholder="Search rooms"
             />
             <RiSearchLine className="w-4 h-4" />
           </span>

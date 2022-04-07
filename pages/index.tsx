@@ -3,7 +3,6 @@ import React from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
 import MainLayout from '../layouts/Main'
-import Rooms from '../layouts/Panels/Rooms'
 import NewsFeed from '../layouts/Panels/NewsFeed'
 import LoadingPage from '../layouts/Loading'
 import { useSession } from 'next-auth/react'
@@ -31,7 +30,6 @@ const Home: NextPage = () => {
         <title>TomatoChat</title>
       </Head>
       <MainLayout>
-        <Rooms />
         <NewsFeed />
       </MainLayout>
     </React.Fragment>
