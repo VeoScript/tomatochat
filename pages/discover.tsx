@@ -2,13 +2,12 @@ import type { NextPage } from 'next'
 import React from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
-import MainLayout from '../../layouts/Main'
-import Chats from '../../layouts/Panels/Chats'
-import Members from '../../layouts/Panels/Members'
-import LoadingPage from '../../layouts/Loading'
+import MainLayout from '../layouts/Main'
+import DiscoverPanel from '../layouts/Panels/Discover'
+import LoadingPage from '../layouts/Loading'
 import { useSession } from 'next-auth/react'
 
-const Home: NextPage = () => {
+const Discover: NextPage = () => {
 
   const { data: session, status } = useSession()
 
@@ -28,14 +27,13 @@ const Home: NextPage = () => {
   return (
     <React.Fragment>
       <Head>
-        <title>TomatoChat</title>
+        <title>TomatoChat (Discover)</title>
       </Head>
       <MainLayout>
-        <Chats />
-        <Members />
+        <DiscoverPanel />
       </MainLayout>
     </React.Fragment>
   )
 }
 
-export default Home
+export default Discover

@@ -68,7 +68,7 @@ const Chats = () => {
           {messages.map((message: { profile: string, type: string, content: string, date: string }, i: number) => (
             <React.Fragment key={i}>
               {message.type === 'them' && (
-                <div className="flex items-end justify-start w-full space-x-2">
+                <div className="flex items-start justify-start w-full space-x-2">
                   <div className="flex">
                     <Profile src={message.profile} />
                   </div>
@@ -79,9 +79,10 @@ const Chats = () => {
                 </div>
               )}
               {message.type === 'me' && (
-                <div className="flex items-end justify-end w-full space-x-2">
+                <div className="flex items-start justify-end w-full space-x-2">
                   <div className="bubble-sender inline w-full max-w-[15rem] p-3 font-light text-xs rounded-xl bg-[#4D38A2]">
                     <p>{message.content}</p>
+                    <span className="font-thin text-[9px]">{message.date}</span>
                   </div>
                   <div className="flex">
                     <Profile src={message.profile} />
