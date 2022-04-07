@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import RoomImage from '../../components/Images/RoomImage'
 import { RiHome5Line, RiSearchLine, RiAddLine, RiCompass3Line } from 'react-icons/ri'
 import { rooms } from '../../mock/rooms'
 
@@ -46,28 +46,22 @@ const Rooms = () => {
           </span>
         </div>
       </div>
-      <div className="flex flex-col w-full overflow-y-scroll scrollbar-thin scrollbar-thumb-violet-900 scrollbar-track-transparent">
-        {rooms.map((room: { avatar: string, name: string, description: string }, i: number) => (
-          <Link href="/room" key={i}>
-            <a className="inline-flex w-full rounded-xl px-5 p-3 space-x-1 hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E]">
-              <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
-                <Image
-                  src={room.avatar}
-                  width={50}
-                  height={50}
-                  className="rounded-xl object-cover bg-[#201A2C]"
-                  layout="intrinsic"
-                  quality={100}
-                  alt="Room"
-                />
-              </div>
-              <div className="block space-y-1">
-                <h3 className="font-light text-sm">{ room.name }</h3>
-                <h3 className="font-light text-xs text-zinc-500">{ room.description }</h3>
-              </div>
-            </a>
-          </Link>
-        ))}
+      <div className="inline-flex w-full overflow-y-scroll scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
+        <div className="flex flex-col w-full px-2">
+          {rooms.map((room: { avatar: string, name: string, description: string }, i: number) => (
+            <Link href="/room" key={i}>
+              <a className="inline-flex w-full rounded-xl p-3 space-x-1 hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E]">
+                <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
+                  <RoomImage src={room.avatar} />
+                </div>
+                <div className="block space-y-1">
+                  <h3 className="font-light text-sm">{ room.name }</h3>
+                  <h3 className="font-light text-xs text-zinc-500">{ room.description }</h3>
+                </div>
+              </a>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   )

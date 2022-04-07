@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import Profile from '../components/Images/Profile'
 import { RiSearchLine, RiNotification4Line } from 'react-icons/ri'
 
 interface IProps {
@@ -31,15 +31,7 @@ const MainLayout: React.FC<IProps> = ({ children }) => {
           </button>
           <Link href="/">
             <a className="flex">
-              <Image
-                src={"https://lh3.googleusercontent.com/a-/AOh14GgiGck0MqWRwZX8oBYaPRSE0Hs69oFqKRW0Tsha-w=s96-c"}
-                width={25}
-                height={25}
-                className="rounded-full bg-[#201A2C]"
-                layout="intrinsic"
-                quality={100}
-                alt="Profile"
-              />
+              <Profile src={"https://lh3.googleusercontent.com/a-/AOh14GgiGck0MqWRwZX8oBYaPRSE0Hs69oFqKRW0Tsha-w=s96-c"} />
             </a>
           </Link>
         </div>
