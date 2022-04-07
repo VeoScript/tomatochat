@@ -13,3 +13,8 @@
   background-color: #1F1836;
   border-radius: 50px;
 }
+
+[contenteditable][placeholder]:empty:before {
+  content: attr(placeholder);
+  color: #B6B6B6;
+}
