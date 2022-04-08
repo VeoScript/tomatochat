@@ -8,7 +8,7 @@ import AuthenticationError from '../components/AuthenticationError'
 import { useRouter } from 'next/router'
 import { getProviders, signIn, getSession, useSession } from 'next-auth/react'
 import { FcGoogle } from 'react-icons/fc'
-import { RiFacebookFill, RiGithubFill } from 'react-icons/ri'
+import { RiFacebookFill, RiTwitterFill } from 'react-icons/ri'
 import { errors } from '../utils/NextAuthCustomErrors'
 
 interface IProps {
@@ -39,7 +39,7 @@ const Login: NextPage<IProps> = ({ providers }) => {
           {Object.values(providers).map((provider: any) => (
             <div className="flex justify-center w-full" key={provider.name}>
               <button
-                className={`flex items-center space-x-5 p-4 rounded-md w-[21rem] transition ease-in-out hover:bg-opacity-90 ${provider.name === 'Google' && 'text-black bg-white'} ${provider.name === 'Facebook' && 'bg-blue-600 text-white'}`}
+                className={`flex items-center space-x-5 p-4 rounded-md w-[21rem] transition ease-in-out hover:bg-opacity-90 ${provider.name === 'Google' && 'text-black bg-white'} ${provider.name === 'Facebook' && 'bg-blue-600 text-white'} ${provider.name === 'Twitter' && 'bg-[#1D9BF0] text-white'}`}
                 onClick={() => signIn(provider.id)}
               >
                 {provider.name === 'Google' && (
@@ -47,6 +47,9 @@ const Login: NextPage<IProps> = ({ providers }) => {
                 )}
                 {provider.name === 'Facebook' && (
                   <RiFacebookFill className="w-5 h-5 text-white" />
+                )}
+                {provider.name === 'Twitter' && (
+                  <RiTwitterFill className="w-5 h-5 text-white" />
                 )}
                 <p className="font-light text-sm text-center">Continue with {provider.name}</p>
               </button>
