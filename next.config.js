@@ -8,6 +8,8 @@ const nextConfig = {
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
     FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
+    TWITTER_CLIENT_ID: process.env.TWITTER_CLIENT_ID,
+    TWITTER_CLIENT_SECRET: process.env.TWITTER_CLIENT_SECRET,
     IMGBB_API: process.env.IMGBB_API
   },
   images: {
