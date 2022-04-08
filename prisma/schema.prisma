@@ -48,6 +48,7 @@ model User {
   image                           String?
   accounts                        Account[]
   sessions                        Session[]
+  rooms                           Room[]
 }
 
 model VerificationToken {
@@ -56,4 +57,16 @@ model VerificationToken {
   expires                         DateTime
 
   @@unique([identifier, token])
+}
+
+model Room {
+  id                              String                @id @default(cuid())
+  index                           Int                   @unique @default(autoincrement())
+  photo                           String?
+  name                            String
+  privacy                         String
+  description                     String
+  password                        String?
+  user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId                          String
 }

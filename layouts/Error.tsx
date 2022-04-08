@@ -18,7 +18,7 @@ const ErrorPage: React.FC<IProps> = ({ errorType, errorMessage }) => {
             <p className="font-rubikglitch text-white lowercase">tomatochat</p>
           </span>
           <div className="inline-flex items-center space-x-2">
-            <span className="font-bold text-lg text-fd-scarlet">{ errorType }:</span>
+            <span className="font-bold text-lg text-purple-800">{ errorType }:</span>
             <span className="font-light">{ errorMessage }</span>
           </div>
         </div>

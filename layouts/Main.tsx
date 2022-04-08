@@ -6,10 +6,11 @@ import { Toaster } from 'react-hot-toast'
 import { RiSearchLine, RiNotification4Line } from 'react-icons/ri'
 
 interface IProps {
+  user: any
   children: any
 }
 
-const MainLayout: React.FC<IProps> = ({ children }) => {
+const MainLayout: React.FC<IProps> = ({ user, children }) => {
   return (
     <main className="font-poppins flex flex-col w-full h-screen overflow-hidden text-white bg-gradient-to-br from-[#1B1325] via-[#12111B] to-[#18132A]">
       <Toaster
@@ -37,13 +38,13 @@ const MainLayout: React.FC<IProps> = ({ children }) => {
           </button>
           <Link href="/">
             <a className="flex">
-              <Profile src={"https://lh3.googleusercontent.com/a-/AOh14GgiGck0MqWRwZX8oBYaPRSE0Hs69oFqKRW0Tsha-w=s96-c"} />
+              <Profile src={user.image} />
             </a>
           </Link>
         </div>
       </div>
       <div className="inline-flex w-full h-full overflow-hidden">
-        <Rooms />
+        <Rooms user={user} />
         {children}
       </div>
     </main>
