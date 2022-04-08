@@ -2,7 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import RoomImage from '../../components/Images/RoomImage'
-import { RiHome5Line, RiSearchLine, RiAddLine, RiCompass3Line } from 'react-icons/ri'
+import CreateRoom from '../../components/Modals/CreateRoom'
+import { RiHome5Line, RiSearchLine, RiCompass3Line } from 'react-icons/ri'
 import { rooms } from '../../mock/rooms'
 
 const Rooms = () => {
@@ -32,13 +33,7 @@ const Rooms = () => {
                 <RiCompass3Line className={`${pathname === '/discover' ? 'text-zinc-400' : 'text-zinc-600'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
               </a>
             </Link>
-            <button
-              title="Create Room"
-              type="button"
-              className="outline-none"
-            >
-              <RiAddLine className="w-6 h-6 text-purple-500 transition ease-in-out duration-200 transform hover:scale-90" />
-            </button>
+            <CreateRoom />
           </span>
         </div>
         <div className="flex justify-center w-full">

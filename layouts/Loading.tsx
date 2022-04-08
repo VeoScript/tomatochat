@@ -12,7 +12,7 @@ const LoadingPage = () => {
         <div className="flex flex-col items-center w-full space-y-2">
           <CubeLoader />
           <span className="flex font-poppins text-3xl">
-            <p className="font-rubikglitch text-white">TomatoChat</p>
+            <p className="font-rubikglitch text-white lowercase">tomatochat</p>
           </span>
           <span className="font-light">Loading...</span>
         </div>
