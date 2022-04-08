@@ -5,17 +5,17 @@ import Router from 'next/router'
 import MainLayout from '../layouts/Main'
 import NewsFeed from '../layouts/Panels/NewsFeed'
 import LoadingPage from '../layouts/Loading'
+import ErrorPage from '../layouts/Error'
 import { useSession } from 'next-auth/react'
+import { useGetUser } from '../lib/ReactQuery'
 
 const Home: NextPage = () => {
 
-  const { data: session, status } = useSession()
+  const { data: session, status,  } = useSession()
+  
+  const email = session ? session.user?.email : ''
 
-  if (status === 'loading') {
-    return (
-      <LoadingPage />
-    )
-  }
+  const { data: user, isLoading, isError } = useGetUser(email as string)
 
   if (status === 'unauthenticated') {
     Router.replace('/login')
@@ -24,12 +24,27 @@ const Home: NextPage = () => {
     )
   }
 
+  if (status === 'loading' || isLoading) {
+    return (
+      <LoadingPage />
+    )
+  }
+
+  if (isError) {
+    return (
+      <ErrorPage
+        errorType={'Error'}
+        errorMessage={'Failed to fetch some data. Try to reload the page.'}
+      />
+    )
+  }
+
   return (
     <React.Fragment>
       <Head>
         <title>TomatoChat</title>
       </Head>
-      <MainLayout>
+      <MainLayout user={user}>
         <NewsFeed />
       </MainLayout>
     </React.Fragment>

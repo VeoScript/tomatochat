@@ -6,7 +6,11 @@ import CreateRoom from '../../components/Modals/CreateRoom'
 import { RiHome5Line, RiSearchLine, RiCompass3Line } from 'react-icons/ri'
 import { rooms } from '../../mock/rooms'
 
-const Rooms = () => {
+interface IProps {
+  user: any
+}
+
+const Rooms: React.FC<IProps> = ({ user }) => {
 
   const { pathname } = useRouter()
 
@@ -33,7 +37,7 @@ const Rooms = () => {
                 <RiCompass3Line className={`${pathname === '/discover' ? 'text-zinc-400' : 'text-zinc-600'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
               </a>
             </Link>
-            <CreateRoom />
+            <CreateRoom user={user} />
           </span>
         </div>
         <div className="flex justify-center w-full">
