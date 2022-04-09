@@ -15,6 +15,8 @@ const MemberImage: React.FC<IProps> = ({ src }) => {
       layout="intrinsic"
       quality={100}
       alt="Room"
+      blurDataURL={src}
+      placeholder="blur"
     />
   )
 }
