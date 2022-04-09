@@ -26,12 +26,12 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
 
   const [previewImage, setPreviewImage] = React.useState<any>('')
   const [imageUploaded, setImageUploaded] = React.useState<any>('')
-  let [finalImageURL, setFinalImageURL] = React.useState<any>('')
 
-  const { handleSubmit, register, reset, formState: { errors, isSubmitting } } = useForm<FormData>()
+  const { handleSubmit, register, reset, formState: { isSubmitting } } = useForm<FormData>()
 
   const openModal = () => {
     setIsOpen(true)
+    setIsPrivate(false)
     setIsPrivate(false)
   }
 
@@ -40,6 +40,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
     setIsOpen(false)
     setIsPrivate(false)
     setPreviewImage('')
+    setImageUploaded('')
   }
 
   const handleAddImage = (e: any) => {
@@ -95,23 +96,24 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
 
   const onCreateRoom = async (formData: FormData) => {
     try {
-      if (!imageUploaded) return
-
-      const body = new FormData()
-      body.append('image', imageUploaded)
-
-      const res = await fetch(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API}`, {
-        method: 'POST',
-        body: body
-      })
-
-      const photo = res.url
+      let photo
       const name = formData.name
       const privacy = formData.privacy
       const description = formData.description
       const password = formData.password
       const repassword = formData.repassword
       const userId = user.id
+
+      const body = new FormData()
+      body.append('image', imageUploaded)
+
+      await fetch(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API}`, {
+        method: 'POST',
+        body: body
+      })
+      .then((response) => response.json())
+      .then((result) => photo = result.data.url)
+      .catch(() => console.log('Upload failed'))
 
       if (password !== repassword) {
         toast.custom((trigger) => (
@@ -256,7 +258,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
                 </button>
               )}
               {isSubmitting && (
-                <div className="inline-flex items-center justify-center w-full space-x-2 p-2 rounded-md text-sm bg-purple-800 bg-opacity-80">
+                <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm bg-purple-800 bg-opacity-80">
                   <Spinner
                     width={20}
                     height={20}

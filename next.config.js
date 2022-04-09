@@ -18,7 +18,8 @@ const nextConfig = {
     domains: [
       'lh3.googleusercontent.com',
       'platform-lookaside.fbsbx.com',
-      'scontent.fceb2-2.fna.fbcdn.net'
+      'scontent.fceb2-2.fna.fbcdn.net',
+      'i.ibb.co'
     ]
   }
 }
