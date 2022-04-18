@@ -49,6 +49,8 @@ model User {
   accounts                        Account[]
   sessions                        Session[]
   rooms                           Room[]
+  chats                           Chat[]
+  joinedrooms                     JoinedRoom[]
 }
 
 model VerificationToken {
@@ -63,10 +65,36 @@ model Room {
   id                              String                @id @default(cuid())
   index                           Int                   @unique @default(autoincrement())
   photo                           String?
-  name                            String
+  name                            String                @unique
+  slug                            String                @unique
   privacy                         String
   description                     String
   password                        String?
-  user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  date                            String
+  joinedroom                      JoinedRoom[]
+  chats                           Chat[]
+  user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                          String
+}
+
+model JoinedRoom {
+  id                              String                @id @default(cuid())
+  index                           Int                   @unique @default(autoincrement())
+  indicator                       Boolean               @default(true)
+  date                            String
+  room                            Room                  @relation(fields: [roomSlug], references: [slug], onDelete: Cascade)
+  roomSlug                        String
+  user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                          String
+}
+
+model Chat {
+  id                              String                @id @default(cuid())
+  index                           Int                   @unique @default(autoincrement())
+  message                         String
+  date                            String
+  room                            Room                  @relation(fields: [roomSlug], references: [slug], onDelete: Cascade)
+  roomSlug                        String
+  user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                          String
 }

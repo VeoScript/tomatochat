@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import prisma from '../../../../lib/Prisma'
+import prisma from '../../../../../lib/Prisma'
 
 export default async function handler(req: NextApiRequest,  res: NextApiResponse) {
   const limit = 5
@@ -12,6 +12,7 @@ export default async function handler(req: NextApiRequest,  res: NextApiResponse
       index: true,
       photo: true,
       name: true,
+      slug: true,
       description: true,
       privacy: true,
       userId: true

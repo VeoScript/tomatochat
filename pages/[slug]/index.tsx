@@ -1,16 +1,20 @@
-import type { NextPage } from 'next'
+import type { GetStaticPaths, GetStaticProps, GetStaticPropsContext, NextPage } from 'next'
 import React from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
 import MainLayout from '../../layouts/Main'
 import Chats from '../../layouts/Panels/Chats'
-import Members from '../../layouts/Panels/Members'
 import LoadingPage from '../../layouts/Loading'
 import ErrorPage from '../../layouts/Error'
 import { useSession } from 'next-auth/react'
 import { useGetUser } from '../../lib/ReactQuery'
+import prisma from '../../lib/Prisma'
 
-const Home: NextPage = () => {
+interface IProps {
+  params: any
+}
+
+const Home: NextPage<IProps> = ({ params }) => {
 
   const { data: session, status } = useSession()
 
@@ -46,11 +50,35 @@ const Home: NextPage = () => {
         <title>TomatoChat</title>
       </Head>
       <MainLayout user={user}>
-        <Chats />
-        <Members />
+        <Chats user={user} room={params} />
       </MainLayout>
     </React.Fragment>
   )
+}
+
+export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext) => {
+  const { params } = ctx
+  return {
+    props: {
+      params
+    }
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const rooms = await prisma.room.findMany({
+    select: {
+      slug: true
+    }
+  })
+  return {
+    paths: rooms.map((room: { slug: string }) => ({
+      params: {
+        slug: room.slug
+      }
+    })),
+    fallback: 'blocking'
+  }
 }
 
 export default Home
