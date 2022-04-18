@@ -45,7 +45,7 @@ const Discover: NextPage = () => {
         <title>TomatoChat (Discover)</title>
       </Head>
       <MainLayout user={user}>
-        <DiscoverPanel />
+        <DiscoverPanel user={user} />
       </MainLayout>
     </React.Fragment>
   )
