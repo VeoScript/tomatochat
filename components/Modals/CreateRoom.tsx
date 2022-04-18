@@ -1,4 +1,5 @@
 import React from 'react'
+import Router from 'next/router'
 import RoomImage from '../../components/Images/RoomImage'
 import DialogBox from '../../components/Modals/DialogBox'
 import CustomToaster from '../CustomToaster'
@@ -143,6 +144,9 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
       })
 
       closeModal()
+      
+      Router.push(`/${name.replace(/\s+/g, '-').toLowerCase()}`)
+
     } catch(err) {
       console.error(err)
     }
