@@ -20,9 +20,58 @@ export const createRoom = (_args: any) => {
   })
 }
 
-// API-ROUTE FOR SENDING CHATS
+// API-ROUTE FOR JOINING PUBLIC ROOM
+export const joinPublicRoom = async (_args: any) => {
+  const res = await fetch('/api/modules/create/join/public', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      slug: _args.slug,
+      userId: _args.userId
+    })
+  })
+}
+
+// API-ROUTE FOR JOINING PRIVATE ROOM
+export const joinPrivateRoom = async (_args: any) => {
+  const res = await fetch('/api/modules/create/join/private', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      slug: _args.slug,
+      userId: _args.userId,
+      passcode: _args.passcode
+    })
+  })
+
+  if (!res.ok) {
+    const json = await res.json()
+    throw String(json.message)
+  }
+}
+
+// API-ROUTE FOR SENDING CHATS (NORMAL)
 export const sendChat = (_args: any) => {
-  return fetch('/api/modules/create/chat', {
+  return fetch('/api/modules/create/chat/normal', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      chatbox: _args.chatbox,
+      userId: _args.userId,
+      roomSlug: _args.roomSlug
+    })
+  })
+}
+
+// API-ROUTE FOR SENDING CHATS (JOIN)
+export const sendChatJoin = (_args: any) => {
+  return fetch('/api/modules/create/chat/join', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -156,6 +205,35 @@ export const useCreateRoomMutation = () => {
         queryClient.invalidateQueries('rooms')
       }
     }
+  )
+}
+
+// MUTATION FOR JOINING A PUBLIC ROOM
+export const useJoinPublicRoomMutation = () => {
+  return useMutation((_args: any) => joinPublicRoom({
+      slug: _args.slug,
+      userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR JOINING A PRIVATE ROOM
+export const useJoinPrivateRoomMutation = () => {
+  return useMutation((_args: any) => joinPrivateRoom({
+      slug: _args.slug,
+      userId: _args.userId,
+      passcode: _args.passcode
+    })
+  )
+}
+
+// MUTATION FOR SENDING CHAT AFTER JOINING NEW HOST (e.g. "Polano join the room.")
+export const useSendChatJoinMutation = () => {
+  return useMutation((_args: any) => sendChatJoin({
+      chatbox: _args.chatbox,
+      userId: _args.userId,
+      roomSlug: _args.roomSlug
+    })
   )
 }
 

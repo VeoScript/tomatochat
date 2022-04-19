@@ -81,6 +81,7 @@ model JoinedRoom {
   id                              String                @id @default(cuid())
   index                           Int                   @unique @default(autoincrement())
   indicator                       Boolean               @default(true)
+  role                            Role                  @default(USER)
   date                            String
   room                            Room                  @relation(fields: [roomSlug], references: [slug], onDelete: Cascade)
   roomSlug                        String
@@ -91,10 +92,21 @@ model JoinedRoom {
 model Chat {
   id                              String                @id @default(cuid())
   index                           Int                   @unique @default(autoincrement())
+  chattype                        ChatType              @default(NORMAL)
   message                         String
   date                            String
   room                            Room                  @relation(fields: [roomSlug], references: [slug], onDelete: Cascade)
   roomSlug                        String
   user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                          String
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum ChatType {
+  NORMAL
+  JOIN
 }

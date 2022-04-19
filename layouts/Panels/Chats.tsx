@@ -3,6 +3,8 @@ import Spinner from '../../utils/Spinner'
 import Profile from '../../components/Images/Profile'
 import RoomImage from '../../components/Images/RoomImage'
 import Members from './Members'
+import Public from '../../components/Join/Public'
+import Private from '../../components/Join/Private'
 import Moment from 'react-moment'
 import { useForm } from 'react-hook-form'
 import { useInView } from 'react-intersection-observer'
@@ -110,7 +112,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
     }
   })
 
-  // condition if the user is already joined in the room
+  // check if the user is already joined in the selected room
   const matchJoinedUser = getJoinedUser.some((joinUser: any) => joinUser.userId === userId)
   
   return (
@@ -135,27 +137,20 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
           </div>
           <div className="inline-flex items-center justify-center w-full h-full">
             {getRoom.privacy === 'Public' && (
-              <div className="flex flex-col items-center w-full">
-                <div className="flex flex-col">
-                  <h1 className="font-rubikglitch text-3xl text-white lowercase">tomatochat</h1>
-                  <h3 className="text-sm text-zinc-500">Welcome to TomatoChat. Discover the world of simplicity.</h3>
-                  {/* <button
-                    title="Join"
-                    type="button"
-                    className="outline-none px-3 py-2 rounded-md text-xs bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
-                    onClick={() => {
-                      Router.push(`${room.slug}`)
-                    }}
-                  >
-                    Join
-                  </button> */}
-                </div>
-              </div>
+              <Public
+                user={user}
+                slug={getRoom.slug}
+                name={getRoom.name}
+                description={getRoom.description}
+              />
             )}
             {getRoom.privacy === 'Private' && (
-              <div className="flex flex-col items-center w-full">
-                <h2 className="font-bold text-xl">Private Room</h2>
-              </div>
+              <Private
+                user={user}
+                slug={getRoom.slug}
+                name={getRoom.name}
+                description={getRoom.description}
+              />
             )}
           </div>
         </div>
@@ -196,34 +191,48 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                 )}
                 {!chatsLoading && (
                   <React.Fragment>
-                    {chats && chats.pages.map((page: any) => (
-                      <React.Fragment key={page.nextId}>
-                        {page.chats.map((chat: { id: string, index: string, message: string, date: string, user: any }) => (
+                    {chats && chats.pages.map((page: any, i: number) => (
+                      <React.Fragment key={i}>
+                        {page.chats.map((chat: { id: string, index: string, chattype: string, message: string, date: string, user: any }) => (
                           <React.Fragment key={chat.index}>
-                            {chat.user.id !== user.id && (
-                              <div className="flex items-end justify-start w-full space-x-2">
-                                <div className="flex">
-                                  <Profile src={chat.user.image} />
-                                </div>
-                                <div className="bubble-receiver inline w-full max-w-[15rem] p-3 font-light text-xs rounded-xl bg-[#19182B]">
-                                  <p>{chat.message}</p>
-                                  <span className="font-thin text-[9px]">
-                                    <Moment date={chat.date} fromNow />
-                                  </span>
-                                </div>
-                              </div>
+                            {/* if the type of chat is NORMAL this will be displaying as Bubble Chat */}
+                            {chat.chattype === 'NORMAL' && (
+                              <React.Fragment>
+                                {chat.user.id !== user.id && (
+                                  <div className="flex items-end justify-start w-full space-x-2">
+                                    <div className="flex">
+                                      <Profile src={chat.user.image} />
+                                    </div>
+                                    <div className="bubble-receiver inline w-full max-w-[15rem] p-3 font-light text-xs rounded-xl whitespace-pre-wrap bg-[#19182B]">
+                                      <p>{chat.message}</p>
+                                      <span className="font-thin text-[9px]">
+                                        <Moment date={chat.date} fromNow />
+                                      </span>
+                                    </div>
+                                  </div>
+                                )}
+                                {chat.user.id === user.id && (
+                                  <div className="flex items-end justify-end w-full space-x-2">
+                                    <div className="bubble-sender inline w-full max-w-[15rem] p-3 font-light text-xs rounded-xl whitespace-pre-wrap bg-[#4D38A2]">
+                                      <p>{chat.message}</p>
+                                      <span className="font-thin text-[9px]">
+                                        <Moment date={chat.date} fromNow />
+                                      </span>
+                                    </div>
+                                    <div className="flex">
+                                      <Profile src={chat.user.image} />
+                                    </div>
+                                  </div>
+                                )}
+                              </React.Fragment>
                             )}
-                            {chat.user.id === user.id && (
-                              <div className="flex items-end justify-end w-full space-x-2">
-                                <div className="bubble-sender inline w-full max-w-[15rem] p-3 font-light text-xs rounded-xl bg-[#4D38A2]">
-                                  <p>{chat.message}</p>
-                                  <span className="font-thin text-[9px]">
-                                    <Moment date={chat.date} fromNow />
-                                  </span>
-                                </div>
-                                <div className="flex">
-                                  <Profile src={chat.user.image} />
-                                </div>
+                            {/* if the type of chat is JOIN this will be displaying as a normal text */}
+                            {chat.chattype === 'JOIN' && (
+                              <div className="flex flex-col items-center justify-center w-full space-x-2">
+                                <p className="font-light text-xs text-zinc-400">{chat.message}</p>
+                                <span className="font-light text-[10px] text-purple-800">
+                                  <Moment date={chat.date} fromNow />
+                                </span>
                               </div>
                             )}
                           </React.Fragment>

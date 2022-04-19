@@ -13,6 +13,7 @@ export default async function handler(req: NextApiRequest,  res: NextApiResponse
     select: {
       id: true,
       index: true,
+      chattype: true,
       message: true,
       date: true,
       roomSlug: true,

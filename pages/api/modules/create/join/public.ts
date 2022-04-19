@@ -1,14 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import prisma from '../../../../lib/Prisma'
+import prisma from '../../../../../lib/Prisma'
 
 export default async function handler( req: NextApiRequest, res: NextApiResponse) {
   const date = new Date()
-  const joinRoom = await prisma.joinedRoom.create({
+  const joinRoomPublic = await prisma.joinedRoom.create({
     data: {
+      role: 'USER',
       date: String(date),
       roomSlug: req.body.slug,
       userId: req.body.userId,
     }
   })
-  res.status(200).json(joinRoom)
+  res.status(200).json(joinRoomPublic)
 }

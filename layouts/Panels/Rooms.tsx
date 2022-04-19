@@ -16,7 +16,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
 
   const userId = user.id
 
-  const { pathname } = useRouter()
+  const { pathname, asPath } = useRouter()
 
   const { ref, inView } = useInView()
   
@@ -67,7 +67,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
         </div>
       </div>
       <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
-        <div className="flex flex-col w-full px-2">
+        <div className="flex flex-col w-full px-2 space-y-2">
           {isLoading && (
             <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
               <Spinner width={40} height={40} color={'#4D38A2'} />
@@ -112,7 +112,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                     <button
                       key={i}
                       type="button"
-                      className="inline-flex text-left w-full rounded-xl p-3 space-x-1 hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E]"
+                      className={`inline-flex text-left w-full rounded-xl p-3 space-x-1 ${asPath === `/${joined_room.room.slug}` && 'bg-gradient-to-r from-[#1F1E35] to-[#14121E]'} hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E] focus:bg-gradient-to-r focus:from-[#1F1E35] focus:to-[#14121E]`}
                       onClick={() => {
                         Router.replace(`/${joined_room.room.slug}`)
                       }}

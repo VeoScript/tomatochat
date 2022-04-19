@@ -1,11 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import prisma from '../../../../lib/Prisma'
+import prisma from '../../../../../lib/Prisma'
 
 export default async function handler( req: NextApiRequest, res: NextApiResponse) {
   const date = new Date()
   const createChat = await prisma.chat.create({
     data: {
       date: String(date),
+      chattype: 'JOIN',
       message: req.body.chatbox,
       roomSlug: req.body.roomSlug,
       userId: req.body.userId
