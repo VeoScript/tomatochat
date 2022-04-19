@@ -1,8 +1,8 @@
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from 'react-query'
 
-// -- API - ROUTE --
+// ------------- API-ROUTE -------------
 
-// send request for creating a room
+// API-ROUTE FOR CREATING A NEW ROOM
 export const createRoom = (_args: any) => {
   return fetch('/api/modules/create/room', {
     method: 'POST',
@@ -20,7 +20,7 @@ export const createRoom = (_args: any) => {
   })
 }
 
-// send request for sending a message
+// API-ROUTE FOR SENDING CHATS
 export const sendChat = (_args: any) => {
   return fetch('/api/modules/create/chat', {
     method: 'POST',
@@ -35,9 +35,9 @@ export const sendChat = (_args: any) => {
   })
 }
 
-// -- REACT - QUERIES --
+// ------------- REACT-QUERY (QUERIES) -------------
 
-// get user logged in
+// QUERY FOR GETTING THE LOGGED IN USER DETAILS (FIND-FIRST)
 export function useGetUser(email: string) {
   return useQuery('user', 
     async () => {
@@ -50,7 +50,7 @@ export function useGetUser(email: string) {
   )
 }
 
-// get all rooms
+// QUERY FOR GETTING ALL THE ROOMS FROM THE DATABASE (FIND-MANY)
 export function useGetRooms() {
   return useInfiniteQuery('rooms', 
     async ({ pageParam = '' }) => {
@@ -64,7 +64,7 @@ export function useGetRooms() {
   )
 }
 
-// get joined room (find-first)
+// QUERY FOR GETTING THE SPECIFIC ROOM BY ROOM SLUG (FIND-FIRST)
 export function useGetRoom(roomSlug: string) {
   return useQuery('room', 
     async () => {
@@ -78,7 +78,7 @@ export function useGetRoom(roomSlug: string) {
   )
 }
 
-// get all joined rooms by user
+// QUERY FOR GETTING ALL OF JOINED ROOMS BY THE USER (FIND-MANY)
 export function useGetJoinedRooms(userId: string) {
   return useInfiniteQuery('joined_rooms', 
     async ({ pageParam = '' }) => {
@@ -99,7 +99,7 @@ export function useGetJoinedRooms(userId: string) {
   )
 }
 
-// get joined room (find-first)
+// QUERY FOR GETTING THE SPECIFIC JOINED ROOM BY THE USER (FIND-FIRST)
 export function useGetJoinedRoom(roomSlug: string) {
   return useQuery('joined_room', 
     async () => {
@@ -113,7 +113,7 @@ export function useGetJoinedRoom(roomSlug: string) {
   )
 }
 
-// get all chats by room slug
+// QUERY FOR GETTING ALL OF THE CHATS BY SPECIFIC ROOMS (FIND-MANY / USE_INFINITE_QUERY)
 export function useGetChats(roomSlug: string) {
   return useInfiniteQuery('chats', 
     async ({ pageParam = '' }) => {
@@ -138,7 +138,28 @@ export function useGetChats(roomSlug: string) {
   )
 }
 
-// for optimistic updates useMutation function (calling the function of sendChat for the api request)
+// ------------- REACT-QUERY (MUTATIONS) -------------
+
+// MUTATION FOR CREATING A NEW ROOM
+export const useCreateRoomMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation((_args: any) => createRoom({
+      photo: _args.photo,
+      name: _args.name,
+      privacy: _args.privacy,
+      description: _args.description,
+      password: _args.password,
+      userId: _args.userId
+    }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('rooms')
+      }
+    }
+  )
+}
+
+// MUTATION FOR OPTIMISTIC UPDATES IN CHAT ROOM
 export const useSendChatMutation = () => {
   const queryClient = useQueryClient()
   return useMutation(sendChat, {

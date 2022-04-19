@@ -6,6 +6,7 @@ import CustomToaster from '../CustomToaster'
 import Spinner from '../../utils/Spinner'
 import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
+import { useCreateRoomMutation } from '../../lib/ReactQuery'
 import { RiAddLine, RiCameraFill , RiText, RiAlignRight, RiKey2Line } from 'react-icons/ri'
 
 interface IProps {
@@ -21,6 +22,8 @@ interface FormData {
 }
 
 const CreateRoom: React.FC<IProps> = ({ user }) => {
+
+  const createRoomMutation = useCreateRoomMutation()
 
   let [isOpen, setIsOpen] = React.useState(false)
   let [isPrivate, setIsPrivate] = React.useState(false)
@@ -128,19 +131,13 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
         return
       }
 
-      await fetch('/api/modules/create/room', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          photo,
-          name,
-          privacy,
-          description,
-          password,
-          userId
-        })
+      await createRoomMutation.mutate({
+        photo,
+        name,
+        privacy,
+        description,
+        password,
+        userId
       })
 
       closeModal()
