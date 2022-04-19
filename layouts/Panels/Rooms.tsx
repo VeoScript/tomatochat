@@ -109,22 +109,27 @@ const Rooms: React.FC<IProps> = ({ user }) => {
               {joined_rooms && joined_rooms.pages.map((page: any) => (
                 <React.Fragment key={page.nextId ?? 'lastPage'}>
                   {page.joined_rooms.map((joined_room: { room: any }, i: number) => (
-                    <Link href={`/${joined_room.room.slug}`} key={i}>
-                      <a className="inline-flex w-full rounded-xl p-3 space-x-1 hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E]">
-                        <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
-                          {joined_room.room.photo
-                            ? <RoomImage src={joined_room.room.photo} />
-                            : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-[#201A2C]">
-                                <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
-                              </div>
-                          }
-                        </div>
-                        <div className="block space-y-1">
-                          <h3 className="font-light text-sm">{ joined_room.room.name }</h3>
-                          <h3 className="font-light text-xs text-zinc-500">{ joined_room.room.description }</h3>
-                        </div>
-                      </a>
-                    </Link>
+                    <button
+                      key={i}
+                      type="button"
+                      className="inline-flex text-left w-full rounded-xl p-3 space-x-1 hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E]"
+                      onClick={() => {
+                        Router.replace(`/${joined_room.room.slug}`)
+                      }}
+                    >
+                      <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
+                        {joined_room.room.photo
+                          ? <RoomImage src={joined_room.room.photo} />
+                          : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-[#201A2C]">
+                              <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
+                            </div>
+                        }
+                      </div>
+                      <div className="block space-y-1">
+                        <h3 className="font-light text-sm">{ joined_room.room.name }</h3>
+                        <h3 className="font-light text-xs text-zinc-500">{ joined_room.room.description }</h3>
+                      </div>
+                    </button>
                   ))}
                 </React.Fragment>
               ))}

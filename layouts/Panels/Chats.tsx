@@ -27,7 +27,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
 
   const { data: getRoom, isLoading: getRoomLoading, isError: getRoomError } = useGetJoinedRoom(roomSlug)
 
-  const { data: chats, isLoading: chatsLoading, isError: chatsError, refetch, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetChats(roomSlug)
+  const { data: chats, isLoading: chatsLoading, isError: chatsError, refetch, isFetching, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetChats(roomSlug)
 
   const { mutate: optimisticChatMutation } = useSendChatMutation()
 
@@ -46,7 +46,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
     }
     scrollToBottom(chatMainContainer)
     register('chatbox', { required: true })
-  }, [chatMainContainer, register, fetchNextPage, hasNextPage, inView])
+  }, [chatMainContainer, refetch, register, fetchNextPage, hasNextPage, inView])
 
   const onSendChat = async (formData: FormData) => {
     const userId = user.id
@@ -57,8 +57,6 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
     if (contentEditable!.innerText.trim().length === 0 || chatbox === '') return
 
     optimisticChatMutation({ chatbox, userId, roomSlug })
-
-    console.log(chats)
 
     reset()
 
@@ -99,6 +97,8 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
 
   // condition if the user is already joined in the room
   const matchJoinedUser = getJoinedUser.some((joinUser: any) => joinUser.userId === userId)
+
+  console.log(chats)
   
   return (
     <React.Fragment>
@@ -126,6 +126,16 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                 <div className="flex flex-col">
                   <h1 className="font-rubikglitch text-3xl text-white lowercase">tomatochat</h1>
                   <h3 className="text-sm text-zinc-500">Welcome to TomatoChat. Discover the world of simplicity.</h3>
+                  {/* <button
+                    title="Join"
+                    type="button"
+                    className="outline-none px-3 py-2 rounded-md text-xs bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                    onClick={() => {
+                      Router.push(`${room.slug}`)
+                    }}
+                  >
+                    Join
+                  </button> */}
                 </div>
               </div>
             )}
@@ -174,7 +184,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                 {!chatsLoading && (
                   <React.Fragment>
                     {chats && chats.pages.map((page: any) => (
-                      <React.Fragment key={page.nextId ?? 'lastPage'}>
+                      <React.Fragment key={page.nextId}>
                         {page.chats.map((chat: { id: string, index: string, message: string, date: string, user: any }) => (
                           <React.Fragment key={chat.index}>
                             {chat.user.id !== user.id && (
@@ -207,8 +217,19 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                         ))}
                       </React.Fragment>
                     ))}
-                    {isFetchingNextPage && <span className="font-light text-center text-sm text-[#1D9BF0]">Loading...</span>}
-                    <section ref={ref} className="invisible" />
+                    <div className="inline-flex items-center justify-center w-full pb-3 text-sm text-white text-opacity-50">
+                      <button
+                        ref={ref}
+                        onClick={() => fetchNextPage()}
+                        disabled={!hasNextPage || isFetchingNextPage}
+                      >
+                        {isFetchingNextPage
+                          ? <Spinner width={25} height={25} color={'#4D38A2'} />
+                          : hasNextPage
+                          ? 'Load Newer'
+                          : ''}
+                      </button>
+                    </div>
                   </React.Fragment>
                 )}
                 {chatsError && (
@@ -250,13 +271,20 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                   onClick={() => scrollToBottom(chatContainer)}
                   onInput={(e: any) => setValue('chatbox', e.currentTarget.textContent, { shouldValidate: true })}
                 />
-                <button
-                  title="Send"
-                  type="submit"
-                  className="outline-none"
-                >
-                  <RiSendPlane2Line className="w-6 h-6 text-purple-600 transition ease-in-out duration-200 transform hover:scale-90" />
-                </button>
+                {isSubmitting && (
+                  <div className="w-6 h-6 py-2 outline-none cursor-wait">
+                    <Spinner width={25} height={25} color={'#9333EA'} />
+                  </div>
+                )}
+                {!isSubmitting && (
+                  <button
+                    title="Send"
+                    type="submit"
+                    className="outline-none"
+                  >
+                    <RiSendPlane2Line className="w-6 h-6 text-purple-600 transition ease-in-out duration-200 transform hover:scale-90" />
+                  </button>
+                )}
               </form>
             </div>
           </div>
