@@ -3,8 +3,8 @@ import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from 'react-q
 // ------------- API-ROUTE -------------
 
 // API-ROUTE FOR CREATING A NEW ROOM
-export const createRoom = (_args: any) => {
-  return fetch('/api/modules/create/room', {
+export const createRoom = async (_args: any) => {
+  const res = await fetch('/api/modules/create/room', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -15,9 +15,15 @@ export const createRoom = (_args: any) => {
       privacy: _args.privacy,
       description: _args.description,
       password: _args.password,
+      uuidSlug: _args.uuidSlug,
       userId: _args.userId
     })
   })
+
+  if (!res.ok) {
+    const json = await res.json()
+    throw String(json.message)
+  }
 }
 
 // API-ROUTE FOR JOINING PUBLIC ROOM
@@ -198,6 +204,7 @@ export const useCreateRoomMutation = () => {
       privacy: _args.privacy,
       description: _args.description,
       password: _args.password,
+      uuidSlug: _args.uuidSlug,
       userId: _args.userId
     }),
     {
