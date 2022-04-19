@@ -108,6 +108,9 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
       const repassword = formData.repassword
       const userId = user.id
 
+      // for creating a dynamic unique uuid slugs
+      const uuidSlug = Math.random().toString(36).slice(-6)
+
       const body = new FormData()
       body.append('image', imageUploaded)
 
@@ -138,12 +141,25 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
         privacy: String(privacy),
         description: String(description),
         password: String(password),
+        uuidSlug: String(uuidSlug),
         userId: String(userId)
+      }, 
+      {
+        onError(error: any) {
+          toast.custom((trigger) => (
+            <CustomToaster
+              toast={toast}
+              trigger={trigger}
+              type={'Error'}
+              message={`${ error }`}
+            />
+          ))
+        },
+        onSuccess() {
+          closeModal()
+          Router.push(`/${uuidSlug}`)
+        }
       })
-      
-      Router.push(`/${name.replace(/\s+/g, '-').toLowerCase()}`)
-
-      closeModal()
 
     } catch(err) {
       console.error(err)
