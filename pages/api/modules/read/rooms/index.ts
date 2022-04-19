@@ -15,7 +15,12 @@ export default async function handler(req: NextApiRequest,  res: NextApiResponse
       slug: true,
       description: true,
       privacy: true,
-      userId: true
+      userId: true,
+      joinedroom: {
+        select: {
+          userId: true
+        }
+      }
     },
     orderBy: {
       index: 'desc'

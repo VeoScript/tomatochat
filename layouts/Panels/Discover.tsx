@@ -72,42 +72,58 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
             )}
             {rooms && rooms.pages.map((page: any) => (
               <React.Fragment key={page.nextId ?? 'lastPage'}>
-                {page.rooms.map((room: { photo: string, name: string, slug: string, description: string, privacy: string }, i: number) => (
-                  <div
-                    key={i}
-                    className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E]"
-                  >
-                    <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
-                      {room.photo
-                        ? <RoomImage src={room.photo} />
-                        : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-[#201A2C]">
-                            <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
-                          </div>
-                      }
-                    </div>
-                    <div className="inline-flex items-center justify-between w-full">
-                      <div className="block w-full max-w-xs space-y-1">
-                        <span className="inline-flex items-center space-x-2">
-                          <h3 className="font-light text-sm">{ room.name }</h3>
-                          {room.privacy === 'Private' && <RiLockFill className="w-3 h-3 text-purple-500" />}
-                        </span>
-                        <h3 className="font-light text-xs text-zinc-500">{ room.description }</h3>
-                      </div>
-                      <div className="inline-flex justify-end w-full max-w-xs space-x-3">
-                        <button
-                          title="Join"
-                          type="button"
-                          className="outline-none px-3 py-2 rounded-md text-xs bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
-                          onClick={() => {
-                            Router.push(`${room.slug}`)
-                          }}
+                {page.rooms.map((room: { photo: string, name: string, slug: string, description: string, privacy: string, joinedroom: any }, i: number) => {
+                  
+                  // get all rooms
+                  const checkRoom = room.joinedroom.map((join: any) => {
+                    return {
+                      userId: join.userId,
+                    }
+                  })
+
+                  // check if the room is already joined by the user
+                  const existRoom = checkRoom.some((joinUser: any) => joinUser.userId === user.id)
+
+                  return (
+                    <React.Fragment key={i}>
+                      {!existRoom && (
+                        <div
+                          className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E]"
                         >
-                          Join
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                          <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
+                            {room.photo
+                              ? <RoomImage src={room.photo} />
+                              : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-[#201A2C]">
+                                  <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
+                                </div>
+                            }
+                          </div>
+                          <div className="inline-flex items-center justify-between w-full">
+                            <div className="block w-full max-w-xs space-y-1">
+                              <span className="inline-flex items-center space-x-2">
+                                <h3 className="font-light text-sm">{ room.name }</h3>
+                                {room.privacy === 'Private' && <RiLockFill className="w-3 h-3 text-purple-500" />}
+                              </span>
+                              <h3 className="font-light text-xs text-zinc-500">{ room.description }</h3>
+                            </div>
+                            <div className="inline-flex justify-end w-full max-w-xs space-x-3">
+                              <button
+                                title="Join"
+                                type="button"
+                                className="outline-none px-3 py-2 rounded-md text-xs bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                                onClick={() => {
+                                  Router.push(`${room.slug}`)
+                                }}
+                              >
+                                Join
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </React.Fragment>
+                  )
+                })}
               </React.Fragment>
             ))}
             {isFetchingNextPage && (

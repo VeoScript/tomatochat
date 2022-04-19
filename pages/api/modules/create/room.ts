@@ -25,6 +25,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
 
   await prisma.joinedRoom.create({
     data: {
+      role: 'ADMIN',
       date: String(date),
       userId: req.body.userId,
       roomSlug: req.body.name.replace(/\s+/g, '-').toLowerCase()
