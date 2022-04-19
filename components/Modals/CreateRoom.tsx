@@ -131,18 +131,19 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
         return
       }
 
+      // calling create_room_mutation (for insert chat to the database)
       await createRoomMutation.mutate({
-        photo,
-        name,
-        privacy,
-        description,
-        password,
-        userId
+        photo: String(photo === undefined ? '' : photo),
+        name: String(name),
+        privacy: String(privacy),
+        description: String(description),
+        password: String(password),
+        userId: String(userId)
       })
-
-      closeModal()
       
       Router.push(`/${name.replace(/\s+/g, '-').toLowerCase()}`)
+
+      closeModal()
 
     } catch(err) {
       console.error(err)
