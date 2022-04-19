@@ -97,8 +97,6 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
 
   // condition if the user is already joined in the room
   const matchJoinedUser = getJoinedUser.some((joinUser: any) => joinUser.userId === userId)
-
-  console.log(chats)
   
   return (
     <React.Fragment>
@@ -226,7 +224,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                         {isFetchingNextPage
                           ? <Spinner width={25} height={25} color={'#4D38A2'} />
                           : hasNextPage
-                          ? 'Load Newer'
+                          ? 'Load Older Message'
                           : ''}
                       </button>
                     </div>
