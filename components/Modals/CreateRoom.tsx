@@ -111,17 +111,25 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
       // for creating a dynamic unique uuid slugs
       const uuidSlug = Math.random().toString(36).slice(-6)
 
-      const body = new FormData()
-      body.append('image', imageUploaded)
+      // check if there is selected photo, hence it will upload it to the gallery hosting
+      if (imageUploaded || previewImage) {
+        const body = new FormData()
+        body.append('image', imageUploaded)
 
-      await fetch(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API}`, {
-        method: 'POST',
-        body: body
-      })
-      .then((response) => response.json())
-      .then((result) => photo = result.data.url)
-      .catch(() => console.log('Upload failed'))
+        await fetch(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API}`, {
+          method: 'POST',
+          body: body
+        })
+        .then((response) => response.json())
+        .then((result) => {
+          photo = result.data.url
+        })
+        .catch(() => {
+          console.error('Upload Failed')
+        })
+      }
 
+      // check if the entered password is matched
       if (password !== repassword) {
         toast.custom((trigger) => (
           <CustomToaster
