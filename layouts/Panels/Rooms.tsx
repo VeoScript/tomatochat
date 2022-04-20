@@ -32,7 +32,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
     <div className="flex flex-col w-full max-w-sm h-full overflow-hidden">
       <div className="flex flex-col w-full p-5 space-y-5">
         <div className="inline-flex items-center justify-between w-full">
-          <h3 className="font-light">Rooms</h3>
+          <h3 className="font-light">My Rooms</h3>
           <span className="inline-flex items-center space-x-2">
             <Link href="/">
               <a

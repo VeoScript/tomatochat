@@ -168,6 +168,26 @@ export function useGetJoinedRoom(roomSlug: string) {
   )
 }
 
+// QUERY FOR GETTING ALL MEMBERS OF SPECIFIC JOINED ROOM BY THE USER (FIND-FIRST)
+export function useGetMembers(roomSlug: string) {
+  return useQuery('members', 
+    async () => {
+      const members = fetch('/api/modules/read/members', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ roomSlug })
+      })
+      return (await members).json()
+    },
+    {
+      enabled: !!roomSlug,
+      refetchInterval: 1000
+    }
+  )
+}
+
 // QUERY FOR GETTING ALL OF THE CHATS BY SPECIFIC ROOMS (FIND-MANY / USE_INFINITE_QUERY)
 export function useGetChats(roomSlug: string) {
   return useInfiniteQuery('chats', 

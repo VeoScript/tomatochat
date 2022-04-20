@@ -29,11 +29,11 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
 
   const { data: getRoom, isLoading: getRoomLoading, isError: getRoomError } = useGetJoinedRoom(roomSlug)
 
-  const { data: chats, isLoading: chatsLoading, isError: chatsError, refetch, isFetching, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetChats(roomSlug)
+  const { data: chats, isLoading: chatsLoading, isError: chatsError, refetch, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetChats(roomSlug)
 
   const { mutate: optimisticChatMutation } = useSendChatMutation()
 
-  const { handleSubmit, register, reset, setValue, formState: { errors, isSubmitting } } = useForm<FormData>()
+  const { handleSubmit, register, reset, setValue, formState: { isSubmitting } } = useForm<FormData>()
 
   const chatContainer = document.getElementById('chatContainer')
   const chatMainContainer = document.getElementById('chatMainContainer')
@@ -310,7 +310,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
               </form>
             </div>
           </div>
-          <Members />
+          <Members roomSlug={roomSlug} />
         </div>
       )}
     </React.Fragment>
