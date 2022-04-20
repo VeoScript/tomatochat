@@ -60,7 +60,7 @@ const Private: React.FC<IProps> = ({ user, slug, name, description }) => {
   }
 
   return (
-    <div className="flex flex-row items-center justify-center w-full h-full p-10 space-x-36">
+    <div className="flex flex-row items-center justify-center w-full h-full overflow-y-auto px-10 pt-10 pb-20 space-x-36">
       <div className="flex flex-col items-start w-full max-w-sm space-y-2">
         <h3 className="text-sm">Welcome to private server of</h3>
         <div className="flex flex-col w-full">
