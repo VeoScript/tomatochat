@@ -187,7 +187,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
       <form onSubmit={handleSubmit(onCreateRoom)} className="flex flex-col items-start w-full space-y-2">
         <div className="inline-flex items-start w-full space-x-2">
           <div className="flex w-full max-w-[3rem]">
-            <label title="Upload Photo" htmlFor="addImage" className="cursor-pointer">
+            <label title="Upload Photo" htmlFor="addImage" className={isSubmitting ? 'cursor-wait' : 'cursor-pointer'}>
               {previewImage ?
                   <RoomImage src={previewImage} />
                 :
@@ -202,6 +202,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
               className="hidden"
               onChange={handleAddImage}
               accept=".jpg, .png, .jpeg, .jfif"
+              disabled={isSubmitting}
             />
           </div>
           <div className="flex flex-col items-end w-full space-y-2">

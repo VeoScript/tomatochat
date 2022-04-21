@@ -127,7 +127,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                       </div>
                       <div className="block space-y-1">
                         <h3 className="font-light text-sm">{ joined_room.room.name }</h3>
-                        <h3 className="font-light text-xs text-zinc-500">{ joined_room.room.description }</h3>
+                      <h3 className="text-xs text-[#CDA0F5]">{ joined_room.room.description }</h3>
                       </div>
                     </button>
                   ))}
