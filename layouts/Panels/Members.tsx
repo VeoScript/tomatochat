@@ -1,15 +1,16 @@
 import React from 'react'
-import Link from 'next/link'
 import Spinner from '../../utils/Spinner'
+import MemberMenu from '../../components/Menus/MemberMenu'
 import MemberImage from '../../components/Images/MemberImage'
 import { useGetMembers } from '../../lib/ReactQuery'
 import { RiMore2Fill, RiEmotionSadLine } from 'react-icons/ri'
 
 interface IProps {
+  userId: string
   roomSlug: string
 }
 
-const Members: React.FC<IProps> = ({ roomSlug }) => {
+const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
 
   const { data: members, isLoading: getMembersLoading, isError: getMembersError, refetch } = useGetMembers(roomSlug)
 
@@ -42,19 +43,21 @@ const Members: React.FC<IProps> = ({ roomSlug }) => {
 
   const getRoles = members.map((member: any) => {
     return {
-      role: member.role
+      role: member.role,
+      userId: member.user.id
     }
   })
 
+  const checkRole = getRoles.find((member: any) => member.userId === userId)
   const checkAdminMembers = getRoles.find((member: any) => member.role === 'ADMIN')
   const checkUserMembers = getRoles.find((member: any) => member.role === 'USER')
 
   return (
-    <div className="flex flex-col w-full max-w-sm h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-400 scrollbar-track-zinc-600">
+    <div className="flex flex-col w-full max-w-sm h-full">
       <div className="inline-flex items-center justify-between w-full p-5">
         <h3 className="font-light">Participants</h3>
       </div>
-      <div className="inline-flex w-full overflow-y-scroll scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
+      <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
         <div className="flex flex-col w-full px-2 space-y-2">
           {checkUserMembers !== undefined && <h3 className="font-semibold text-xs text-zinc-500 px-3 uppercase">Members</h3> }
           {members.map((member: { id: string, index: string, role: string, user: any }, i: number) => (
@@ -70,13 +73,14 @@ const Members: React.FC<IProps> = ({ roomSlug }) => {
                       <h3 className="font-light text-xs text-zinc-500">{ member.user.email }</h3>
                     </div>
                     <div className="inline-flex justify-end w-full max-w-xs space-x-3">
-                      <button
-                        title="Settings"
-                        type="button"
-                        className="outline-none"
+                      <MemberMenu
+                        title={'More'}
+                        role={checkRole && checkRole.role}
+                        memberUserId={member.user.id}
+                        loggedInUserId={userId}
                       >
                         <RiMore2Fill className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-                      </button>
+                      </MemberMenu>
                     </div>
                   </div>
                 </div>
@@ -97,13 +101,14 @@ const Members: React.FC<IProps> = ({ roomSlug }) => {
                       <h3 className="font-light text-xs text-zinc-500">{ member.user.email }</h3>
                     </div>
                     <div className="inline-flex justify-end w-full max-w-xs space-x-3">
-                      <button
-                        title="Settings"
-                        type="button"
-                        className="outline-none"
+                      <MemberMenu
+                        title="More"
+                        role={checkRole && checkRole.role} 
+                        memberUserId={member.user.id}
+                        loggedInUserId={userId}
                       >
                         <RiMore2Fill className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-                      </button>
+                      </MemberMenu>
                     </div>
                   </div>
                 </div>

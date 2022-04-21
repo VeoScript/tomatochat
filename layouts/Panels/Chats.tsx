@@ -5,11 +5,12 @@ import RoomImage from '../../components/Images/RoomImage'
 import Members from './Members'
 import Public from '../../components/Join/Public'
 import Private from '../../components/Join/Private'
+import ChatSettingMenu from '../../components/Menus/ChatSettingMenu'
 import Moment from 'react-moment'
 import { useForm } from 'react-hook-form'
 import { useInView } from 'react-intersection-observer'
 import { useGetJoinedRoom, useGetChats, useSendChatMutation } from '../../lib/ReactQuery'
-import { RiSettingsLine, RiSendPlane2Line, RiSpyFill, RiEmotionSadLine } from 'react-icons/ri'
+import { RiMoreFill, RiSendPlane2Line, RiSpyFill, RiEmotionSadLine } from 'react-icons/ri'
 
 interface IProps {
   user: any
@@ -88,16 +89,8 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
   if (getRoomError) {
     return (
       <div className="flex flex-col items-center justify-center w-full h-full space-y-2 text-zinc-400 border-l border-[#1F1836]">
-        <RiEmotionSadLine className="w-14 h-14" />
         <div className="inline-flex items-center justify-center w-full space-x-1 text-xs">
-          <h3 className="font-light">Failed to load, try to</h3>
-          <button
-            type="button"
-            className="outline-none font-bold text-[#6b50d8] hover:underline"
-            onClick={() => refetch()}
-          >
-            Reload
-          </button>
+          <h3 className="font-bold text-3xl">THIS ROOM DOES NOT EXIST!</h3>
         </div>
       </div>
     )
@@ -109,11 +102,15 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
       userId: join.user.id,
       userImage: join.user.image,
       userName: join.user.name,
+      userRole: join.role
     }
   })
 
   // check if the user is already joined in the selected room
   const matchJoinedUser = getJoinedUser.some((joinUser: any) => joinUser.userId === userId)
+  
+  // get the room user role
+  const getRole = getJoinedUser.find((joinUser: any) => joinUser.userId === userId)
   
   return (
     <React.Fragment>
@@ -173,13 +170,12 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                   <h3 className="font-light text-xs text-zinc-500">{ getRoom.description }</h3>
                 </div>
               </span>
-              <button
-                title="Settings"
-                type="button"
-                className="outline-none"
+              <ChatSettingMenu
+                title="More"
+                role={getRole.userRole} 
               >
-                <RiSettingsLine className="w-6 h-6 text-zinc-600 transition ease-in-out duration-200 transform hover:scale-90" />
-              </button>
+                <RiMoreFill className="w-6 h-6 text-zinc-600 transition ease-in-out duration-200 transform hover:scale-90" />
+              </ChatSettingMenu>
             </div>
             <div id="chatMainContainer" className="flex flex-col justify-end w-full h-full overflow-hidden">
               <div id="chatContainer" className="flex flex-col-reverse w-full space-y-reverse space-y-3 p-3 overflow-y-auto scroll-smooth">
@@ -203,7 +199,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                     <div className="flex">
                                       <Profile src={chat.user.image} />
                                     </div>
-                                    <div className="bubble-receiver inline w-full max-w-[15rem] p-3 font-light text-xs rounded-xl whitespace-pre-wrap bg-[#19182B]">
+                                    <div className="bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-light text-xs rounded-xl whitespace-pre-wrap bg-[#19182B]">
                                       <p>{chat.message}</p>
                                       <span className="font-thin text-[9px]">
                                         <Moment date={chat.date} fromNow />
@@ -213,7 +209,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                 )}
                                 {chat.user.id === user.id && (
                                   <div className="flex items-end justify-end w-full space-x-2">
-                                    <div className="bubble-sender inline w-full max-w-[15rem] p-3 font-light text-xs rounded-xl whitespace-pre-wrap bg-[#4D38A2]">
+                                    <div className="bubble-sender flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-light text-xs rounded-xl whitespace-pre-wrap bg-[#4D38A2]">
                                       <p>{chat.message}</p>
                                       <span className="font-thin text-[9px]">
                                         <Moment date={chat.date} fromNow />
@@ -310,7 +306,10 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
               </form>
             </div>
           </div>
-          <Members roomSlug={roomSlug} />
+          <Members
+            userId={userId}
+            roomSlug={roomSlug}
+          />
         </div>
       )}
     </React.Fragment>
