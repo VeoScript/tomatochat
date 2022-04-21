@@ -8,6 +8,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
     if (req.method === 'POST') {
       const date = new Date()
 
+      const privacy = req.body.privacy
       const rawPassword = req.body.password
 
       const salt = await bcrypt.genSalt()
@@ -19,9 +20,9 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
           photo: req.body.photo,
           name: req.body.name,
           slug: req.body.uuidSlug,
-          privacy: req.body.privacy,
+          privacy: privacy,
           description: req.body.description,
-          password: hashedPassword,
+          password: privacy === 'Private' ? hashedPassword : null,
           userId: req.body.userId
         }
       })

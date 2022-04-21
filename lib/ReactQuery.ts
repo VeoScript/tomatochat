@@ -162,6 +162,7 @@ export function useGetJoinedRoom(roomSlug: string) {
       return (await joined_room).json()
     },
     {
+      retry: false,
       enabled: !!roomSlug,
       refetchInterval: 1000
     }
