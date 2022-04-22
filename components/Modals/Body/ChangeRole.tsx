@@ -1,5 +1,4 @@
 import React from 'react'
-import Router from 'next/router'
 import DialogBox from '../DialogBox'
 import CustomToaster from '../../CustomToaster'
 import { toast } from 'react-hot-toast'
