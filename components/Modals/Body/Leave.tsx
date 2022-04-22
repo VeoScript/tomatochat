@@ -44,7 +44,7 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
   const onLeave = async () => {
     const chatbox = `${getJoinedRoom.userName} left the room.`
 
-    leaveUser.mutate({
+    await leaveUser.mutate({
       joinedRoomId: String(getJoinedRoom.id)
     }, 
     {
@@ -59,7 +59,7 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
         ))
       },
       onSuccess() {
-        // send chat that the user is leave the room
+        // send chat when the user is leave the room
         sendChatJoinMutation.mutate({
           chatbox: String(chatbox),
           userId: String(getJoinedRoom.userId),

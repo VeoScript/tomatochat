@@ -4,7 +4,7 @@ import DialogBox from '../DialogBox'
 import CustomToaster from '../../CustomToaster'
 import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
-import { useLeaveUser, useSendChatJoinMutation } from '../../../lib/ReactQuery'
+import { useKickOutUser, useSendChatJoinMutation } from '../../../lib/ReactQuery'
 import { RiLogoutBoxLine } from 'react-icons/ri'
 
 interface IProps {
@@ -15,7 +15,7 @@ interface IProps {
 
 const KickOut: React.FC<IProps> = ({ room, memberUserId, loggedInUserId }) => {
 
-  const leaveUser = useLeaveUser()
+  const kickOutUser = useKickOutUser()
   const sendChatJoinMutation = useSendChatJoinMutation()
 
   let [isOpen, setIsOpen] = React.useState(false)
@@ -35,7 +35,7 @@ const KickOut: React.FC<IProps> = ({ room, memberUserId, loggedInUserId }) => {
   const onLeave = async () => {
     const chatbox = `${getJoinedRoom.user.name} was kicked-out by the admin.`
 
-    leaveUser.mutate({
+    await kickOutUser.mutate({
       joinedRoomId: String(getJoinedRoom.id),
       userId: String(memberUserId)
     }, 
@@ -51,7 +51,7 @@ const KickOut: React.FC<IProps> = ({ room, memberUserId, loggedInUserId }) => {
         ))
       },
       onSuccess() {
-        // send chat that the admin kicked-out the selected member
+        // send chat when the admin kicked-out the selected member
         sendChatJoinMutation.mutate({
           chatbox: String(chatbox),
           userId: String(loggedInUserId),
