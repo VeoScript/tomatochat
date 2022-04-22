@@ -1,11 +1,10 @@
 import React from 'react'
-import Router from 'next/router'
 import DialogBox from '../DialogBox'
 import CustomToaster from '../../CustomToaster'
 import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
 import { useChangeRole, useSendChatJoinMutation } from '../../../lib/ReactQuery'
-import { RiLogoutBoxLine, RiShieldLine } from 'react-icons/ri'
+import { RiShieldLine } from 'react-icons/ri'
 import Spinner from '../../../utils/Spinner'
 
 interface IProps {
