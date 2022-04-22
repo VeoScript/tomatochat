@@ -1,62 +1,80 @@
 import React from 'react'
 import Link from 'next/link'
-import { Menu } from '@headlessui/react'
+import KickOut from '../Modals/Body/KickOut'
 import { RiUser3Line, RiShieldLine, RiForbidLine } from 'react-icons/ri'
 
 interface IProps {
   children: any
+  room: any,
   role: string,
   title: string,
   memberUserId: string,
   loggedInUserId: string
 }
 
-const MemberMenu: React.FC<IProps> = ({ children, role, title, memberUserId, loggedInUserId }) => {
+const MemberMenu: React.FC<IProps> = ({ room, children, role, title, memberUserId, loggedInUserId }) => {
+
+  const [isDropdown, setIsDropdown] = React.useState(false)
+
+  const getAdmins = room.filter((admin: any) => admin.role === 'ADMIN')
+
   return (
-    <Menu as="div" className="relative inline-block text-left">
-      <Menu.Button
+    <React.Fragment>
+      <button
         title={title}
         type="button"
         className="outline-none"
+        onClick={() => {
+          setIsDropdown(true)
+        }}
       >
         {children}
-      </Menu.Button>
-      <Menu.Items className="flex flex-col overflow-hidden absolute right-0 z-50 w-48 mt-2 origin-top-right bg-gradient-to-br from-[#1B1325] via-[#12111B] to-[#18132A] divide-y divide-[#1F1E35] rounded-md shadow-lg ring-1 ring-[#1F1E35] focus:outline-none">
-        <Menu.Item>
-          <Link href="/">
-            <a className="inline-flex items-center space-x-2 p-3 font-light text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-[#1F1E35]">
-              <RiUser3Line className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-              <span>View Profile</span>
-            </a>
-          </Link>
-        </Menu.Item>
-        {role === 'ADMIN' && (
-          <React.Fragment>
-            <Menu.Item>
-              <Link href="/">
-                <a className="inline-flex items-center space-x-2 p-3 font-light text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-[#1F1E35]">
-                  <RiShieldLine className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-                  <span>Change Role</span>
-                </a>
-              </Link>
-            </Menu.Item>
-            {memberUserId !== loggedInUserId && (
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`inline-flex items-center space-x-2 p-3 font-light text-xs text-left cursor-pointer ${active && 'bg-red-600 text-purewhite  transition ease-in-out duration-200'}`}
-                    onClick={() => console.log('Kickout')}
-                  >
-                    <RiForbidLine className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-                    <span>Kick Out</span>
-                  </button>
+      </button>
+      {isDropdown && (
+        <React.Fragment>
+          <button 
+            className={`${isDropdown ? 'z-10 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}
+            type="button"
+            onClick={() => {
+              setIsDropdown(false)
+            }} 
+          />
+          <div className="absolute right-0 z-20 w-48">
+            <div className="flex w-full overflow-hidden shadow-sm rounded-md ring-1 ring-[#1F1E35] bg-gradient-to-br from-[#1B1325] via-[#12111B] to-[#18132A] focus:outline-none">
+              <div className="flex flex-col w-full divide-y divide-[#1F1E35]">
+                <Link href="/">
+                  <a className="inline-flex items-center space-x-2 p-3 font-light text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-[#1F1E35]">
+                    <RiUser3Line className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
+                    <span>View Profile</span>
+                  </a>
+                </Link>
+                {role === 'ADMIN' && (
+                  <React.Fragment>
+                    {/* the logic here is if the admin is only one they cannot change the role of it's own unless it's more than 2 admins */}
+                    {getAdmins.length > 1 && (
+                      <Link href="/">
+                        <a className="inline-flex items-center space-x-2 p-3 font-light text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-[#1F1E35]">
+                          <RiShieldLine className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
+                          <span>Change Role</span>
+                        </a>
+                      </Link>
+                    )}
+                    {/* the logic here is if the loggedin userId is the same as member userId this will be invisible */}
+                    {memberUserId !== loggedInUserId && (
+                      <KickOut
+                        room={room}
+                        memberUserId={memberUserId}
+                        loggedInUserId={loggedInUserId}
+                      />
+                    )}
+                  </React.Fragment>
                 )}
-              </Menu.Item>
-            )}
-          </React.Fragment>
-        )}
-      </Menu.Items>
-    </Menu>
+              </div>
+            </div>
+          </div>
+        </React.Fragment>
+      )}
+    </React.Fragment>
   )
 }
 
