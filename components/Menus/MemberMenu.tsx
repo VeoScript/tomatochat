@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import ChangeRole from '../Modals/Body/ChangeRole'
 import KickOut from '../Modals/Body/KickOut'
 import { RiUser3Line, RiShieldLine, RiForbidLine } from 'react-icons/ri'
 
@@ -15,8 +16,6 @@ interface IProps {
 const MemberMenu: React.FC<IProps> = ({ room, children, role, title, memberUserId, loggedInUserId }) => {
 
   const [isDropdown, setIsDropdown] = React.useState(false)
-
-  const getAdmins = room.filter((admin: any) => admin.role === 'ADMIN')
 
   return (
     <React.Fragment>
@@ -48,17 +47,14 @@ const MemberMenu: React.FC<IProps> = ({ room, children, role, title, memberUserI
                     <span>View Profile</span>
                   </a>
                 </Link>
-                {role === 'ADMIN' && (
+                {(role === 'ADMIN') && (
                   <React.Fragment>
-                    {/* the logic here is if the admin is only one they cannot change the role of it's own unless it's more than 2 admins */}
-                    {getAdmins.length > 1 && (
-                      <Link href="/">
-                        <a className="inline-flex items-center space-x-2 p-3 font-light text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-[#1F1E35]">
-                          <RiShieldLine className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-                          <span>Change Role</span>
-                        </a>
-                      </Link>
-                    )}
+                    <ChangeRole
+                      room={room}
+                      role={role}
+                      memberUserId={memberUserId}
+                      loggedInUserId={loggedInUserId}
+                    />
                     {/* the logic here is if the loggedin userId is the same as member userId this will be invisible */}
                     {memberUserId !== loggedInUserId && (
                       <KickOut

@@ -64,7 +64,7 @@ const ChatSettingMenu: React.FC<IProps> = ({ children, role, title, room, userId
                     <span>Report</span>
                   </a>
                 </Link>
-                {/* the logic here is if the admin is only one they cannot leave unless it's more than 2 admins */}
+                {/* the logic here is if the admin is only one in the room, they cannot leave unless it's more than 1 admins */}
                 {(role === "ADMIN" && getAdmins.length > 1) && (
                   <Leave
                     room={room}
