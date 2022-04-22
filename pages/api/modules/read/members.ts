@@ -10,6 +10,13 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
       id: true,
       index: true,
       role: true,
+      roomSlug: true,
+      room: {
+        select: {
+          id: true,
+          name: true
+        }
+      },
       user: {
         select: {
           id: true,

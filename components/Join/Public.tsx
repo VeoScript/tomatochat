@@ -1,5 +1,7 @@
 import React from 'react'
 import Spinner from '../../utils/Spinner'
+import CustomToaster from '../CustomToaster'
+import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
 import { useJoinPublicRoomMutation, useSendChatJoinMutation } from '../../lib/ReactQuery'
 import { RiEarthLine } from 'react-icons/ri'
@@ -28,8 +30,14 @@ const Public: React.FC<IProps> = ({ user, slug, name, description }) => {
     },
     {
       onError() {
-        console.log('Error Detected: There is an error in joining in Public Room')
-        return
+        toast.custom((trigger) => (
+          <CustomToaster
+            toast={toast}
+            trigger={trigger}
+            type={'Error'}
+            message={'There is an error while joining in Public Room. Check your internet'}
+          />
+        ))
       },
       onSuccess() {
         // send chat that the user is joined the room

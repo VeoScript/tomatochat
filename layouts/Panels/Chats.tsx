@@ -170,12 +170,17 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                   <h3 className="font-light text-xs text-[#CDA0F5]">{ getRoom.description }</h3>
                 </div>
               </span>
-              <ChatSettingMenu
-                title="More"
-                role={getRole.userRole} 
-              >
-                <RiMoreFill className="w-6 h-6 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-              </ChatSettingMenu>
+              <div className="relative">
+                <ChatSettingMenu
+                  title="More"
+                  room={getRoom}
+                  getJoinedUser={getJoinedUser}
+                  role={getRole.userRole}
+                  userId={userId}
+                >
+                  <RiMoreFill className="w-6 h-6 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
+                </ChatSettingMenu>
+              </div>
             </div>
             <div id="chatMainContainer" className="flex flex-col justify-end w-full h-full overflow-hidden">
               <div id="chatContainer" className="flex flex-col-reverse w-full space-y-reverse space-y-3 p-3 overflow-y-auto scroll-smooth">

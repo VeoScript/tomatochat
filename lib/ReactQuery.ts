@@ -90,6 +90,46 @@ export const sendChatJoin = (_args: any) => {
   })
 }
 
+// API-ROUTE FOR LEAVE THE USER IN SELECTED ROOM
+export const leaveUser = (_args: any) => {
+  return fetch('/api/modules/delete/leave/leave-user', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      joinedRoomId: _args.joinedRoomId
+    })
+  })
+}
+
+// API-ROUTE FOR KICKING OUT THE USER IN SELECTED ROOM
+export const kickOutUser = (_args: any) => {
+  return fetch('/api/modules/delete/leave/kickout-user', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      joinedRoomId: _args.joinedRoomId,
+      userId: _args.userId
+    })
+  })
+}
+
+// API-ROUTE FOR DELETED SELECTED ROOM
+export const deleteRoom = (_args: any) => {
+  return fetch('/api/modules/delete/room', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      roomId: _args.roomId
+    })
+  })
+}
+
 // ------------- REACT-QUERY (QUERIES) -------------
 
 // QUERY FOR GETTING THE LOGGED IN USER DETAILS (FIND-FIRST)
@@ -289,4 +329,29 @@ export const useSendChatMutation = () => {
       queryClient.invalidateQueries('createChat')
     }
   })
+}
+
+// MUTATION FOR LEAVE USER BY THE SPECIFIC ROOM
+export const useLeaveUser = () => {
+  return useMutation((_args: any) => leaveUser({
+      joinedRoomId: _args.joinedRoomId
+    })
+  )
+}
+
+// MUTATION FOR KICKING OUT THE USER BY SPECIFIC ROOM
+export const useKickOutUser = () => {
+  return useMutation((_args: any) => kickOutUser({
+      joinedRoomId: _args.joinedRoomId,
+      userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR DELETING SPECIFIC ROOM
+export const useDeleteRoom = () => {
+  return useMutation((_args: any) => deleteRoom({
+      roomId: _args.roomId
+    })
+  )
 }

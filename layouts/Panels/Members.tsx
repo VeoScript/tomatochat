@@ -72,9 +72,10 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
                       <h3 className="font-light text-sm">{ member.user.name }</h3>
                       <h3 className="font-light text-xs text-zinc-500">{ member.user.email }</h3>
                     </div>
-                    <div className="inline-flex justify-end w-full max-w-xs space-x-3">
+                    <div className="relative inline-flex justify-end w-full max-w-xs space-x-3">
                       <MemberMenu
                         title={'More'}
+                        room={members}
                         role={checkRole && checkRole.role}
                         memberUserId={member.user.id}
                         loggedInUserId={userId}
@@ -100,9 +101,10 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
                       <h3 className="font-light text-sm">{ member.user.name }</h3>
                       <h3 className="font-light text-xs text-zinc-500">{ member.user.email }</h3>
                     </div>
-                    <div className="inline-flex justify-end w-full max-w-xs space-x-3">
+                    <div className="relative inline-flex justify-end w-full max-w-xs space-x-3">
                       <MemberMenu
                         title="More"
+                        room={members}
                         role={checkRole && checkRole.role} 
                         memberUserId={member.user.id}
                         loggedInUserId={userId}

@@ -18,6 +18,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
       slug: true,
       joinedroom: {
         select: {
+          id: true,
           role: true,
           user: {
             select: {

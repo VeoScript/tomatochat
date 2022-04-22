@@ -28,7 +28,7 @@ const DialogBox: React.FC<IProps> = ({ children, button, title, className, maxWi
       <Dialog
         open={isOpen}
         onClose={closeModal}
-        className="fixed z-10 inset-0 overflow-y-auto"
+        className="fixed z-30 inset-0 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
           <Dialog.Overlay className="fixed inset-0 bg-white opacity-20" />

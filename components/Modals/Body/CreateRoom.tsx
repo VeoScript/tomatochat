@@ -1,12 +1,12 @@
 import React from 'react'
 import Router from 'next/router'
-import RoomImage from '../../components/Images/RoomImage'
-import DialogBox from '../../components/Modals/DialogBox'
-import CustomToaster from '../CustomToaster'
-import Spinner from '../../utils/Spinner'
+import RoomImage from '../../Images/RoomImage'
+import DialogBox from '../DialogBox'
+import CustomToaster from '../../CustomToaster'
+import Spinner from '../../../utils/Spinner'
 import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
-import { useCreateRoomMutation } from '../../lib/ReactQuery'
+import { useCreateRoomMutation } from '../../../lib/ReactQuery'
 import { RiAddLine, RiCameraFill , RiText, RiAlignRight, RiKey2Line } from 'react-icons/ri'
 
 interface IProps {
