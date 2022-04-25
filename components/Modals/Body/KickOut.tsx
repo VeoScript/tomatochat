@@ -32,7 +32,7 @@ const KickOut: React.FC<IProps> = ({ room, memberUserId, loggedInUserId }) => {
   const getJoinedRoom = room.find((room: any) => room.user.id === memberUserId)
 
   const onLeave = async () => {
-    const chatbox = `${getJoinedRoom.user.name} was kicked-out by the admin.`
+    const chatbox = `${getJoinedRoom.user.name} was kicked out by the admin.`
 
     await kickOutUser.mutate({
       joinedRoomId: String(getJoinedRoom.id),

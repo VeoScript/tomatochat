@@ -65,6 +65,14 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
           userId: String(getJoinedRoom.userId),
           roomSlug: String(room.slug)
         })
+        toast.custom((trigger) => (
+          <CustomToaster
+            toast={toast}
+            trigger={trigger}
+            type={'Success'}
+            message="You left the room successfully."
+          />
+        ))
         Router.push('/')
       }
     })

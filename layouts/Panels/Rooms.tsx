@@ -106,31 +106,34 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                   </div>
                 </div>
               )}
-              {joined_rooms && joined_rooms.pages.map((page: any) => (
-                <React.Fragment key={page.nextId ?? 'lastPage'}>
-                  {page.joined_rooms.map((joined_room: { room: any }, i: number) => (
-                    <button
-                      key={i}
-                      type="button"
-                      className={`inline-flex text-left w-full rounded-xl p-3 space-x-1 ${asPath === `/${joined_room.room.slug}` && 'bg-gradient-to-r from-[#1F1E35] to-[#14121E]'} hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E] focus:bg-gradient-to-r focus:from-[#1F1E35] focus:to-[#14121E]`}
-                      onClick={() => {
-                        Router.replace(`/${joined_room.room.slug}`)
-                      }}
-                    >
-                      <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
-                        {joined_room.room.photo
-                          ? <RoomImage src={joined_room.room.photo} />
-                          : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-[#201A2C]">
-                              <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
-                            </div>
-                        }
-                      </div>
-                      <div className="block space-y-1">
-                        <h3 className="font-light text-sm">{ joined_room.room.name }</h3>
-                      <h3 className="text-xs text-[#CDA0F5]">{ joined_room.room.description }</h3>
-                      </div>
-                    </button>
-                  ))}
+              {joined_rooms && joined_rooms.pages.map((page: any, i: number) => (
+                <React.Fragment key={i}>
+                  {page.joined_rooms.map((joined_room: { room: any, index: number }, i: number) => {
+                    console.log(joined_room.index)
+                    return (
+                      <button
+                        key={joined_room.index}
+                        type="button"
+                        className={`inline-flex text-left w-full rounded-xl p-3 space-x-1 ${asPath === `/${joined_room.room.slug}` && 'bg-gradient-to-r from-[#1F1E35] to-[#14121E]'} hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E] focus:bg-gradient-to-r focus:from-[#1F1E35] focus:to-[#14121E]`}
+                        onClick={() => {
+                          Router.replace(`/${joined_room.room.slug}`)
+                        }}
+                      >
+                        <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
+                          {joined_room.room.photo
+                            ? <RoomImage src={joined_room.room.photo} />
+                            : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-[#201A2C]">
+                                <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
+                              </div>
+                          }
+                        </div>
+                        <div className="block space-y-1">
+                          <h3 className="font-light text-sm">{ joined_room.room.name }</h3>
+                        <h3 className="text-xs text-[#CDA0F5]">{ joined_room.room.description }</h3>
+                        </div>
+                      </button>
+                    )
+                  })}
                 </React.Fragment>
               ))}
               {isFetchingNextPage && (

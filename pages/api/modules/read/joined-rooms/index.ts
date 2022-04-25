@@ -25,7 +25,12 @@ export default async function handler(req: NextApiRequest,  res: NextApiResponse
           slug: true,
           description: true,
           privacy: true,
-          userId: true
+          userId: true,
+          chats: {
+            select: {
+              id: true
+            }
+          }
         }
       }
     },
