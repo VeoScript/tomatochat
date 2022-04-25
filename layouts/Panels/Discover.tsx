@@ -70,8 +70,8 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                 </div>
               </div>
             )}
-            {rooms && rooms.pages.map((page: any) => (
-              <React.Fragment key={page.nextId ?? 'lastPage'}>
+            {rooms && rooms.pages.map((page: any, i: number) => (
+              <React.Fragment key={i}>
                 {page.rooms.map((room: { photo: string, name: string, slug: string, description: string, privacy: string, joinedroom: any }, i: number) => {
                   
                   // get all rooms
