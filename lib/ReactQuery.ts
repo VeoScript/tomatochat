@@ -14,7 +14,9 @@ import {
   leaveUser,
   changeRole,
   sendChat,
-  sendChatJoin
+  sendChatJoin,
+  sendLastChat,
+  seenChat
 } from './API'
 
 
@@ -217,6 +219,27 @@ export const useSendChatMutation = () => {
       queryClient.invalidateQueries('createChat')
     }
   })
+}
+
+// MUTATION FOR GETTING THE LAST CHAT OF THE MEMBER
+export const useLastChatMutation = () => {
+  return useMutation((_args: any) => sendLastChat({
+      roomSlug: _args.roomSlug,
+      lastChat: _args.lastChat,
+      lastChatType: _args.lastChatType,
+      lastSentUserId: _args.lastSendUserId,
+      lastSentUserImage: _args.lastSentUserImage,
+      lastSentUserName: _args.lastSentUserName
+    })
+  )
+}
+
+// MUTATION FOR SEEN THE CHATS BY THE ROOM PARTICIPANTS
+export const useSeenChatMutation = () => {
+  return useMutation((_args: any) => seenChat({
+      joinedRoomId: _args.joinedRoomId
+    })
+  )
 }
 
 // MUTATION FOR CHANGING THE ROLE OF SELECTED MEMBER

@@ -16,6 +16,10 @@ export default async function handler(req: NextApiRequest,  res: NextApiResponse
       id: true,
       index: true,
       userId: true,
+      seen: true,
+      lastChat: true,
+      lastChatType: true,
+      lastSentUserName: true,
       room: {
         select: {
           id: true,
@@ -25,10 +29,11 @@ export default async function handler(req: NextApiRequest,  res: NextApiResponse
           slug: true,
           description: true,
           privacy: true,
-          userId: true,
           chats: {
             select: {
-              id: true
+              id: true,
+              roomSlug: true,
+              userId: true
             }
           }
         }

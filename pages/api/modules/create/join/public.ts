@@ -9,6 +9,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
         role: 'USER',
         date: String(date),
         roomSlug: req.body.slug,
+        lastSentUserId: req.body.userId,
         userId: req.body.userId,
       }
     })

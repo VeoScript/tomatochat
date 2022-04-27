@@ -4,7 +4,7 @@ import DialogBox from '../DialogBox'
 import CustomToaster from '../../CustomToaster'
 import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
-import { useLeaveUser, useSendChatJoinMutation } from '../../../lib/ReactQuery'
+import { useLeaveUser, useSendChatJoinMutation, useLastChatMutation } from '../../../lib/ReactQuery'
 import { RiLogoutBoxLine } from 'react-icons/ri'
 
 interface IProps {
@@ -16,6 +16,7 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
 
   const leaveUser = useLeaveUser()
   const sendChatJoinMutation = useSendChatJoinMutation()
+  const lastChat = useLastChatMutation()
 
   let [isOpen, setIsOpen] = React.useState(false)
 
@@ -65,6 +66,15 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
           userId: String(getJoinedRoom.userId),
           roomSlug: String(room.slug)
         })
+        // send last chat after user leave the room
+        lastChat.mutate({
+          roomSlug: String(room.slug),
+          lastChat: String(chatbox),
+          lastChatType: 'JOIN',
+          lastSentUserId: String(getJoinedRoom.id),
+          lastSentUserImage: String(getJoinedRoom.image),
+          lastSentUserName: String(getJoinedRoom.name)
+        })
         toast.custom((trigger) => (
           <CustomToaster
             toast={toast}
@@ -73,7 +83,7 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
             message="You left the room successfully."
           />
         ))
-        Router.push('/')
+        Router.push('/discover')
       }
     })
   }

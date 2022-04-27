@@ -88,6 +88,37 @@ export const sendChatJoin = (_args: any) => {
   })
 }
 
+// API-ROUTE FOR GETTING THE LAST CHAT OF THE MEMBER
+export const sendLastChat = (_args: any) => {
+  return fetch('/api/modules/update/chat/lastchat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      roomSlug: _args.roomSlug,
+      lastChat: _args.lastChat,
+      lastChatType: _args.lastChatType,
+      lastSentUserId: _args.lastSendUserId,
+      lastSentUserImage: _args.lastSentUserImage,
+      lastSentUserName: _args.lastSentUserName
+    })
+  })
+}
+
+// API-ROUTE FOR SEEN THE CHATS BY THE ROOM PARTICIPANTS
+export const seenChat = (_args: any) => {
+  return fetch('/api/modules/update/chat/seen', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      joinedRoomId: _args.joinedRoomId
+    })
+  })
+}
+
 // API-ROUTE FOR CHANGING THE ROLE OF SELECTED MEMBER
 export const changeRole = (_args: any) => {
   return fetch('/api/modules/update/members/role', {

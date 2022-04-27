@@ -3,7 +3,7 @@ import Spinner from '../../utils/Spinner'
 import CustomToaster from '../CustomToaster'
 import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
-import { useJoinPublicRoomMutation, useSendChatJoinMutation } from '../../lib/ReactQuery'
+import { useJoinPublicRoomMutation, useSendChatJoinMutation, useLastChatMutation } from '../../lib/ReactQuery'
 import { RiEarthLine } from 'react-icons/ri'
 
 interface IProps {
@@ -17,6 +17,7 @@ const Public: React.FC<IProps> = ({ user, slug, name, description }) => {
 
   const joinPublicRoomMutation = useJoinPublicRoomMutation()
   const sendChatJoinMutation = useSendChatJoinMutation()
+  const lastChat = useLastChatMutation()
 
   const chatbox = `${user.name} join the room.`
 
@@ -45,6 +46,15 @@ const Public: React.FC<IProps> = ({ user, slug, name, description }) => {
           chatbox: String(chatbox),
           userId: String(user.id),
           roomSlug: String(slug)
+        })
+        // send last chat after user leave the room
+        lastChat.mutate({
+          roomSlug: String(slug),
+          lastChat: String(chatbox),
+          lastChatType: 'JOIN',
+          lastSentUserId: String(user.id),
+          lastSentUserImage: String(user.image),
+          lastSentUserName: String(user.name)
         })
       }
     })

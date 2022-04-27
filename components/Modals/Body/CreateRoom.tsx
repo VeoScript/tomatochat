@@ -6,7 +6,7 @@ import CustomToaster from '../../CustomToaster'
 import Spinner from '../../../utils/Spinner'
 import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
-import { useCreateRoomMutation } from '../../../lib/ReactQuery'
+import { useCreateRoomMutation, useSendChatJoinMutation, useLastChatMutation } from '../../../lib/ReactQuery'
 import { RiAddLine, RiCameraFill , RiText, RiAlignRight, RiKey2Line } from 'react-icons/ri'
 
 interface IProps {
@@ -24,6 +24,8 @@ interface FormData {
 const CreateRoom: React.FC<IProps> = ({ user }) => {
 
   const createRoomMutation = useCreateRoomMutation()
+  const sendChatJoinMutation = useSendChatJoinMutation()
+  const lastChat = useLastChatMutation()
 
   let [isOpen, setIsOpen] = React.useState(false)
   let [isPrivate, setIsPrivate] = React.useState(false)
@@ -111,6 +113,9 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
       // for creating a dynamic unique uuid slugs
       const uuidSlug = Math.random().toString(36).slice(-6)
 
+      // send chat after creating a room
+      const chatbox = `${user.name} created the room.`
+
       // check if there is selected photo, hence it will upload it to the gallery hosting
       if (imageUploaded || previewImage) {
         const body = new FormData()
@@ -164,6 +169,21 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
           ))
         },
         onSuccess() {
+          // send chat after user created the room.
+          sendChatJoinMutation.mutate({
+            chatbox: String(chatbox),
+            userId: String(user.id),
+            roomSlug: String(uuidSlug)
+          })
+          // send last chat after user created the room
+          lastChat.mutate({
+            roomSlug: uuidSlug,
+            lastChat: chatbox,
+            lastChatType: 'JOIN',
+            lastSentUserId: String(user.id),
+            lastSentUserImage: String(user.image),
+            lastSentUserName: String(user.name)
+          })
           closeModal()
           Router.push(`/${uuidSlug}`)
         }
@@ -295,6 +315,12 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
                 </div>
               )}
             </div>
+          </div>
+          <div className="inline-flex-wull">
+            <p className="font-light text-[11px]">
+              Note: If there is a problem with your internet connection,
+              the room avatar may not be uploaded to our cloud but your room server will be created successfully.
+            </p>
           </div>
         </div>
       </form>

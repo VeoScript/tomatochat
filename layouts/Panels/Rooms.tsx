@@ -1,18 +1,21 @@
 import React from 'react'
 import Link from 'next/link'
+import toast from 'react-hot-toast'
 import Router, { useRouter } from 'next/router'
 import Spinner from '../../utils/Spinner'
 import RoomImage from '../../components/Images/RoomImage'
 import CreateRoom from '../../components/Modals/Body/CreateRoom'
 import { useInView } from 'react-intersection-observer'
-import { useGetJoinedRooms } from '../../lib/ReactQuery'
-import { RiHome5Line, RiSearchLine, RiCompass3Line, RiSpyFill, RiChat3Line, RiEmotionSadLine } from 'react-icons/ri'
+import { useGetJoinedRooms, useSeenChatMutation } from '../../lib/ReactQuery'
+import { RiHome5Line, RiSearchLine, RiCompass3Line, RiSpyFill, RiChat3Line, RiEmotionSadLine, RiCheckboxBlankCircleFill } from 'react-icons/ri'
 
 interface IProps {
   user: any
 }
 
 const Rooms: React.FC<IProps> = ({ user }) => {
+
+  const seenChat = useSeenChatMutation()
 
   const userId = user.id
 
@@ -108,29 +111,58 @@ const Rooms: React.FC<IProps> = ({ user }) => {
               )}
               {joined_rooms && joined_rooms.pages.map((page: any, i: number) => (
                 <React.Fragment key={i}>
-                  {page.joined_rooms.map((joined_room: { room: any, index: number }, i: number) => {
-                    console.log(joined_room.index)
+                  {page.joined_rooms.map((joined_room: { id: string, seen: boolean, lastChat: string, lastChatType: string, lastSentUserName: string, room: any, index: number }) => {
                     return (
                       <button
                         key={joined_room.index}
                         type="button"
-                        className={`inline-flex text-left w-full rounded-xl p-3 space-x-1 ${asPath === `/${joined_room.room.slug}` && 'bg-gradient-to-r from-[#1F1E35] to-[#14121E]'} hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E] focus:bg-gradient-to-r focus:from-[#1F1E35] focus:to-[#14121E]`}
+                        className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-gradient-to-r from-[#1F1E35] to-[#14121E]'} hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E] focus:bg-gradient-to-r focus:from-[#1F1E35] focus:to-[#14121E]`}
                         onClick={() => {
                           Router.replace(`/${joined_room.room.slug}`)
+                          seenChat.mutate({
+                            joinedRoomId: joined_room.id
+                          })
                         }}
                       >
-                        <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
-                          {joined_room.room.photo
-                            ? <RoomImage src={joined_room.room.photo} />
-                            : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-[#201A2C]">
-                                <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
-                              </div>
-                          }
+                        <div className="inline-flex w-full h-full space-x-2">
+                          <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
+                            {joined_room.room.photo
+                              ? <RoomImage src={joined_room.room.photo} />
+                              : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-[#201A2C]">
+                                  <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
+                                </div>
+                            }
+                          </div>
+                          <div className="block space-y-1">
+                            <h3 className="font-light text-sm">{ joined_room.room.name }</h3>
+                            {/* check if the last chat is null (if null it will display the room description otherwise, it will displaying the last chat of the room...) */}
+                            {joined_room.lastChat === null
+                              ? (
+                                  <h3 className="text-xs text-[#CDA0F5] line-clamp-2">{ joined_room.room.description }</h3>
+                                )
+                              : (
+                                  <React.Fragment>
+                                    {joined_room.lastChatType === 'JOIN' && (
+                                      <div className="inline-block text-xs text-zinc-400 line-clamp-2">
+                                        { joined_room.lastChat }
+                                      </div>
+                                    )}
+                                    {joined_room.lastChatType === 'NORMAL' && (
+                                      <div className="inline-block text-xs text-zinc-400 line-clamp-2">
+                                        <span className="text-purple-400">{ joined_room.lastSentUserName }: &nbsp;</span>
+                                        { joined_room.lastChat }
+                                      </div>
+                                    )}
+                                  </React.Fragment>
+                                )
+                            }
+                          </div>
                         </div>
-                        <div className="block space-y-1">
-                          <h3 className="font-light text-sm">{ joined_room.room.name }</h3>
-                        <h3 className="text-xs text-[#CDA0F5]">{ joined_room.room.description }</h3>
-                        </div>
+                        {joined_room.seen === false && (
+                          <span className="inline-flex items-center h-full pl-3">
+                            <RiCheckboxBlankCircleFill className="w-3 h-3 text-purple-400" />
+                          </span>
+                        )}
                       </button>
                     )
                   })}
