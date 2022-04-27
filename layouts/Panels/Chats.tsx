@@ -1,6 +1,7 @@
 import React from 'react'
 import Spinner from '../../utils/Spinner'
 import Profile from '../../components/Images/Profile'
+import Seeners from '../../components/Images/Seeners'
 import RoomImage from '../../components/Images/RoomImage'
 import Members from './Members'
 import Public from '../../components/Join/Public'
@@ -88,7 +89,11 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
   // get the room user role
   const getRole = getJoinedUser.find((joinUser: any) => joinUser.userId === userId)
 
+  // get the last chat information
   const findJoinedRoom = getRoom.joinedroom.find((room: any) => room.user.id === userId)
+
+  // get the last chat user id
+  const getLastChat = chats && chats.pages[0].chats[0]
 
   const onSendChat = async (formData: FormData) => {
     const userId = user.id
@@ -220,6 +225,42 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                 )}
                 {!chatsLoading && (
                   <React.Fragment>
+                    {/* display the seen feature if the chat type is NORMAL */}
+                    {getLastChat.chattype === 'NORMAL' && (
+                      <div className="inline-flex w-full pl-10">
+                        {getLastChat.user.id === userId && (
+                          <div className="inline-flex items-center justify-end w-full space-x-1">
+                            {getRoom.joinedroom.map((seeners: any, i: number) => 
+                              <React.Fragment key={i}>
+                                {(seeners.seen === true && seeners.user.id !== userId) && (
+                                  <div className="flex">
+                                    <Seeners src={seeners.user.image} />
+                                  </div>
+                                )}
+                              </React.Fragment>
+                            )}
+                          </div>
+                        )}
+                        {getLastChat.user.id !== userId && (
+                          <div className="inline-flex items-center justify-start w-full space-x-1">
+                            {getRoom.joinedroom.map((seeners: any, i: number) => {
+                              // check if the user is one of the seeners (kung ang user existing na sa mga niseen dili na sya dapat makita)...
+                              var newSeeners = new Array({ seeners })
+                              const findSeeners = newSeeners.some((set: any) => set.seeners.lastSentUserId !== getLastChat.user.id)
+                              return (
+                                <React.Fragment key={i}>
+                                  {(seeners.seen === true && findSeeners === true) && (
+                                    <div className="flex">
+                                      <Seeners src={seeners.user.image} />
+                                    </div>
+                                  )}
+                                </React.Fragment>
+                              )
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    )}
                     {chats && chats.pages.map((page: any, i: number) => (
                       <React.Fragment key={i}>
                         {page.chats.map((chat: { id: string, index: string, chattype: string, message: string, date: string, user: any }) => (
@@ -246,13 +287,15 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                       <p>{chat.message}</p>
                                       <span className="inline-flex items-center space-x-2 font-thin text-[9px]">
                                         <Moment date={chat.date} fromNow />
-                                        <RiCheckDoubleLine className="w-3.5 h-3.5 text-[#CDA0F5]" />
-                                        <button
-                                          title="Remove"
-                                          className="outline-none transition-all ease-in-out duration-200 transform hover:scale-90"
-                                        >
-                                          <RiCloseCircleLine className="w-3 h-3 text-pink-400" />
-                                        </button>
+                                        <div className="inline-flex items-center space-x-1">
+                                          <RiCheckDoubleLine title="Sent" className="w-3.5 h-3.5 text-[#CDA0F5]" />
+                                          <button
+                                            title="Remove"
+                                            className="outline-none transition-all ease-in-out duration-200 transform hover:scale-90"
+                                          >
+                                            <RiCloseCircleLine className="w-3 h-3 text-pink-400" />
+                                          </button>
+                                        </div>
                                       </span>
                                     </div>
                                   </div>

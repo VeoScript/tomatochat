@@ -111,7 +111,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
               )}
               {joined_rooms && joined_rooms.pages.map((page: any, i: number) => (
                 <React.Fragment key={i}>
-                  {page.joined_rooms.map((joined_room: { id: string, seen: boolean, lastChat: string, lastChatType: string, lastSentUserName: string, room: any, index: number }) => {
+                  {page.joined_rooms.map((joined_room: { id: string, seen: boolean, lastChat: string, lastChatType: string, lastSentUserName: string, lastSentDate: string, room: any, index: number }) => {
                     return (
                       <button
                         key={joined_room.index}

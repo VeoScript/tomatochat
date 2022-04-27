@@ -20,6 +20,7 @@ export default async function handler(req: NextApiRequest,  res: NextApiResponse
       lastChat: true,
       lastChatType: true,
       lastSentUserName: true,
+      lastSentDate: true,
       room: {
         select: {
           id: true,

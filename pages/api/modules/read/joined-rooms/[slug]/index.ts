@@ -20,6 +20,9 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
         select: {
           id: true,
           role: true,
+          seen: true,
+          lastChatType: true,
+          lastSentUserId: true,
           user: {
             select: {
               id: true,
