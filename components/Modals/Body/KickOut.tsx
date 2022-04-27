@@ -3,7 +3,7 @@ import DialogBox from '../DialogBox'
 import CustomToaster from '../../CustomToaster'
 import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
-import { useKickOutUser, useSendChatJoinMutation } from '../../../lib/ReactQuery'
+import { useKickOutUser, useSendChatJoinMutation, useLastChatMutation } from '../../../lib/ReactQuery'
 import { RiLogoutBoxLine } from 'react-icons/ri'
 
 interface IProps {
@@ -16,6 +16,7 @@ const KickOut: React.FC<IProps> = ({ room, memberUserId, loggedInUserId }) => {
 
   const kickOutUser = useKickOutUser()
   const sendChatJoinMutation = useSendChatJoinMutation()
+  const lastChat = useLastChatMutation()
 
   let [isOpen, setIsOpen] = React.useState(false)
 
@@ -55,6 +56,15 @@ const KickOut: React.FC<IProps> = ({ room, memberUserId, loggedInUserId }) => {
           chatbox: String(chatbox),
           userId: String(loggedInUserId),
           roomSlug: String(getJoinedRoom.roomSlug)
+        })
+        // send last chat after user leave the room
+        lastChat.mutate({
+          roomSlug: String(getJoinedRoom.roomSlug),
+          lastChat: String(chatbox),
+          lastChatType: 'JOIN',
+          lastSentUserId: String(getJoinedRoom.id),
+          lastSentUserImage: String(getJoinedRoom.image),
+          lastSentUserName: String(getJoinedRoom.name)
         })
       }
     })

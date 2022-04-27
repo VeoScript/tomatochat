@@ -28,6 +28,7 @@ module.exports = {
     scrollbar: ['dark']
   },
   plugins: [
+    require('@tailwindcss/line-clamp'),
     require('tailwind-scrollbar'),
     require("@tailwindcss/forms")({
       strategy: 'className'

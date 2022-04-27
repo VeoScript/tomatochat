@@ -32,6 +32,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
           role: 'ADMIN',
           date: String(date),
           userId: req.body.userId,
+          lastSentUserId: req.body.userId,
           roomSlug: req.body.uuidSlug
         }
       })

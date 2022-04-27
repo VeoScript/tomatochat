@@ -9,8 +9,8 @@ import ChatSettingMenu from '../../components/Menus/ChatSettingMenu'
 import Moment from 'react-moment'
 import { useForm } from 'react-hook-form'
 import { useInView } from 'react-intersection-observer'
-import { useGetJoinedRoom, useGetChats, useSendChatMutation } from '../../lib/ReactQuery'
-import { RiMoreFill, RiSendPlane2Line, RiSpyFill, RiEmotionSadLine } from 'react-icons/ri'
+import { useGetJoinedRoom, useGetChats, useSendChatMutation, useLastChatMutation, useSeenChatMutation } from '../../lib/ReactQuery'
+import { RiMoreFill, RiSendPlane2Line, RiSpyFill, RiEmotionSadLine, RiCheckDoubleLine, RiCloseCircleLine } from 'react-icons/ri'
 
 interface IProps {
   user: any
@@ -32,6 +32,8 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
 
   const { data: chats, isLoading: chatsLoading, isError: chatsError, refetch, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetChats(roomSlug)
 
+  const seenChat = useSeenChatMutation()
+  const { mutate: lastChat } = useLastChatMutation()
   const { mutate: optimisticChatMutation } = useSendChatMutation()
 
   const { handleSubmit, register, reset, setValue, formState: { isSubmitting } } = useForm<FormData>()
@@ -50,32 +52,6 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
     scrollToBottom(chatMainContainer)
     register('chatbox', { required: true })
   }, [chatMainContainer, refetch, register, fetchNextPage, hasNextPage, inView])
-
-  const onSendChat = async (formData: FormData) => {
-    const userId = user.id
-    const roomSlug = room.slug
-    const chatbox = formData.chatbox
-    const contentEditable = document.getElementById('contentEditable')
-
-    if (contentEditable!.innerText.trim().length === 0 || chatbox === '') return
-
-    optimisticChatMutation({ chatbox, userId, roomSlug })
-
-    reset()
-
-    scrollToBottom(chatContainer)
-
-    contentEditable !== null ?
-    contentEditable.innerHTML = '' : ''
-    contentEditable?.focus()
-  }
-
-  const handleLineBreak = (e: any) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      handleSubmit(onSendChat)()
-    }
-  }
 
   if (getRoomLoading) {
     return (
@@ -111,6 +87,58 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
   
   // get the room user role
   const getRole = getJoinedUser.find((joinUser: any) => joinUser.userId === userId)
+
+  const findJoinedRoom = getRoom.joinedroom.find((room: any) => room.user.id === userId)
+
+  const onSendChat = async (formData: FormData) => {
+    const userId = user.id
+    const roomSlug = room.slug
+    const chatbox = formData.chatbox
+    const contentEditable = document.getElementById('contentEditable')
+
+    if (contentEditable!.innerText.trim().length === 0 || chatbox === '') return
+
+    // send chat to the database
+    optimisticChatMutation({
+      chatbox,
+      userId,
+      roomSlug
+    },
+    {
+      onSuccess() {
+        lastChat({
+          roomSlug: roomSlug,
+          lastChat: chatbox,
+          lastChatType: 'NORMAL',
+          lastSentUserId: findJoinedRoom.user.id,
+          lastSentUserImage: findJoinedRoom.user.image,
+          lastSentUserName: findJoinedRoom.user.name
+        },
+        {
+          onSuccess() {
+            seenChat.mutate({
+              joinedRoomId: findJoinedRoom.id
+            })
+          }
+        })
+      }
+    })
+
+    reset()
+
+    scrollToBottom(chatContainer)
+
+    contentEditable !== null ?
+    contentEditable.innerHTML = '' : ''
+    contentEditable?.focus()
+  }
+
+  const handleLineBreak = (e: any) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSubmit(onSendChat)()
+    }
+  }
   
   return (
     <React.Fragment>
@@ -216,12 +244,16 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                   <div className="flex items-end justify-end w-full space-x-2">
                                     <div className="bubble-sender flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-light text-xs rounded-xl whitespace-pre-wrap bg-[#4D38A2]">
                                       <p>{chat.message}</p>
-                                      <span className="font-thin text-[9px]">
+                                      <span className="inline-flex items-center space-x-2 font-thin text-[9px]">
                                         <Moment date={chat.date} fromNow />
+                                        <RiCheckDoubleLine className="w-3.5 h-3.5 text-[#CDA0F5]" />
+                                        <button
+                                          title="Remove"
+                                          className="outline-none transition-all ease-in-out duration-200 transform hover:scale-90"
+                                        >
+                                          <RiCloseCircleLine className="w-3 h-3 text-pink-400" />
+                                        </button>
                                       </span>
-                                    </div>
-                                    <div className="flex">
-                                      <Profile src={chat.user.image} />
                                     </div>
                                   </div>
                                 )}
@@ -285,6 +317,11 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                   contentEditable="true"
                   suppressContentEditableWarning
                   spellCheck={false}
+                  onFocus={() => {
+                    seenChat.mutate({
+                      joinedRoomId: findJoinedRoom.id
+                    })
+                  }}
                   onPaste={(e) => {
                     e.preventDefault()
                     var text = e.clipboardData.getData('text/plain')

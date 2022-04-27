@@ -83,6 +83,13 @@ model JoinedRoom {
   indicator                       Boolean               @default(true)
   role                            Role                  @default(USER)
   date                            String
+  seen                            Boolean               @default(false)
+  lastChat                        String?
+  lastChatType                    ChatType              @default(NORMAL)
+  lastSentUserId                  String?
+  lastSentUserImage               String?
+  lastSentUserName                String?
+  lastSentDate                    String?
   room                            Room                  @relation(fields: [roomSlug], references: [slug], onDelete: Cascade)
   roomSlug                        String
   user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
