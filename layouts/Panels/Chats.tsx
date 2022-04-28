@@ -209,6 +209,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                   room={getRoom}
                   getJoinedUser={getJoinedUser}
                   role={getRole.userRole}
+                  user={user}
                   userId={userId}
                 >
                   <RiMoreFill className="w-6 h-6 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />

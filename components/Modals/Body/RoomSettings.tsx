@@ -1,15 +1,16 @@
 import React from 'react'
 import Router from 'next/router'
-import RoomImage from '../../Images/RoomImage'
 import DialogBox from '../DialogBox'
 import CustomToaster from '../../CustomToaster'
 import Spinner from '../../../utils/Spinner'
+import RoomImage from '../../Images/RoomImage'
 import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
-import { useCreateRoomMutation, useSendChatJoinMutation, useLastChatMutation } from '../../../lib/ReactQuery'
-import { RiAddLine, RiCameraFill , RiText, RiAlignRight, RiKey2Line } from 'react-icons/ri'
+import { useUpdateRoomMutation, useSendChatJoinMutation, useLastChatMutation } from '../../../lib/ReactQuery'
+import { RiSettingsLine, RiCameraFill , RiText, RiAlignRight, RiKey2Line, RiCloseLine } from 'react-icons/ri'
 
 interface IProps {
+  room: any
   user: any
 }
 
@@ -21,29 +22,38 @@ interface FormData {
   repassword: string
 }
 
-const CreateRoom: React.FC<IProps> = ({ user }) => {
+const RoomSettings: React.FC<IProps> = ({ room, user }) => {
 
-  const createRoomMutation = useCreateRoomMutation()
+  const updateRoomMutation = useUpdateRoomMutation()
   const sendChatJoinMutation = useSendChatJoinMutation()
   const lastChat = useLastChatMutation()
 
-  let [isOpen, setIsOpen] = React.useState(false)
-  let [isPrivate, setIsPrivate] = React.useState(false)
+  let [isOpen, setIsOpen] = React.useState<Boolean>(false)
+  let [isChangePasscode, setIsChangePasscode] = React.useState<Boolean>(false)
+  let [isPrivate, setIsPrivate] = React.useState<String>(room.privacy)
 
   const [previewImage, setPreviewImage] = React.useState<any>('')
   const [imageUploaded, setImageUploaded] = React.useState<any>('')
 
-  const { handleSubmit, register, reset, formState: { isSubmitting } } = useForm<FormData>()
+  const defaultValues = {
+    name: room.name,
+    privacy: room.privacy,
+    description: room.description
+  }
+
+  const { handleSubmit, register, reset, formState: { isSubmitting } } = useForm<FormData>({ defaultValues })
 
   const openModal = () => {
+    reset(defaultValues)
     setIsOpen(true)
-    setIsPrivate(false)
+    setIsPrivate(room.privacy)
   }
 
   const closeModal = () => {
-    reset()
+    reset(defaultValues)
     setIsOpen(false)
-    setIsPrivate(false)
+    setIsPrivate(room.privacy)
+    setIsChangePasscode(false)
     setPreviewImage('')
     setImageUploaded('')
   }
@@ -99,7 +109,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
     }
   }
 
-  const onCreateRoom = async (formData: FormData) => {
+  const onUpdateRoom = async (formData: FormData) => {
     try {
       let photo
       const name = formData.name
@@ -109,11 +119,8 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
       const repassword = formData.repassword
       const userId = user.id
 
-      // for creating a dynamic unique uuid slugs
-      const uuidSlug = Math.random().toString(36).slice(-6)
-
       // send chat after creating a room
-      const chatbox = `${user.name} created the room.`
+      const chatbox = `${user.name} updated the room.`
 
       // check if there is selected photo, hence it will upload it to the gallery hosting
       if (imageUploaded || previewImage) {
@@ -147,13 +154,13 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
       }
 
       // calling create_room_mutation (for insert chat to the database)
-      await createRoomMutation.mutate({
-        photo: String(photo === undefined ? '' : photo),
+      await updateRoomMutation.mutate({
+        photo: String(photo === undefined ? room.photo : photo),
         name: String(name),
         privacy: String(privacy),
         description: String(description),
         password: String(password),
-        uuidSlug: String(uuidSlug),
+        roomSlug: String(room.slug),
         userId: String(userId)
       }, 
       {
@@ -172,11 +179,11 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
           sendChatJoinMutation.mutate({
             chatbox: String(chatbox),
             userId: String(user.id),
-            roomSlug: String(uuidSlug)
+            roomSlug: String(room.slug)
           })
           // send last chat after user created the room
           lastChat.mutate({
-            roomSlug: uuidSlug,
+            roomSlug: room.slug,
             lastChat: chatbox,
             lastChatType: 'JOIN',
             lastSentUserId: String(user.id),
@@ -184,7 +191,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
             lastSentUserName: String(user.name)
           })
           closeModal()
-          Router.push(`/${uuidSlug}`)
+          Router.push(`/${room.slug}`)
         }
       })
 
@@ -194,25 +201,35 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
   }
 
   return (
-    <DialogBox
-      title="Create Room"
+    <DialogBox 
+      title="Settings"
+      isOpen={isOpen} 
+      openModal={openModal} 
+      closeModal={closeModal} 
+      className="outline-none flex w-full"
       maxWidth="max-w-md"
-      className="outline-none"
-      isOpen={isOpen}
-      openModal={openModal}
-      closeModal={closeModal}
-      button={<RiAddLine className="w-6 h-6 text-purple-500 transition ease-in-out duration-200 transform hover:scale-90" />}
+      button={
+        <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-[#1F1E35]">
+          <RiSettingsLine className="w-5 h-5 text-zinc-100 transition ease-in-out duration-200 transform hover:scale-90" />
+          <span>Settings</span>
+        </div>
+      } 
     >
-      <form onSubmit={handleSubmit(onCreateRoom)} className="flex flex-col items-start w-full space-y-2">
+      <form onSubmit={handleSubmit(onUpdateRoom)} className="flex flex-col items-start w-full space-y-2">
         <div className="inline-flex items-start w-full space-x-2">
           <div className="flex w-full max-w-[3rem]">
-            <label title="Upload Photo" htmlFor="addImage" className={isSubmitting ? 'cursor-wait' : 'cursor-pointer'}>
+            <label title="Change Photo" htmlFor="addImage" className={isSubmitting ? 'cursor-wait' : 'cursor-pointer'}>
               {previewImage ?
                   <RoomImage src={previewImage} />
                 :
-                  <div className="inline-flex items-center justify-center rounded-xl object-cover w-[50px] h-[50px] bg-[#201A2C] transition ease-in-out duration-200 hover:bg-white hover:bg-opacity-20">
-                    <RiCameraFill  />
-                  </div>
+                  <React.Fragment>
+                    {room.photo && <RoomImage src={room.photo} />}
+                    {!room.photo && (
+                      <div className="inline-flex items-center justify-center rounded-xl object-cover w-[50px] h-[50px] bg-[#201A2C] transition ease-in-out duration-200 hover:bg-white hover:bg-opacity-20">
+                        <RiCameraFill  />
+                      </div>
+                    )}
+                  </React.Fragment>
               }
             </label>
             <input
@@ -225,33 +242,33 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
             />
           </div>
           <div className="flex flex-col items-end w-full space-y-2">
-            <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+            <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-100 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
               <input
                 type="text"
                 className="w-full outline-none bg-transparent text-sm"
-                placeholder="Name"
+                placeholder="Change Name"
                 {...register('name', { required: true })}
               />
               <RiText className="w-4 h-4" />
             </span>
-            <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+            <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-100 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
               <select
                 className="w-full outline-none bg-[#201A2C] text-sm cursor-pointer"
                 {...register('privacy', { required: true })}
                 onInput={(e: any) => {
                   switch(e.currentTarget.value) {
                     case 'Private':
-                      setIsPrivate(true)
+                      setIsPrivate('Private')
                       break
                     case 'Public': 
-                      setIsPrivate(false)
+                      setIsPrivate('Public')
                       break
                     default:
-                      setIsPrivate(false)
+                      setIsPrivate('Public')
                   }
                 }}
               >
-                <option value="" className="hidden">Privacy Status</option>
+                <option value="" className="hidden">Change Privacy Status</option>
                 <option value="Public">Public</option>
                 <option value="Private">Private</option>
               </select>
@@ -260,7 +277,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
           </div>
         </div>
         <div className="block w-full space-y-2">
-          <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+          <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-100 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
             <input
               type="text"
               className="w-full outline-none bg-transparent text-sm"
@@ -270,37 +287,58 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
             <RiAlignRight className="w-4 h-4" />
           </span>
           <div className="flex flex-col w-full space-y-2">
-            {isPrivate && (
-              <React.Fragment>
-                <h3 className="text-xs ml-2">Create Passcode</h3>
-                <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+            {!isChangePasscode && (
+              <button
+                type="button"
+                className="outline-none w-full p-2 rounded-md text-sm bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                onClick={() => {
+                  setIsChangePasscode(true)
+                }}
+              >
+                Change Passcode
+              </button>
+            )}
+            {(isPrivate === 'Private') && (
+              <div className={isChangePasscode ? 'flex flex-col w-full space-y-2' : 'hidden'}>
+                <div className="inline-flex items-center justify-between w-full">
+                  <h3 className="text-xs ml-2">Change/New Passcode</h3>
+                  <button
+                    title="Close"
+                    type="button"
+                    onClick={() => {
+                      setIsChangePasscode(false)
+                    }}
+                  >
+                    <RiCloseLine className="w-3.5 h-3.5 text-zinc-400" />
+                  </button>
+                </div>
+                <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-100 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
                   <input
                     type="password"
                     className="w-full outline-none bg-transparent text-sm"
                     placeholder="Passcode"
-                    {...register('password', { required: true })}
+                    {...register('password', { required: room.privacy === 'Public' ? true : false })}
                   />
                   <RiKey2Line className="w-4 h-4" />
                 </span>
-                <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+                <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-100 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
                   <input
                     type="password"
                     className="w-full outline-none bg-transparent text-sm"
                     placeholder="Re-type Passcode"
-                    {...register('repassword', { required: true })}
+                    {...register('repassword', { required: room.privacy === 'Public' ? true : false })}
                   />
                   <RiKey2Line className="w-4 h-4" />
                 </span>
-              </React.Fragment>
+              </div>
             )}
             <div className="inline-flex w-full space-x-2">
               {!isSubmitting && (
                 <button
-                  title="Create"
                   type="submit"
                   className="outline-none w-full p-2 rounded-md text-sm bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
                 >
-                  Create
+                  Update
                 </button>
               )}
               {isSubmitting && (
@@ -310,7 +348,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
                     height={20}
                     color={'#FFFFFF'}
                   />
-                  <span className="font-light">Loading...</span>
+                  <span className="font-light">Updating...</span>
                 </div>
               )}
             </div>
@@ -318,7 +356,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
           <div className="inline-flex-wull">
             <p className="font-light text-[11px]">
               Note: If there is a problem with your internet connection,
-              the room avatar may not be uploaded to our cloud but your room server will be automatically created.
+              the room avatar may not be uploaded to our cloud but your room server will be automatically updated.
             </p>
           </div>
         </div>
@@ -327,4 +365,4 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
   )
 }
 
-export default CreateRoom
+export default RoomSettings

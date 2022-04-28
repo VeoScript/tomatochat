@@ -1,6 +1,7 @@
 import React from 'react'
 import Router from 'next/router'
 import DialogBox from '../DialogBox'
+import Spinner from '../../../utils/Spinner'
 import CustomToaster from '../../CustomToaster'
 import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
@@ -108,20 +109,34 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
           Are you sure you want to leave { room.name }?
         </p>
         <div className="inline-flex items-center w-full space-x-2">
-          <button
-            type="button"
-            className="outline-none w-full p-2 rounded-md text-sm bg-red-600 transition ease-in-out duration-200 hover:bg-opacity-80"
-            onClick={handleSubmit(onLeave)}
-          >
-            Confirm
-          </button>
-          <button
-            type="button"
-            className="outline-none w-full p-2 rounded-md text-sm bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
-            onClick={closeModal}
-          >
-            Cancel
-          </button>
+          {!isSubmitting && (
+            <React.Fragment>
+              <button
+                type="button"
+                className="outline-none w-full p-2 rounded-md text-sm bg-red-600 transition ease-in-out duration-200 hover:bg-opacity-80"
+                onClick={handleSubmit(onLeave)}
+              >
+                Confirm
+              </button>
+              <button
+                type="button"
+                className="outline-none w-full p-2 rounded-md text-sm bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                onClick={closeModal}
+              >
+                Cancel
+              </button>
+            </React.Fragment>
+          )}
+          {isSubmitting && (
+            <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm bg-red-600 bg-opacity-80">
+              <Spinner
+                width={20}
+                height={20}
+                color={'#FFFFFF'}
+              />
+              <span className="font-light">Loading...</span>
+            </div>
+          )}
         </div>
       </div>
     </DialogBox>

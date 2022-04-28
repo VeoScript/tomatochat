@@ -24,6 +24,30 @@ export const createRoom = async (_args: any) => {
   }
 }
 
+// API-ROUTE FOR UPDATING A PARTICULAR ROOM
+export const updateRoom = async (_args: any) => {
+  const res = await fetch('/api/modules/update/room', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      photo: _args.photo,
+      name: _args.name,
+      privacy: _args.privacy,
+      description: _args.description,
+      password: _args.password,
+      roomSlug: _args.roomSlug,
+      userId: _args.userId
+    })
+  })
+
+  if (!res.ok) {
+    const json = await res.json()
+    throw String(json.message)
+  }
+}
+
 // API-ROUTE FOR JOINING PUBLIC ROOM
 export const joinPublicRoom = async (_args: any) => {
   const res = await fetch('/api/modules/create/join/public', {
