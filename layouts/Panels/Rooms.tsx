@@ -6,7 +6,7 @@ import RoomImage from '../../components/Images/RoomImage'
 import CreateRoom from '../../components/Modals/Body/CreateRoom'
 import { useInView } from 'react-intersection-observer'
 import { useGetJoinedRooms, useSeenChatMutation } from '../../lib/ReactQuery'
-import { RiHome5Line, RiSearchLine, RiCompass3Line, RiSpyFill, RiChat3Line, RiEmotionSadLine, RiChatHeartFill } from 'react-icons/ri'
+import { RiHome5Line, RiSearchLine, RiCompass3Line, RiSpyFill, RiChat3Line, RiEmotionSadLine, RiLockFill, RiChatHeartFill } from 'react-icons/ri'
 
 interface IProps {
   user: any
@@ -34,7 +34,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
     <div className="flex flex-col w-full max-w-sm h-full overflow-hidden">
       <div className="flex flex-col w-full p-5 space-y-5">
         <div className="inline-flex items-center justify-between w-full">
-          <h3 className="font-light">My Rooms</h3>
+          <h3 className="font-light">Inbox</h3>
           <span className="inline-flex items-center space-x-2">
             <Link href="/">
               <a
@@ -133,7 +133,10 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                             }
                           </div>
                           <div className="block w-full space-y-1">
-                            <h3 className="font-light text-sm">{ joined_room.room.name }</h3>
+                            <div className="inline-flex items-center space-x-2">
+                              <h3 className="font-light text-sm">{ joined_room.room.name }</h3>
+                              {joined_room.room.privacy === 'Private' && <RiLockFill className="w-3 h-3 text-purple-500" />}
+                            </div>
                             {/* check if the last chat is null (if null it will display the room description otherwise, it will displaying the last chat of the room...) */}
                             {joined_room.lastChat === null
                               ? (

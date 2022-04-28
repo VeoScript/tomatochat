@@ -287,50 +287,52 @@ const RoomSettings: React.FC<IProps> = ({ room, user }) => {
             <RiAlignRight className="w-4 h-4" />
           </span>
           <div className="flex flex-col w-full space-y-2">
-            {!isChangePasscode && (
-              <button
-                type="button"
-                className="outline-none w-full p-2 rounded-md text-sm bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
-                onClick={() => {
-                  setIsChangePasscode(true)
-                }}
-              >
-                Change Passcode
-              </button>
-            )}
             {(isPrivate === 'Private') && (
-              <div className={isChangePasscode ? 'flex flex-col w-full space-y-2' : 'hidden'}>
-                <div className="inline-flex items-center justify-between w-full">
-                  <h3 className="text-xs ml-2">Change/New Passcode</h3>
+              <React.Fragment>
+                {!isChangePasscode && (
                   <button
-                    title="Close"
                     type="button"
+                    className="outline-none w-full p-2 rounded-md text-sm bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
                     onClick={() => {
-                      setIsChangePasscode(false)
+                      setIsChangePasscode(true)
                     }}
                   >
-                    <RiCloseLine className="w-3.5 h-3.5 text-zinc-400" />
+                    Change Passcode
                   </button>
+                )}
+                <div className={isChangePasscode ? 'flex flex-col w-full space-y-2' : 'hidden'}>
+                  <div className="inline-flex items-center justify-between w-full">
+                    <h3 className="text-xs ml-2">Change/New Passcode</h3>
+                    <button
+                      title="Close"
+                      type="button"
+                      onClick={() => {
+                        setIsChangePasscode(false)
+                      }}
+                    >
+                      <RiCloseLine className="w-3.5 h-3.5 text-zinc-400" />
+                    </button>
+                  </div>
+                  <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-100 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+                    <input
+                      type="password"
+                      className="w-full outline-none bg-transparent text-sm"
+                      placeholder="Passcode"
+                      {...register('password', { required: room.privacy === 'Public' ? true : false })}
+                    />
+                    <RiKey2Line className="w-4 h-4" />
+                  </span>
+                  <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-100 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+                    <input
+                      type="password"
+                      className="w-full outline-none bg-transparent text-sm"
+                      placeholder="Re-type Passcode"
+                      {...register('repassword', { required: room.privacy === 'Public' ? true : false })}
+                    />
+                    <RiKey2Line className="w-4 h-4" />
+                  </span>
                 </div>
-                <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-100 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
-                  <input
-                    type="password"
-                    className="w-full outline-none bg-transparent text-sm"
-                    placeholder="Passcode"
-                    {...register('password', { required: room.privacy === 'Public' ? true : false })}
-                  />
-                  <RiKey2Line className="w-4 h-4" />
-                </span>
-                <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-100 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
-                  <input
-                    type="password"
-                    className="w-full outline-none bg-transparent text-sm"
-                    placeholder="Re-type Passcode"
-                    {...register('repassword', { required: room.privacy === 'Public' ? true : false })}
-                  />
-                  <RiKey2Line className="w-4 h-4" />
-                </span>
-              </div>
+              </React.Fragment>
             )}
             <div className="inline-flex w-full space-x-2">
               {!isSubmitting && (
