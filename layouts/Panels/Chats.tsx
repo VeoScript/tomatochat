@@ -7,11 +7,12 @@ import Members from './Members'
 import Public from '../../components/Join/Public'
 import Private from '../../components/Join/Private'
 import ChatSettingMenu from '../../components/Menus/ChatSettingMenu'
+import DeleteChat from '../../components/Modals/Body/DeleteChat'
 import Moment from 'react-moment'
 import { useForm } from 'react-hook-form'
 import { useInView } from 'react-intersection-observer'
 import { useGetJoinedRoom, useGetChats, useSendChatMutation, useLastChatMutation, useSeenChatMutation } from '../../lib/ReactQuery'
-import { RiMoreFill, RiSendPlane2Line, RiSpyFill, RiEmotionSadLine, RiCheckDoubleLine, RiCloseCircleLine } from 'react-icons/ri'
+import { RiMoreFill, RiSendPlane2Line, RiSpyFill, RiEmotionSadLine, RiCheckDoubleLine } from 'react-icons/ri'
 
 interface IProps {
   user: any
@@ -289,13 +290,8 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                       <span className="inline-flex items-center space-x-2 font-thin text-[9px]">
                                         <Moment date={chat.date} fromNow />
                                         <div className="inline-flex items-center space-x-1">
-                                          <RiCheckDoubleLine title="Sent" className="w-3.5 h-3.5 text-[#CDA0F5]" />
-                                          <button
-                                            title="Remove"
-                                            className="outline-none transition-all ease-in-out duration-200 transform hover:scale-90"
-                                          >
-                                            <RiCloseCircleLine className="w-3 h-3 text-pink-400" />
-                                          </button>
+                                          <RiCheckDoubleLine title="Sent" className="w-5 h-5 text-[#CDA0F5]" />
+                                          <DeleteChat chatId={chat.id}/>
                                         </div>
                                       </span>
                                     </div>

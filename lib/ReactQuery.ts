@@ -17,7 +17,8 @@ import {
   sendChat,
   sendChatJoin,
   sendLastChat,
-  seenChat
+  seenChat,
+  deleteChat
 } from './API'
 
 
@@ -268,6 +269,14 @@ export const useChangeRole = () => {
   return useMutation((_args: any) => changeRole({
       joinedRoomId: _args.joinedRoomId,
       role: _args.role
+    })
+  )
+}
+
+// MUTATION FOR CHANGING THE ROLE OF SELECTED MEMBER
+export const useDeleteChat = () => {
+  return useMutation((_args: any) => deleteChat({
+      chatId: _args.chatId
     })
   )
 }
