@@ -7,7 +7,7 @@ import RoomImage from '../../components/Images/RoomImage'
 import CreateRoom from '../../components/Modals/Body/CreateRoom'
 import { useInView } from 'react-intersection-observer'
 import { useGetJoinedRooms, useSeenChatMutation } from '../../lib/ReactQuery'
-import { RiHome5Line, RiSearchLine, RiCompass3Line, RiSpyFill, RiChat3Line, RiEmotionSadLine, RiCheckboxBlankCircleFill } from 'react-icons/ri'
+import { RiHome5Line, RiSearchLine, RiCompass3Line, RiSpyFill, RiChat3Line, RiEmotionSadLine, RiChatHeartFill } from 'react-icons/ri'
 
 interface IProps {
   user: any
@@ -133,7 +133,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                                 </div>
                             }
                           </div>
-                          <div className="block space-y-1">
+                          <div className="block w-full space-y-1">
                             <h3 className="font-light text-sm">{ joined_room.room.name }</h3>
                             {/* check if the last chat is null (if null it will display the room description otherwise, it will displaying the last chat of the room...) */}
                             {joined_room.lastChat === null
@@ -160,7 +160,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                         </div>
                         {joined_room.seen === false && (
                           <span className="inline-flex items-center h-full pl-3">
-                            <RiCheckboxBlankCircleFill className="w-3 h-3 text-purple-400" />
+                            <RiChatHeartFill className="w-5 h-5 text-purple-400" />
                           </span>
                         )}
                       </button>
