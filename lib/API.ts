@@ -143,6 +143,19 @@ export const seenChat = (_args: any) => {
   })
 }
 
+// API-ROUTE FOR DELETING SELECTED CHAT
+export const deleteChat = (_args: any) => {
+  return fetch('/api/modules/delete/chat', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      chatId: _args.chatId
+    })
+  })
+}
+
 // API-ROUTE FOR CHANGING THE ROLE OF SELECTED MEMBER
 export const changeRole = (_args: any) => {
   return fetch('/api/modules/update/members/role', {
