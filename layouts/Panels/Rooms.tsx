@@ -98,7 +98,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                   <div className="flex flex-col items-center w-full space-y-3">
                     <div className="flex flex-col items-center space-y-2 text-zinc-400">
                       <RiChat3Line className="w-14 h-14" />
-                      <h3 className="font-light text-xs">No conversation available.</h3>
+                      <h3 className="font-light text-xs">Your inbox is empty.</h3>
                     </div>
                     <Link href="/discover">
                       <a className="w-[12rem] p-2 rounded-md text-center text-sm bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80">

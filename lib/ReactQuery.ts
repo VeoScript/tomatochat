@@ -7,6 +7,7 @@ import {
 
 import {
   createRoom,
+  updateRoom,
   deleteRoom,
   joinPrivateRoom,
   joinPublicRoom,
@@ -156,6 +157,26 @@ export const useCreateRoomMutation = () => {
       description: _args.description,
       password: _args.password,
       uuidSlug: _args.uuidSlug,
+      userId: _args.userId
+    }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('rooms')
+      }
+    }
+  )
+}
+
+// MUTATION FOR UPDATING A PARTICULAR ROOM
+export const useUpdateRoomMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation((_args: any) => updateRoom({
+      photo: _args.photo,
+      name: _args.name,
+      privacy: _args.privacy,
+      description: _args.description,
+      password: _args.password,
+      roomSlug: _args.roomSlug,
       userId: _args.userId
     }),
     {
