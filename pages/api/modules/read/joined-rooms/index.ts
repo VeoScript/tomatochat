@@ -41,7 +41,7 @@ export default async function handler(req: NextApiRequest,  res: NextApiResponse
       }
     },
     orderBy: {
-      index: 'desc'
+      lastSentDate: 'desc'
     },
     take: limit,
     cursor: cursorObj,
