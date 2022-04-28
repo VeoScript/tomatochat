@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../../../lib/Prisma'
 
 export default async function handler(req: NextApiRequest,  res: NextApiResponse) {
-  const limit = 5
+  const limit = 10
   const cursor = req.query.cursor ?? ''
   const cursorObj = cursor === '' ? undefined : { id: String(cursor) }
 
