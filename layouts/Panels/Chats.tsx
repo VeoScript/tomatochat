@@ -291,7 +291,11 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                         <Moment date={chat.date} fromNow />
                                         <div className="inline-flex items-center space-x-1">
                                           <RiCheckDoubleLine title="Sent" className="w-5 h-5 text-[#CDA0F5]" />
-                                          <DeleteChat chatId={chat.id}/>
+                                          <DeleteChat
+                                            user={user}
+                                            chatId={chat.id}
+                                            roomSlug={roomSlug}
+                                          />
                                         </div>
                                       </span>
                                     </div>

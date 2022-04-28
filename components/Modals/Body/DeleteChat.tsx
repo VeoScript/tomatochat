@@ -4,16 +4,20 @@ import Spinner from '../../../utils/Spinner'
 import CustomToaster from '../../CustomToaster'
 import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
-import { useDeleteChat } from '../../../lib/ReactQuery'
+import { useDeleteChat, useSendChatJoinMutation, useLastChatMutation } from '../../../lib/ReactQuery'
 import { RiCloseCircleLine } from 'react-icons/ri'
 
 interface IProps {
+  user: any
   chatId: string
+  roomSlug: string
 }
 
-const DeleteChat: React.FC<IProps> = ({ chatId }) => {
+const DeleteChat: React.FC<IProps> = ({ user, chatId, roomSlug }) => {
 
   const deleteChat = useDeleteChat()
+  const sendChatJoinMutation = useSendChatJoinMutation()
+  const lastChat = useLastChatMutation()
 
   let [isOpen, setIsOpen] = React.useState(false)
 
@@ -28,6 +32,8 @@ const DeleteChat: React.FC<IProps> = ({ chatId }) => {
   }
 
   const onDeleteChat = async () => {
+    const chatbox = `${user.name} removed one of its chat.`
+
     deleteChat.mutate({
       chatId: String(chatId)
     },
@@ -41,6 +47,22 @@ const DeleteChat: React.FC<IProps> = ({ chatId }) => {
             message={`${err}`}
           />
         ))
+      },
+      onSuccess() {
+        sendChatJoinMutation.mutate({
+          chatbox: String(chatbox),
+          userId: String(user.id),
+          roomSlug: String(roomSlug)
+        })
+        // send last chat after user delete their chat
+        lastChat.mutate({
+          roomSlug: String(roomSlug),
+          lastChat: String(chatbox),
+          lastChatType: 'JOIN',
+          lastSentUserId: String(user.id),
+          lastSentUserImage: String(user.image),
+          lastSentUserName: String(user.name)
+        })
       }
     })
     closeModal()
