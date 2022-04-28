@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import toast from 'react-hot-toast'
 import Router, { useRouter } from 'next/router'
 import Spinner from '../../utils/Spinner'
 import RoomImage from '../../components/Images/RoomImage'
