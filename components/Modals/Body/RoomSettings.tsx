@@ -210,7 +210,7 @@ const RoomSettings: React.FC<IProps> = ({ room, user }) => {
       maxWidth="max-w-md"
       button={
         <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-[#1F1E35]">
-          <RiSettingsLine className="w-5 h-5 text-zinc-100 transition ease-in-out duration-200 transform hover:scale-90" />
+          <RiSettingsLine className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
           <span>Settings</span>
         </div>
       } 
