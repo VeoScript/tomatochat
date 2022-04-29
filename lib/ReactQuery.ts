@@ -234,11 +234,11 @@ export const useSendChatMutation = () => {
         previousChatData,
       }
     },
-    onError: (_error, _chat, context) => {
+    onError: (_error, _chat, context: any) => {
       queryClient.setQueryData('createChat', context?.previousChatData)
     },
     onSettled: () => {
-      queryClient.invalidateQueries('createChat')
+      queryClient.invalidateQueries('chats')
     }
   })
 }
