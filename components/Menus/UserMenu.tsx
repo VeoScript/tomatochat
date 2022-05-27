@@ -28,13 +28,13 @@ const UserMenu: React.FC<IProps> = ({ children, title, user }) => {
       {isDropdown && (
         <React.Fragment>
           <button 
-            className={`${isDropdown ? 'z-10 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}
+            className={`${isDropdown ? 'z-20 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}
             type="button"
             onClick={() => {
               setIsDropdown(false)
             }} 
           />
-          <div className="absolute top-14 right-5 z-20 w-48">
+          <div className="absolute top-16 right-5 z-30 w-48">
             <div className="flex w-full overflow-hidden shadow-sm rounded-md ring-1 ring-[#1F1E35] bg-gradient-to-br from-[#1B1325] via-[#12111B] to-[#18132A] focus:outline-none">
               <div className="flex flex-col w-full divide-y divide-[#1F1E35]">
                 <Link href="/">
