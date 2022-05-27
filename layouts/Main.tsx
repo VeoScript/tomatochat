@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import UserMenu from '../components/Menus/UserMenu'
 import Rooms from '../layouts/Panels/Rooms'
 import Profile from '../components/Images/Profile'
 import { Toaster } from 'react-hot-toast'
@@ -36,11 +37,14 @@ const MainLayout: React.FC<IProps> = ({ user, children }) => {
           >
             <RiNotification4Line className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
           </button>
-          <Link href="/">
-            <a className="flex">
+          <UserMenu
+            title={user.name}
+            user={user}
+          >
+            <div className="flex">
               <Profile src={user.image} />
-            </a>
-          </Link>
+            </div>
+          </UserMenu>
         </div>
       </div>
       <div className="inline-flex w-full h-full overflow-hidden">

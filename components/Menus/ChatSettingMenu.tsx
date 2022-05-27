@@ -7,8 +7,8 @@ import { RiSettingsLine, RiFeedbackLine } from 'react-icons/ri'
 
 interface IProps {
   children: any
-  role: string,
-  title: string,
+  role: string
+  title: string
   room: any
   user: any
   userId: string
