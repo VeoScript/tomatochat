@@ -16,7 +16,7 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
 
   if (getMembersLoading) {
     return (
-      <div className="flex flex-col items-center justify-center w-full h-full space-y-2 border-l border-[#1F1836]">
+      <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
         <Spinner width={40} height={40} color={'#4D38A2'} />
         <h3 className="font-light text-xs">Loading...</h3>
       </div>
@@ -25,7 +25,7 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
 
   if (getMembersError) {
     return (
-      <div className="flex flex-col items-center justify-center w-full h-full space-y-2 text-zinc-400 border-l border-[#1F1836]">
+      <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
         <RiEmotionSadLine className="w-14 h-14" />
         <div className="inline-flex items-center justify-center w-full space-x-1 text-xs">
           <h3 className="font-light">Failed to load, try to</h3>
@@ -57,13 +57,13 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
       <div className="inline-flex items-center justify-between w-full p-5">
         <h3 className="font-light">Participants</h3>
       </div>
-      <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
+      <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
         <div className="flex flex-col w-full px-2 space-y-2">
           {checkUserMembers !== undefined && <h3 className="font-semibold text-xs text-zinc-500 px-3 uppercase">Members</h3> }
           {members.map((member: { id: string, index: string, role: string, user: any }, i: number) => (
             <React.Fragment key={i}>
               {member.role === 'USER' && (
-                <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E]">
+                <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]">
                   <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                     <MemberImage src={member.user.image} />
                   </div>
@@ -92,7 +92,7 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
           {members.map((member: { id: string, index: string, role: string, user: any }, i: number) => (
             <React.Fragment key={i}>
               {member.role === 'ADMIN' && (
-                <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E]">
+                <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]">
                   <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                     <MemberImage src={member.user.image} />
                   </div>

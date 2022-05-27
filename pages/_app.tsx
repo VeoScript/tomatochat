@@ -1,6 +1,7 @@
 import '../styles/tailwind.css'
 import NextJSProgress from '../utils/NextJSProgress'
 import type { AppProps } from 'next/app'
+import { ThemeProvider } from 'next-themes'
 import { SessionProvider } from 'next-auth/react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
@@ -10,8 +11,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider session={pageProps.session}>
-        <NextJSProgress />
-        <Component {...pageProps} />
+        <ThemeProvider attribute="class">
+          <NextJSProgress />
+          <Component {...pageProps} />
+        </ThemeProvider>
       </SessionProvider>
     </QueryClientProvider>
   )

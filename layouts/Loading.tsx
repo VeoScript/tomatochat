@@ -8,11 +8,11 @@ const LoadingPage = () => {
       <Head>
         <title>TomatoChat (Loading...)</title>
       </Head>
-      <main className="flex items-center justify-center w-full h-screen text-white bg-gradient-to-br from-[#1B1325] via-[#12111B] to-[#18132A]">
+      <main className="flex items-center justify-center w-full h-screen text-zinc-600 dark:text-white bg-white dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]">
         <div className="flex flex-col items-center w-full space-y-2">
           <CubeLoader />
           <span className="flex font-poppins text-3xl">
-            <p className="font-rubikglitch text-white lowercase">tomatochat</p>
+            <p className="font-rubikglitch text-zinc-800 dark:text-white lowercase">tomatochat</p>
           </span>
           <span className="font-light">Loading...</span>
         </div>

@@ -2,9 +2,9 @@ import React from 'react'
 
 const NewsFeed = () => {
   return (
-    <div className="inline-flex items-center justify-center w-full max-w-full h-full border-x border-[#1F1836] overflow-y-scroll">
+    <div className="inline-flex items-center justify-center w-full max-w-full h-full border-x border-zinc-300 dark:border-[#1F1836] overflow-y-scroll">
       <div className="flex flex-col">
-        <h1 className="font-rubikglitch text-3xl text-white lowercase">tomatochat</h1>
+        <h1 className="font-rubikglitch text-3xl text-zinc-800 dark:text-white lowercase">tomatochat</h1>
         <h3 className="text-sm text-zinc-500">Welcome to TomatoChat. Discover the world of simplicity.</h3>
       </div>
     </div>

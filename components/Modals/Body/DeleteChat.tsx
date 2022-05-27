@@ -89,14 +89,14 @@ const DeleteChat: React.FC<IProps> = ({ user, chatId, roomSlug }) => {
             <React.Fragment>
               <button
                 type="button"
-                className="outline-none w-full p-2 rounded-md text-sm bg-red-600 transition ease-in-out duration-200 hover:bg-opacity-80"
+                className="outline-none w-full p-2 rounded-md text-sm text-white bg-red-600 transition ease-in-out duration-200 hover:bg-opacity-80"
                 onClick={handleSubmit(onDeleteChat)}
               >
                 Delete
               </button>
               <button
                 type="button"
-                className="outline-none w-full p-2 rounded-md text-sm bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                className="outline-none w-full p-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
                 onClick={closeModal}
               >
                 Cancel
@@ -104,7 +104,7 @@ const DeleteChat: React.FC<IProps> = ({ user, chatId, roomSlug }) => {
             </React.Fragment>
           )}
           {isSubmitting && (
-            <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm bg-red-600 bg-opacity-80">
+            <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm text-white bg-red-600 bg-opacity-80">
               <Spinner
                 width={20}
                 height={20}

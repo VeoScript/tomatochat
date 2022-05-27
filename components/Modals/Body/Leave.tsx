@@ -98,7 +98,7 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
       className="outline-none flex w-full"
       maxWidth="max-w-md"
       button={
-       <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer hover:bg-red-600 text-purewhite transition ease-in-out duration-200">
+       <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer hover:bg-red-200 dark:hover:bg-red-600 text-purewhite transition ease-in-out duration-200">
          <RiLogoutBoxLine className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
           <span>Leave Room</span>
        </div>
@@ -113,14 +113,14 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
             <React.Fragment>
               <button
                 type="button"
-                className="outline-none w-full p-2 rounded-md text-sm bg-red-600 transition ease-in-out duration-200 hover:bg-opacity-80"
+                className="outline-none w-full p-2 rounded-md text-sm text-white bg-red-600 transition ease-in-out duration-200 hover:bg-opacity-80"
                 onClick={handleSubmit(onLeave)}
               >
                 Confirm
               </button>
               <button
                 type="button"
-                className="outline-none w-full p-2 rounded-md text-sm bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                className="outline-none w-full p-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
                 onClick={closeModal}
               >
                 Cancel
@@ -128,7 +128,7 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
             </React.Fragment>
           )}
           {isSubmitting && (
-            <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm bg-red-600 bg-opacity-80">
+            <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm text-white bg-red-600 bg-opacity-80">
               <Spinner
                 width={20}
                 height={20}
