@@ -37,6 +37,25 @@ export function useGetUser(email: string) {
   )
 }
 
+// QUERY FOR GETTING THE RESULTS OF SEARCH PEOPLE
+export function useGetSearchPeople(searchTerm: string) {
+  return useQuery('searchPeople', 
+    async () => {
+      const search = fetch(`/api/modules/read/search/people`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ searchTerm })
+      })
+      return (await search).json()
+    },
+    {
+      enabled: !!searchTerm
+    }
+  )
+}
+
 // QUERY FOR GETTING ALL THE ROOMS FROM THE DATABASE (FIND-MANY)
 export function useGetRooms() {
   return useInfiniteQuery('rooms', 
