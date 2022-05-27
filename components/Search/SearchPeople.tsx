@@ -27,7 +27,7 @@ const SearchPeople = () => {
 
   return (
     <React.Fragment>
-      <span className="inline-flex items-center w-[20rem] px-3 py-2 z-30 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+      <span className="inline-flex items-center w-[20rem] px-3 py-2 z-20 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
         <input
           type="text"
           className="w-full outline-none bg-transparent text-sm"
