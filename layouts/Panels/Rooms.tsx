@@ -41,7 +41,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                 title="Home"
                 className="outline-none"
               >
-                <RiHome5Line className={`${pathname === '/' ? 'text-zinc-400' : 'text-zinc-600'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
+                <RiHome5Line className={`${pathname === '/' ? 'text-zinc-500 dark:text-zinc-400' : 'text-purple-500 dark:text-zinc-500'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
               </a>
             </Link>
             <button
@@ -52,23 +52,23 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                 Router.push('/discover', undefined, { shallow: true })
               }}
             >
-              <RiCompass3Line className={`${pathname === '/discover' ? 'text-zinc-400' : 'text-zinc-600'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
+              <RiCompass3Line className={`${pathname === '/discover' ? 'text-zinc-500 dark:text-zinc-400' : 'text-purple-500 dark:text-zinc-500'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
             </button>
             <CreateRoom user={user} />
           </span>
         </div>
         <div className="flex justify-center w-full">
-          <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+          <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
             <input
               type="text"
               className="w-full outline-none bg-transparent text-sm"
               placeholder="Search rooms"
             />
-            <RiSearchLine className="w-4 h-4" />
+            <RiSearchLine className="w-4 h-4 text-zinc-400" />
           </span>
         </div>
       </div>
-      <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent">
+      <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
         <div className="flex flex-col w-full px-2 space-y-2">
           {isLoading && (
             <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
@@ -101,7 +101,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                       <h3 className="font-light text-xs">Your inbox is empty.</h3>
                     </div>
                     <Link href="/discover">
-                      <a className="w-[12rem] p-2 rounded-md text-center text-sm bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80">
+                      <a className="w-[12rem] p-2 rounded-md text-center text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80">
                         Discover
                       </a>
                     </Link>
@@ -115,7 +115,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                       <button
                         key={joined_room.index}
                         type="button"
-                        className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-gradient-to-r from-[#1F1E35] to-[#14121E]'} hover:bg-gradient-to-r hover:from-[#1F1E35] hover:to-[#14121E] focus:bg-gradient-to-r focus:from-[#1F1E35] focus:to-[#14121E]`}
+                        className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-zinc-100 dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]'} hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E] dark:focus:bg-gradient-to-r dark:focus:from-[#1F1E35] dark:focus:to-[#14121E]`}
                         onClick={() => {
                           Router.replace(`/${joined_room.room.slug}`)
                           seenChat.mutate({
@@ -127,7 +127,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                           <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                             {joined_room.room.photo
                               ? <RoomImage src={joined_room.room.photo} />
-                              : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-[#201A2C]">
+                              : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#201A2C]">
                                   <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
                                 </div>
                             }

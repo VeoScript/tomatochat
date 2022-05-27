@@ -72,12 +72,12 @@ const Private: React.FC<IProps> = ({ user, slug, name, description }) => {
   return (
     <div className="flex flex-row items-center justify-center w-full h-full overflow-y-auto px-10 pt-10 pb-20 space-x-36">
       <div className="flex flex-col items-start w-full max-w-sm space-y-2">
-        <h3 className="text-sm">Welcome to private server of</h3>
+        <h3 className="text-sm text-zinc-400 dark:text-white">Welcome to private server of</h3>
         <div className="flex flex-col w-full">
-          <h1 className="font-rubikglitch text-6xl text-white uppercase">{ name }</h1>
-          <h3 className="text-sm text-zinc-400">{ description }</h3>
+          <h1 className="font-rubikglitch text-6xl text-zinc-800 dark:text-white uppercase">{ name }</h1>
+          <h3 className="text-sm text-zinc-600 dark:text-zinc-400">{ description }</h3>
           <form onSubmit={handleSubmit(onJoinPrivate)} className="flex flex-col w-full space-y-2 mt-5">
-            <span className="inline-flex items-center w-full px-5 py-3 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+            <span className="inline-flex items-center w-full px-5 py-3 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
               <input
                 type="password"
                 className="w-full outline-none bg-transparent text-sm"
@@ -96,7 +96,7 @@ const Private: React.FC<IProps> = ({ user, slug, name, description }) => {
               <button
                 title="Join"
                 type="submit"
-                className="outline-none w-full px-2 py-3 rounded-md bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                className="outline-none w-full px-2 py-3 rounded-md text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
               >
                 Join
               </button>
@@ -104,7 +104,7 @@ const Private: React.FC<IProps> = ({ user, slug, name, description }) => {
           </form>
         </div>
       </div>
-      <RiSpyFill className="w-[20rem] h-[20rem] text-[#1F1E35]" />
+      <RiSpyFill className="w-[20rem] h-[20rem] text-zinc-300 dark:text-[#1F1E35]" />
     </div>
   )
 }

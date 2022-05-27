@@ -14,14 +14,14 @@ interface IProps {
 
 const MainLayout: React.FC<IProps> = ({ user, children }) => {
   return (
-    <main className="font-poppins flex flex-col w-full h-screen overflow-hidden text-white bg-gradient-to-br from-[#1B1325] via-[#12111B] to-[#18132A]">
+    <main className="font-poppins flex flex-col w-full h-screen overflow-hidden text-[#333] dark:text-white bg-white dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]">
       <Toaster
         position="top-right"
         reverseOrder={true}
       />
-      <div className="inline-flex items-center justify-between w-full p-5 border-b border-[#1F1836]">
+      <div className="inline-flex items-center justify-between w-full p-5 border-b border-zinc-300 dark:border-[#1F1836]">
         <Link href="/">
-          <a className="font-rubikglitch text-2xl text-white lowercase">tomatochat</a>
+          <a className="font-rubikglitch text-2xl text-zinc-800 dark:text-white lowercase">tomatochat</a>
         </Link>
         <div className="inline-flex items-center space-x-5">
           <SearchPeople />

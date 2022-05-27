@@ -57,7 +57,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
 
   if (getRoomLoading) {
     return (
-      <div className="flex flex-col items-center justify-center w-full h-full space-y-2 border-l border-[#1F1836]">
+      <div className="flex flex-col items-center justify-center w-full h-full space-y-2 border-l border-zinc-300 dark:border-[#1F1836]">
         <Spinner width={40} height={40} color={'#4D38A2'} />
         <h3 className="font-light text-xs">Loading...</h3>
       </div>
@@ -66,7 +66,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
 
   if (getRoomError) {
     return (
-      <div className="flex flex-col items-center justify-center w-full h-full space-y-2 text-zinc-400 border-l border-[#1F1836]">
+      <div className="flex flex-col items-center justify-center w-full h-full space-y-2 text-zinc-400 border-l border-zinc-300 dark:border-[#1F1836]">
         <div className="inline-flex items-center justify-center w-full space-x-1 text-xs">
           <h3 className="font-bold text-3xl">THIS ROOM DOES NOT EXIST!</h3>
         </div>
@@ -149,13 +149,13 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
   return (
     <React.Fragment>
       {!matchJoinedUser && (
-        <div className="flex flex-col w-full max-w-full h-full border-x border-[#1F1836]">
-          <div className="inline-flex items-center justify-between w-full p-3 border-b border-[#1F1836] bg-gradient-to-r from-[#1F1E35] to-[#14121E]">
+        <div className="flex flex-col w-full max-w-full h-full border-x border-zinc-300 dark:border-[#1F1836]">
+          <div className="inline-flex items-center justify-between w-full p-3 border-b border-zinc-300 dark:border-[#1F1836] bg-white dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]">
             <span className="inline-flex items-start w-full max-w-lg rounded-xl select-none">
               <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                 {getRoom.photo
                   ? <RoomImage src={getRoom.photo} />
-                  : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-[#201A2C]">
+                  : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#201A2C]">
                       <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
                     </div>
                 }
@@ -188,13 +188,13 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
       )}
       {matchJoinedUser && (
         <div className="inline-flex w-full">
-          <div className="flex flex-col w-full max-w-full h-full border-x border-[#1F1836]">
-            <div className="inline-flex items-center justify-between w-full p-3 border-b border-[#1F1836] bg-gradient-to-r from-[#1F1E35] to-[#14121E]">
+          <div className="flex flex-col w-full max-w-full h-full border-x border-zinc-300 dark:border-[#1F1836]">
+            <div className="inline-flex items-center justify-between w-full p-3 border-b border-zinc-300 dark:border-[#1F1836] bg-white dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]">
               <span className="inline-flex items-start w-full max-w-lg rounded-xl select-none">
                 <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                   {getRoom.photo
                     ? <RoomImage src={getRoom.photo} />
-                    : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-[#201A2C]">
+                    : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:[#201A2C]">
                         <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
                       </div>
                   }
@@ -275,9 +275,9 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                     <div className="flex">
                                       <Profile src={chat.user.image} />
                                     </div>
-                                    <div className="bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-light text-xs rounded-xl whitespace-pre-wrap bg-[#19182B]">
+                                    <div className="bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap bg-zinc-100 dark:bg-[#19182B]">
                                       <p>{chat.message}</p>
-                                      <span className="font-thin text-[9px]">
+                                      <span className="font-light dark:font-thin text-[9px]">
                                         <Moment date={chat.date} fromNow />
                                       </span>
                                     </div>
@@ -285,7 +285,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                 )}
                                 {chat.user.id === user.id && (
                                   <div className="flex items-end justify-end w-full space-x-2">
-                                    <div className="bubble-sender flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-light text-xs rounded-xl whitespace-pre-wrap bg-[#4D38A2]">
+                                    <div className="bubble-sender flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap text-white bg-[#4D38A2]">
                                       <p>{chat.message}</p>
                                       <span className="inline-flex items-center space-x-2 font-thin text-[9px]">
                                         <Moment date={chat.date} fromNow />
@@ -348,14 +348,14 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                 )}
               </div>
             </div>
-            <div className="w-full bg-gradient-to-br from-[#1B1325] via-[#12111B] to-[#18132A]">
+            <div className="w-full border-t border-zinc-300 dark:border-transparent bg-white dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]">
               <form
                 className="inline-flex w-full p-3 space-x-3"
                 onSubmit={handleSubmit(onSendChat)}
               >
                 <div
                   id="contentEditable"
-                  className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none p-3 font-light text-xs rounded-xl bg-transparent border border-[#1F1836]"
+                  className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none p-3 font-light text-xs rounded-xl bg-transparent border border-zinc-200 focus:border-zinc-400 dark:border-[#1F1836] dark:focus:border-transparent"
                   placeholder="Write a message..."
                   title="Shift+Enter to execute new line."
                   contentEditable="true"

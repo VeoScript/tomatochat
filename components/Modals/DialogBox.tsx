@@ -31,8 +31,8 @@ const DialogBox: React.FC<IProps> = ({ children, button, title, className, maxWi
         className="fixed z-30 inset-0 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
-          <Dialog.Overlay className="fixed inset-0 bg-white opacity-20" />
-          <div className={`relative flex flex-col w-full ${ maxWidth } mx-auto p-5 space-y-3 rounded-md text-white bg-gradient-to-br from-[#1B1325] via-[#12111B] to-[#18132A]`}>
+          <Dialog.Overlay className="fixed inset-0 bg-[#333] dark:bg-white opacity-20" />
+          <div className={`relative flex flex-col w-full ${ maxWidth } mx-auto p-5 space-y-3 rounded-md text-[#333] dark:text-white bg-white dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]`}>
             <div className="inline-flex w-full">
               <h2 className="font-semibold">{ title }</h2>
               <button

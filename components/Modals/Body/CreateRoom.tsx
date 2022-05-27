@@ -210,7 +210,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
               {previewImage ?
                   <RoomImage src={previewImage} />
                 :
-                  <div className="inline-flex items-center justify-center rounded-xl object-cover w-[50px] h-[50px] bg-[#201A2C] transition ease-in-out duration-200 hover:bg-white hover:bg-opacity-20">
+                  <div className="inline-flex items-center justify-center rounded-xl object-cover w-[50px] h-[50px] bg-zinc-200 dark:bg-[#201A2C] transition ease-in-out duration-200 hover:bg-black hover:bg-opacity-30 dark:hover:bg-white dark:hover:bg-opacity-20">
                     <RiCameraFill  />
                   </div>
               }
@@ -225,7 +225,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
             />
           </div>
           <div className="flex flex-col items-end w-full space-y-2">
-            <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+            <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
               <input
                 type="text"
                 className="w-full outline-none bg-transparent text-sm"
@@ -234,9 +234,9 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
               />
               <RiText className="w-4 h-4" />
             </span>
-            <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+            <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
               <select
-                className="w-full outline-none bg-[#201A2C] text-sm cursor-pointer"
+                className="w-full outline-none bg-white dark:bg-[#201A2C] text-sm cursor-pointer"
                 {...register('privacy', { required: true })}
                 onInput={(e: any) => {
                   switch(e.currentTarget.value) {
@@ -260,7 +260,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
           </div>
         </div>
         <div className="block w-full space-y-2">
-          <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+          <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
             <input
               type="text"
               className="w-full outline-none bg-transparent text-sm"
@@ -273,7 +273,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
             {isPrivate && (
               <React.Fragment>
                 <h3 className="text-xs ml-2">Create Passcode</h3>
-                <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+                <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
                   <input
                     type="password"
                     className="w-full outline-none bg-transparent text-sm"
@@ -282,7 +282,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
                   />
                   <RiKey2Line className="w-4 h-4" />
                 </span>
-                <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
+                <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
                   <input
                     type="password"
                     className="w-full outline-none bg-transparent text-sm"
@@ -298,13 +298,13 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
                 <button
                   title="Create"
                   type="submit"
-                  className="outline-none w-full p-2 rounded-md text-sm bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                  className="outline-none w-full p-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
                 >
                   Create
                 </button>
               )}
               {isSubmitting && (
-                <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm bg-purple-800 bg-opacity-80">
+                <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm text-white bg-purple-800 bg-opacity-80">
                   <Spinner
                     width={20}
                     height={20}

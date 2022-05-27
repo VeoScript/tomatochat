@@ -39,7 +39,7 @@ const Login: NextPage<IProps> = ({ providers }) => {
           {Object.values(providers).map((provider: any) => (
             <div className="flex justify-center w-full" key={provider.name}>
               <button
-                className={`flex items-center space-x-5 p-4 rounded-md w-[21rem] transition ease-in-out hover:bg-opacity-90 ${provider.name === 'Google' && 'text-black bg-white'} ${provider.name === 'Facebook' && 'bg-blue-600 text-white'} ${provider.name === 'Twitter' && 'bg-[#1D9BF0] text-white'}`}
+                className={`flex items-center space-x-5 p-4 rounded-md w-[21rem] transition ease-in-out hover:bg-opacity-50 dark:hover:bg-opacity-90 ${provider.name === 'Google' && 'text-black bg-zinc-100 dark:bg-white'} ${provider.name === 'Facebook' && 'bg-blue-600 text-white'} ${provider.name === 'Twitter' && 'bg-[#1D9BF0] text-white'}`}
                 onClick={() => signIn(provider.id)}
               >
                 {provider.name === 'Google' && (
@@ -56,7 +56,7 @@ const Login: NextPage<IProps> = ({ providers }) => {
             </div>
           ))}
           <div className="flex items-center justify-center w-full pt-3 space-x-2">
-            <p className="font-light text-[11px] text-white text-center">
+            <p className="font-light text-[11px] text-zinc-800 dark:text-white text-center">
               By using TomatoChat you agree to its&nbsp;
               <Link href="/">
                 <a className="text-purple-500 hover:underline">Terms of Service</a>
