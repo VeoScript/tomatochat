@@ -3,6 +3,9 @@ import prisma from '../../../../../lib/Prisma'
 
 export default async function handler( req: NextApiRequest, res: NextApiResponse) {
   const searchPeople = await prisma.user.findMany({
+    orderBy: {
+      name: 'asc'
+    },
     where: {
       name: {
         contains: `${req.body.searchTerm}`,
