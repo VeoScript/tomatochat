@@ -59,6 +59,22 @@ const UserID: NextPage<IProps> = ({ params }) => {
 
 export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext) => {
   const { params } = ctx
+  const users = await prisma.user.findFirst({
+    where: {
+      id: String(params?.id)
+    },
+    select: {
+      id: true
+    }
+  })
+  if (!users) {
+    return {
+      redirect: {
+        destination: '/404',
+        permanent: false,
+      },
+    }
+  }
   return {
     props: {
       params
@@ -78,7 +94,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         id: user.id
       }
     })),
-    fallback: false
+    fallback: 'blocking'
   }
 }
 

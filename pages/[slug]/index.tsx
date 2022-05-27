@@ -77,7 +77,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         slug: room.slug
       }
     })),
-    fallback: false
+    fallback: 'blocking'
   }
 }
 
