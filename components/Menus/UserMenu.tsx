@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'
-import { RiUser3Line, RiLogoutCircleLine } from 'react-icons/ri'
+import { RiUser3Line, RiSettingsLine, RiLogoutCircleLine } from 'react-icons/ri'
 
 interface IProps {
   children: any
@@ -41,6 +41,12 @@ const UserMenu: React.FC<IProps> = ({ children, title, user }) => {
                   <a className="inline-flex items-center space-x-2 p-3 font-light text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-[#1F1E35]">
                     <RiUser3Line className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
                     <span>{ user.name }</span>
+                  </a>
+                </Link>
+                <Link href="/">
+                  <a className="inline-flex items-center space-x-2 p-3 font-light text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-[#1F1E35]">
+                    <RiSettingsLine className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
+                    <span>Settings</span>
                   </a>
                 </Link>
                 <button

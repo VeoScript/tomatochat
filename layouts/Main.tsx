@@ -1,10 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
+import SearchPeople from '../components/Search/SearchPeople'
 import UserMenu from '../components/Menus/UserMenu'
 import Rooms from '../layouts/Panels/Rooms'
 import Profile from '../components/Images/Profile'
 import { Toaster } from 'react-hot-toast'
-import { RiSearchLine, RiNotification4Line } from 'react-icons/ri'
+import { RiNotification4Line } from 'react-icons/ri'
 
 interface IProps {
   user: any
@@ -23,14 +24,7 @@ const MainLayout: React.FC<IProps> = ({ user, children }) => {
           <a className="font-rubikglitch text-2xl text-white lowercase">tomatochat</a>
         </Link>
         <div className="inline-flex items-center space-x-5">
-          <span className="inline-flex items-center px-3 py-2 space-x-2 rounded-lg text-zinc-400 bg-[#201A2C] border border-transparent focus-within:border-purple-600">
-            <input
-              type="text"
-              className="outline-none bg-transparent text-sm"
-              placeholder="Search people"
-            />
-            <RiSearchLine className="w-4 h-4" />
-          </span>
+          <SearchPeople />
           <button 
             type="button"
             className="outline-none"
