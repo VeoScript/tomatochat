@@ -3,24 +3,25 @@ import React from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
 import MainLayout from '../../layouts/Main'
-import Chats from '../../layouts/Panels/Chats'
 import LoadingPage from '../../layouts/Loading'
 import ErrorPage from '../../layouts/Error'
 import { useSession } from 'next-auth/react'
-import { useGetUser } from '../../lib/ReactQuery'
+import { useGetUser, useGetProfile } from '../../lib/ReactQuery'
 import prisma from '../../lib/Prisma'
 
 interface IProps {
   params: any
 }
 
-const RoomSlug: NextPage<IProps> = ({ params }) => {
+const UserID: NextPage<IProps> = ({ params }) => {
 
   const { data: session, status } = useSession()
 
   const email = session ? session.user?.email : ''
+  const userId = params?.id
 
-  const { data: user, isLoading, isError } = useGetUser(email as string)
+  const { data: user, isLoading: userLoading, isError: userError } = useGetUser(email as string)
+  const { data: profile, isLoading: profileLoading, isError: profileError } = useGetProfile(userId as string)
 
   if (status === 'unauthenticated') {
     Router.replace('/login')
@@ -29,13 +30,13 @@ const RoomSlug: NextPage<IProps> = ({ params }) => {
     )
   }
 
-  if (status === 'loading' || isLoading) {
+  if (status === 'loading' || userLoading || profileLoading) {
     return (
       <LoadingPage />
     )
   }
 
-  if (isError) {
+  if (userError || profileError) {
     return (
       <ErrorPage
         errorType={'Error'}
@@ -47,10 +48,10 @@ const RoomSlug: NextPage<IProps> = ({ params }) => {
   return (
     <React.Fragment>
       <Head>
-        <title>TomatoChat</title>
+        <title>{ profile.name }</title>
       </Head>
       <MainLayout user={user}>
-        <Chats user={user} room={params} />
+        {profile.name}
       </MainLayout>
     </React.Fragment>
   )
@@ -66,19 +67,19 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const rooms = await prisma.room.findMany({
+  const users = await prisma.user.findMany({
     select: {
-      slug: true
+      id: true
     }
   })
   return {
-    paths: rooms.map((room: { slug: string }) => ({
+    paths: users.map((user: { id: string }) => ({
       params: {
-        slug: room.slug
+        id: user.id
       }
     })),
     fallback: false
   }
 }
 
-export default RoomSlug
+export default UserID

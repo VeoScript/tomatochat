@@ -32,6 +32,7 @@ const SearchPeople = () => {
           type="text"
           className="w-full outline-none bg-transparent text-sm"
           placeholder="Search people"
+          value={searchTerm}
           onChange={handleChange}
         />
         <RiSearchLine className="w-4 h-4" />
@@ -43,6 +44,7 @@ const SearchPeople = () => {
             type="button"
             onClick={() => {
               setIsDisplay(false)
+              setSearchTerm('')
             }} 
           />
           <div className="absolute top-16 z-20 w-[20rem]">
@@ -63,9 +65,15 @@ const SearchPeople = () => {
                 {searchResults?.map(( user: {id: string, name: string, image: string, username: string}, i: number ) => (
                   <Link
                     key={i}
-                    href={user.id}
+                    href={`/profile/${user.id}`}
                   >
-                    <a className="inline-flex items-center space-x-2 p-2 font-light text-sm text-left cursor-pointer transition ease-in-out duration-200 hover:bg-[#1F1E35]">
+                    <a
+                      className="inline-flex items-center space-x-2 p-2 font-light text-sm text-left cursor-pointer transition ease-in-out duration-200 hover:bg-[#1F1E35]"
+                      onClick={() => {
+                        setIsDisplay(false)
+                        setSearchTerm('')
+                      }}
+                    >
                       <RoomImage src={ user.image } />
                       <div className="flex flex-col space-y-2">
                         <span className="font-normal">{ user.name }</span>
