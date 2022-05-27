@@ -37,9 +37,28 @@ export function useGetUser(email: string) {
   )
 }
 
+// QUERY FOR GETTING THE PROFILE DETAILS OF SPECIFIC USER (FIND-FIRST)
+export function useGetProfile(userId: string) {
+  return useQuery('userprofile', 
+    async () => {
+      const profile = fetch(`/api/modules/read/userprofile`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId })
+      })
+      return (await profile).json()
+    },
+    {
+      refetchInterval: 1000
+    }
+  )
+}
+
 // QUERY FOR GETTING THE RESULTS OF SEARCH PEOPLE
 export function useGetSearchPeople(searchTerm: string) {
-  return useQuery('searchPeople', 
+  return useQuery('searchpeople', 
     async () => {
       const search = fetch(`/api/modules/read/search/people`, {
         method: 'POST',
