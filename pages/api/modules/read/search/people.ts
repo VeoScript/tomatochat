@@ -8,8 +8,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
     },
     where: {
       name: {
-        contains: `${req.body.searchTerm}`,
-        mode: 'insensitive'
+        contains: `${req.body.searchTerm}`
       }
     },
     select: {
