@@ -3,11 +3,13 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 model Account {
@@ -28,6 +30,7 @@ model Account {
   user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -36,6 +39,8 @@ model Session {
   userId                          String
   expires                         DateTime
   user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
 }
 
 model User {
@@ -68,13 +73,15 @@ model Room {
   name                            String                @unique
   slug                            String                @unique
   privacy                         String
-  description                     String
+  description                     String                @db.Text
   password                        String?
   date                            String
   joinedroom                      JoinedRoom[]
   chats                           Chat[]
   user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                          String
+  
+  @@index([userId])
 }
 
 model JoinedRoom {
@@ -94,18 +101,22 @@ model JoinedRoom {
   roomSlug                        String
   user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                          String
+  
+  @@index([roomSlug, userId])
 }
 
 model Chat {
   id                              String                @id @default(cuid())
   index                           Int                   @unique @default(autoincrement())
   chattype                        ChatType              @default(NORMAL)
-  message                         String
+  message                         String                @db.Text
   date                            String
   room                            Room                  @relation(fields: [roomSlug], references: [slug], onDelete: Cascade)
   roomSlug                        String
   user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                          String
+  
+  @@index([roomSlug, userId])
 }
 
 enum Role {
