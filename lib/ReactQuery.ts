@@ -94,6 +94,25 @@ export function useGetSearchDiscover(searchTerm: string) {
   )
 }
 
+// QUERY FOR GETTING THE RESULTS OF SEARCH INBOX ROOM
+export function useGetSearchInbox(searchTerm: string, userId: string) {
+  return useQuery('searchinbox', 
+    async () => {
+      const search = fetch(`/api/modules/read/search/inbox`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ searchTerm, userId})
+      })
+      return (await search).json()
+    },
+    {
+      enabled: !!searchTerm
+    }
+  )
+}
+
 // QUERY FOR GETTING ALL THE ROOMS FROM THE DATABASE (FIND-MANY)
 export function useGetRooms() {
   return useInfiniteQuery('rooms', 
