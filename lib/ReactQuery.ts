@@ -75,6 +75,25 @@ export function useGetSearchPeople(searchTerm: string) {
   )
 }
 
+// QUERY FOR GETTING THE RESULTS OF SEARCH DISCOVER ROOM
+export function useGetSearchDiscover(searchTerm: string) {
+  return useQuery('searchdiscover', 
+    async () => {
+      const search = fetch(`/api/modules/read/search/discover`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ searchTerm })
+      })
+      return (await search).json()
+    },
+    {
+      enabled: !!searchTerm
+    }
+  )
+}
+
 // QUERY FOR GETTING ALL THE ROOMS FROM THE DATABASE (FIND-MANY)
 export function useGetRooms() {
   return useInfiniteQuery('rooms', 
