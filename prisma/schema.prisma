@@ -91,7 +91,7 @@ model JoinedRoom {
   role                            Role                  @default(USER)
   date                            String
   seen                            Boolean               @default(false)
-  lastChat                        String?
+  lastChat                        String?               @db.LongText
   lastChatType                    ChatType              @default(NORMAL)
   lastSentUserId                  String?
   lastSentUserImage               String?
@@ -109,7 +109,7 @@ model Chat {
   id                              String                @id @default(cuid())
   index                           Int                   @unique @default(autoincrement())
   chattype                        ChatType              @default(NORMAL)
-  message                         String                @db.Text
+  message                         String                @db.LongText
   date                            String
   room                            Room                  @relation(fields: [roomSlug], references: [slug], onDelete: Cascade)
   roomSlug                        String
