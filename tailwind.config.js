@@ -12,11 +12,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'tomato-white': '#FFFFFF',
-        'tomato-dark': '#120E18',
-        'tomato-cerulean': '#3F86C7',
-        'tomato-purple': '#4D38A2',
-        'tomato-scarlet': '#FF4848'
+        'tomato-white': '#F7F7FB',
+        'tomato-lavender': '#786A9F',
+        'tomato-lavender-light': '#D4C7ED'
       },
       fontFamily: {
         rowdies: ['Rowdies'],

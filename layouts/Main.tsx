@@ -21,7 +21,7 @@ const MainLayout: React.FC<IProps> = ({ user, children }) => {
       />
       <div className="inline-flex items-center justify-between w-full p-5 border-b border-zinc-300 dark:border-[#1F1836]">
         <Link href="/">
-          <a className="font-rubikglitch text-2xl text-zinc-800 dark:text-white lowercase">tomatochat</a>
+          <a className="font-rubikglitch text-2xl text-tomato-lavender dark:text-white lowercase">tomatochat</a>
         </Link>
         <div className="inline-flex items-center space-x-5">
           <SearchPeople />

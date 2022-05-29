@@ -86,7 +86,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                         <div
                           className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]"
                         >
-                          <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
+                          <div className="flex items-start w-full max-w-[4rem] h-full max-h-[3.5rem]">
                             {room.photo
                               ? <RoomImage src={room.photo} />
                               : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#201A2C]">
@@ -100,7 +100,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                                 <h3 className="font-light text-sm">{ room.name }</h3>
                                 {room.privacy === 'Private' && <RiLockFill className="w-3 h-3 text-purple-500" />}
                               </span>
-                              <h3 className="font-light text-xs text-zinc-500">{ room.description }</h3>
+                              <h3 className="font-light text-xs text-zinc-500 line-clamp-5">{ room.description }</h3>
                             </div>
                             <div className="inline-flex justify-end w-full max-w-xs space-x-3">
                               <button
@@ -153,7 +153,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                 {rooms && rooms.pages[0].rooms.length === 0 && (
                   <div className="inline-flex items-center justify-center w-full max-w-full h-full">
                     <div className="flex flex-col">
-                      <h1 className="font-rubikglitch text-3xl text-zinc-800 dark:text-white lowercase">tomatochat</h1>
+                      <h1 className="font-rubikglitch text-3xl text-tomato-lavender dark:text-white lowercase">tomatochat</h1>
                       <h3 className="text-sm text-zinc-500">Welcome to TomatoChat. Discover the world of simplicity.</h3>
                     </div>
                   </div>
@@ -178,7 +178,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                             <div
                               className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]"
                             >
-                              <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
+                              <div className="flex items-start w-full max-w-[4rem] h-full max-h-[3.5rem]">
                                 {room.photo
                                   ? <RoomImage src={room.photo} />
                                   : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#201A2C]">
@@ -192,7 +192,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                                     <h3 className="font-light text-sm">{ room.name }</h3>
                                     {room.privacy === 'Private' && <RiLockFill className="w-3 h-3 text-purple-500" />}
                                   </span>
-                                  <h3 className="font-light text-xs text-zinc-500">{ room.description }</h3>
+                                  <h3 className="font-light text-xs text-zinc-500 line-clamp-5">{ room.description }</h3>
                                 </div>
                                 <div className="inline-flex justify-end w-full max-w-xs space-x-3">
                                   <button
