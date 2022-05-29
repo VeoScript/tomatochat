@@ -2,7 +2,6 @@ import type { GetStaticPaths, GetStaticProps, GetStaticPropsContext, NextPage } 
 import React from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
-import SEO from '../../components/SEO'
 import MainLayout from '../../layouts/Main'
 import Chats from '../../layouts/Panels/Chats'
 import LoadingPage from '../../layouts/Loading'
@@ -27,13 +26,13 @@ const RoomSlug: NextPage<IProps> = ({ params, room }) => {
   if (status === 'unauthenticated') {
     Router.replace('/login')
     return (
-      <LoadingPage />
+      <LoadingPage room={room} />
     )
   }
 
   if (status === 'loading' || isLoading) {
     return (
-      <LoadingPage />
+      <LoadingPage room={room} />
     )
   }
 
@@ -50,12 +49,6 @@ const RoomSlug: NextPage<IProps> = ({ params, room }) => {
     <React.Fragment>
       <Head>
         <title>TomatoChat - {room.name}</title>
-        <SEO
-          title={`TomatoChat - ${room.name}`}
-          description={room.description}
-          image={room.photo}
-          url={`https://tomatochat.vercel.app/${room.slug}`}
-        />
       </Head>
       <MainLayout user={user}>
         <Chats user={user} room={params} />

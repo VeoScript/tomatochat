@@ -2,7 +2,6 @@ import type { NextPage, GetServerSideProps, GetServerSidePropsContext } from 'ne
 import { Fragment } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import SEO from '../components/SEO'
 import StaticLayout from '../layouts/Static'
 import LoadingPage from '../layouts/Loading'
 import AuthenticationError from '../components/AuthenticationError'
@@ -31,12 +30,6 @@ const Login: NextPage<IProps> = ({ providers }) => {
     <Fragment>
       <Head>
         <title>TomatoChat (Login)</title>
-        <SEO
-          title="TomatoChat (Login)"
-          description="The Aesthetic Messenger"
-          image="https://i.ibb.co/3yrC1WK/tomatochat.png"
-          url="https://tomatochat.vercel.app/"
-        />
       </Head>
       <StaticLayout>
         {error && (
