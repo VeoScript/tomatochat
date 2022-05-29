@@ -153,7 +153,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                 {rooms && rooms.pages[0].rooms.length === 0 && (
                   <div className="inline-flex items-center justify-center w-full max-w-full h-full">
                     <div className="flex flex-col">
-                      <h1 className="font-rubikglitch text-3xl text-zinc-800 dark:text-white lowercase">tomatochat</h1>
+                      <h1 className="font-rubikglitch text-3xl text-tomato-lavender dark:text-white lowercase">tomatochat</h1>
                       <h3 className="text-sm text-zinc-500">Welcome to TomatoChat. Discover the world of simplicity.</h3>
                     </div>
                   </div>

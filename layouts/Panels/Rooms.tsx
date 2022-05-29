@@ -7,7 +7,7 @@ import RoomImage from '../../components/Images/RoomImage'
 import CreateRoom from '../../components/Modals/Body/CreateRoom'
 import { useInView } from 'react-intersection-observer'
 import { useGetJoinedRooms, useGetSearchInbox, useSeenChatMutation } from '../../lib/ReactQuery'
-import { RiHome5Line, RiCompass3Line, RiSpyFill, RiChat3Line, RiEmotionSadLine, RiLockFill, RiChatHeartFill } from 'react-icons/ri'
+import { RiHome5Line, RiCompass3Line, RiSpyFill, RiChat3Line, RiEmotionSadLine, RiLockFill, RiBubbleChartFill } from 'react-icons/ri'
 
 interface IProps {
   user: any
@@ -150,7 +150,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                       </div>
                       {joined_room.seen === false && (
                         <span className="inline-flex items-center h-full pl-3">
-                          <RiChatHeartFill className="w-5 h-5 text-purple-400" />
+                          <RiBubbleChartFill className="w-5 h-5 text-purple-400" />
                         </span>
                       )}
                     </button>
@@ -255,7 +255,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                           </div>
                           {joined_room.seen === false && (
                             <span className="inline-flex items-center h-full pl-3">
-                              <RiChatHeartFill className="w-5 h-5 text-purple-400" />
+                              <RiBubbleChartFill className="w-5 h-5 text-purple-400" />
                             </span>
                           )}
                         </button>

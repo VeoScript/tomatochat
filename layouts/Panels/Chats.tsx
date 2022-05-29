@@ -162,7 +162,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
               </div>
               <div className="block">
                 <h3 className="font-light text-base">{ getRoom.name }</h3>
-                <h3 className="font-light text-xs text-zinc-500">{ getRoom.description }</h3>
+                <h3 className="font-normal text-xs text-zinc-500">{ getRoom.description }</h3>
               </div>
             </span>
           </div>
@@ -201,7 +201,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                 </div>
                 <div className="block">
                   <h3 className="font-light text-base">{ getRoom.name }</h3>
-                  <h3 className="font-light text-xs text-[#CDA0F5]">{ getRoom.description }</h3>
+                  <h3 className="font-normal text-xs text-[#CDA0F5]">{ getRoom.description }</h3>
                 </div>
               </span>
               <div className="relative">

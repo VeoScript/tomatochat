@@ -6,7 +6,7 @@ import CustomToaster from '../../CustomToaster'
 import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
 import { useDeleteRoom } from '../../../lib/ReactQuery'
-import { RiDeleteBin6Fill } from 'react-icons/ri'
+import { RiDeleteBin6Line } from 'react-icons/ri'
 
 interface IProps {
   room: any
@@ -66,8 +66,8 @@ const DeleteRoom: React.FC<IProps> = ({ room }) => {
       className="outline-none flex w-full"
       maxWidth="max-w-md"
       button={
-       <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer hover:bg-red-200 dark:hover:bg-red-700 text-purewhite transition ease-in-out duration-200">
-         <RiDeleteBin6Fill className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
+       <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer hover:bg-tomato-lavender-light dark:hover:bg-red-700 text-purewhite transition ease-in-out duration-200">
+         <RiDeleteBin6Line className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
           <span>Delete Room</span>
        </div>
       } 
