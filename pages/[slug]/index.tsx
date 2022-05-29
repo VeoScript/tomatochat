@@ -2,6 +2,7 @@ import type { GetStaticPaths, GetStaticProps, GetStaticPropsContext, NextPage } 
 import React from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
+import SEO from '../../components/SEO'
 import MainLayout from '../../layouts/Main'
 import Chats from '../../layouts/Panels/Chats'
 import LoadingPage from '../../layouts/Loading'
@@ -12,9 +13,10 @@ import prisma from '../../lib/Prisma'
 
 interface IProps {
   params: any
+  room: any
 }
 
-const RoomSlug: NextPage<IProps> = ({ params }) => {
+const RoomSlug: NextPage<IProps> = ({ params, room }) => {
 
   const { data: session, status } = useSession()
 
@@ -47,7 +49,13 @@ const RoomSlug: NextPage<IProps> = ({ params }) => {
   return (
     <React.Fragment>
       <Head>
-        <title>TomatoChat</title>
+        <title>TomatoChat - {room.name}</title>
+        <SEO
+          title={`TomatoChat - ${room.name}`}
+          description={room.description}
+          image={room.photo}
+          url={`https://tomatochat.vercel.app/${room.slug}`}
+        />
       </Head>
       <MainLayout user={user}>
         <Chats user={user} room={params} />
@@ -58,9 +66,25 @@ const RoomSlug: NextPage<IProps> = ({ params }) => {
 
 export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext) => {
   const { params } = ctx
+  const room = await prisma.room.findFirst({
+    where: {
+      slug: String(params?.slug),
+    },
+    select: {
+      id: true,
+      index: true,
+      photo: true,
+      name: true,
+      description: true,
+      privacy: true,
+      slug: true,
+      userId: true
+    }
+  })
   return {
     props: {
-      params
+      params,
+      room
     }
   }
 }

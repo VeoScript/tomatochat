@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import React from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
+import SEO from '../components/SEO'
 import MainLayout from '../layouts/Main'
 import DiscoverPanel from '../layouts/Panels/Discover'
 import LoadingPage from '../layouts/Loading'
@@ -43,6 +44,12 @@ const Discover: NextPage = () => {
     <React.Fragment>
       <Head>
         <title>TomatoChat (Discover)</title>
+        <SEO
+          title="TomatoChat (Discover)"
+          description="The Aesthetic Messenger"
+          image="https://i.ibb.co/3yrC1WK/tomatochat.png"
+          url="https://tomatochat.vercel.app/"
+        />
       </Head>
       <MainLayout user={user}>
         <DiscoverPanel user={user} />
