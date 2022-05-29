@@ -228,7 +228,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                 {!chatsLoading && (
                   <React.Fragment>
                     {/* display the seen feature if the chat type is NORMAL */}
-                    {getLastChat.chattype === 'NORMAL' && (
+                    {getLastChat && getLastChat.chattype === 'NORMAL' && (
                       <div className="inline-flex w-full pl-10">
                         {getLastChat.user.id === userId && (
                           <div className="inline-flex items-center justify-end w-full space-x-1">

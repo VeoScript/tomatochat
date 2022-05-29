@@ -29,7 +29,7 @@ const DeleteRoom: React.FC<IProps> = ({ room }) => {
   }
 
   const onDeleteRoom = async () => {
-    await deleteRoom.mutate({
+    await deleteRoom.mutateAsync({
       roomId: String(room.id)
     }, 
     {

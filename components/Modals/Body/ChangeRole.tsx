@@ -48,12 +48,12 @@ const ChangeRole: React.FC<IProps> = ({ room, role, memberUserId, loggedInUserId
     const role = formData.role
     const chatbox = `Admin change the role of ${getJoinedRoom.user.name} to ${role}.`
 
-    await changeRole.mutate({
+    await changeRole.mutateAsync({
       joinedRoomId: String(getJoinedRoom.id),
       role: String(role)
     }, 
     {
-      onError() {
+      onError: async () => {
         toast.custom((trigger) => (
           <CustomToaster
             toast={toast}
@@ -63,9 +63,9 @@ const ChangeRole: React.FC<IProps> = ({ room, role, memberUserId, loggedInUserId
           />
         ))
       },
-      onSuccess() {
+      onSuccess: async () => {
         // send chat when the admin change the role of selected member
-        sendChatJoinMutation.mutate({
+        await sendChatJoinMutation.mutateAsync({
           chatbox: String(chatbox),
           userId: String(loggedInUserId),
           roomSlug: String(getJoinedRoom.roomSlug)

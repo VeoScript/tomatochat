@@ -100,6 +100,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
   }
 
   const onCreateRoom = async (formData: FormData) => {
+    console.log(formData)
     try {
       let photo
       const name = formData.name
@@ -147,7 +148,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
       }
 
       // calling create_room_mutation (for insert chat to the database)
-      await createRoomMutation.mutate({
+      await createRoomMutation.mutateAsync({
         photo: String(photo === undefined ? '' : photo),
         name: String(name),
         privacy: String(privacy),
@@ -157,7 +158,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
         userId: String(userId)
       }, 
       {
-        onError(error: any) {
+        onError: async (error: any) => {
           toast.custom((trigger) => (
             <CustomToaster
               toast={toast}
@@ -167,15 +168,15 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
             />
           ))
         },
-        onSuccess() {
+        onSuccess: async () => {
           // send chat after user created the room.
-          sendChatJoinMutation.mutate({
+          await sendChatJoinMutation.mutateAsync({
             chatbox: String(chatbox),
             userId: String(user.id),
             roomSlug: String(uuidSlug)
           })
           // send last chat after user created the room
-          lastChat.mutate({
+          await lastChat.mutateAsync({
             roomSlug: uuidSlug,
             lastChat: chatbox,
             lastChatType: 'JOIN',

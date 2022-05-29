@@ -25,19 +25,19 @@ const Private: React.FC<IProps> = ({ user, slug, name, description }) => {
 
   const chatbox = `${user.name} join the room.`
 
-  const { handleSubmit, register, reset, formState: { isSubmitting } } = useForm<FormData>()
+  const { handleSubmit, register, reset, formState: { isSubmitting, isSubmitSuccessful } } = useForm<FormData>()
 
   const onJoinPrivate = async (formData: FormData) => {
     const passcode = formData.passcode
     
     // join private room function
-    await joinPrivateRoomMutation.mutate({
+    await joinPrivateRoomMutation.mutateAsync({
       slug: String(slug),
       userId: String(user.id),
       passcode: String(passcode)
     },
     {
-      onError(error: any) {
+      onError: async (error: any) => {
         toast.custom((trigger) => (
           <CustomToaster
             toast={toast}
@@ -47,15 +47,15 @@ const Private: React.FC<IProps> = ({ user, slug, name, description }) => {
           />
         ))
       },
-      onSuccess() {
+      onSuccess: async () => {
         // send chat that the user is joined the room
-        sendChatJoinMutation.mutate({
+        await sendChatJoinMutation.mutateAsync({
           chatbox: String(chatbox),
           userId: String(user.id),
           roomSlug: String(slug)
         })
         // send last chat after user leave the room
-        lastChat.mutate({
+        await lastChat.mutateAsync({
           roomSlug: String(slug),
           lastChat: String(chatbox),
           lastChatType: 'JOIN',
@@ -82,17 +82,18 @@ const Private: React.FC<IProps> = ({ user, slug, name, description }) => {
                 type="password"
                 className="w-full outline-none bg-transparent text-sm"
                 placeholder="Enter Room Passcode"
+                disabled={isSubmitting}
                 {...register('passcode', { required: true })}
               />
               <RiKey2Line className="w-6 h-6" />
             </span>
-            {isSubmitting && (
-              <div className="cursor-wait outline-none inline-flex items-center justify-center w-full space-x-2 px-2 py-3 rounded-md bg-purple-800 bg-opacity-80">
+            {(isSubmitting || isSubmitSuccessful) && (
+              <div className="cursor-wait outline-none inline-flex items-center justify-center w-full space-x-2 px-2 py-3 rounded-md text-white bg-purple-800 bg-opacity-80">
                 <Spinner width={20} height={20} color={'#FFFFFF'} />
                 <span>Joining...</span>
               </div>
             )}
-            {!isSubmitting && (
+            {!(isSubmitting || isSubmitSuccessful) && (
               <button
                 title="Join"
                 type="submit"
