@@ -46,11 +46,11 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
   const onLeave = async () => {
     const chatbox = `${getJoinedRoom.userName} left the room.`
 
-    await leaveUser.mutate({
+    await leaveUser.mutateAsync({
       joinedRoomId: String(getJoinedRoom.id)
     }, 
     {
-      onError() {
+      onError: async () => {
         toast.custom((trigger) => (
           <CustomToaster
             toast={toast}
@@ -60,15 +60,15 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
           />
         ))
       },
-      onSuccess() {
+      onSuccess: async () => {
         // send chat when the user is leave the room
-        sendChatJoinMutation.mutate({
+        await sendChatJoinMutation.mutateAsync({
           chatbox: String(chatbox),
           userId: String(getJoinedRoom.userId),
           roomSlug: String(room.slug)
         })
         // send last chat after user leave the room
-        lastChat.mutate({
+        await lastChat.mutateAsync({
           roomSlug: String(room.slug),
           lastChat: String(chatbox),
           lastChatType: 'JOIN',
@@ -98,7 +98,7 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
       className="outline-none flex w-full"
       maxWidth="max-w-md"
       button={
-       <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer hover:bg-red-200 dark:hover:bg-red-600 text-purewhite transition ease-in-out duration-200">
+       <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer hover:bg-tomato-lavender-light dark:hover:bg-red-600 text-purewhite transition ease-in-out duration-200">
          <RiLogoutBoxLine className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
           <span>Leave Room</span>
        </div>

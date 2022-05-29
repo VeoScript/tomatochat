@@ -34,11 +34,11 @@ const DeleteChat: React.FC<IProps> = ({ user, chatId, roomSlug }) => {
   const onDeleteChat = async () => {
     const chatbox = `${user.name} removed one of its chat.`
 
-    deleteChat.mutate({
+    deleteChat.mutateAsync({
       chatId: String(chatId)
     },
     {
-      onError(err) {
+      onError: async (err) => {
         toast.custom((trigger) => (
           <CustomToaster
             toast={toast}
@@ -48,14 +48,14 @@ const DeleteChat: React.FC<IProps> = ({ user, chatId, roomSlug }) => {
           />
         ))
       },
-      onSuccess() {
-        sendChatJoinMutation.mutate({
+      onSuccess: async () => {
+        await sendChatJoinMutation.mutateAsync({
           chatbox: String(chatbox),
           userId: String(user.id),
           roomSlug: String(roomSlug)
         })
         // send last chat after user delete their chat
-        lastChat.mutate({
+        await lastChat.mutateAsync({
           roomSlug: String(roomSlug),
           lastChat: String(chatbox),
           lastChatType: 'JOIN',

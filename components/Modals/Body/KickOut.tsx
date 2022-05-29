@@ -36,12 +36,12 @@ const KickOut: React.FC<IProps> = ({ room, memberUserId, loggedInUserId }) => {
   const onKickOut = async () => {
     const chatbox = `${getJoinedRoom.user.name} was kicked out by the admin.`
 
-    await kickOutUser.mutate({
+    await kickOutUser.mutateAsync({
       joinedRoomId: String(getJoinedRoom.id),
       userId: String(memberUserId)
     }, 
     {
-      onError() {
+      onError: async () => {
         toast.custom((trigger) => (
           <CustomToaster
             toast={toast}
@@ -51,15 +51,15 @@ const KickOut: React.FC<IProps> = ({ room, memberUserId, loggedInUserId }) => {
           />
         ))
       },
-      onSuccess() {
+      onSuccess: async () => {
         // send chat when the admin kicked-out the selected member
-        sendChatJoinMutation.mutate({
+        await sendChatJoinMutation.mutateAsync({
           chatbox: String(chatbox),
           userId: String(loggedInUserId),
           roomSlug: String(getJoinedRoom.roomSlug)
         })
         // send last chat after user leave the room
-        lastChat.mutate({
+        await lastChat.mutateAsync({
           roomSlug: String(getJoinedRoom.roomSlug),
           lastChat: String(chatbox),
           lastChatType: 'JOIN',
