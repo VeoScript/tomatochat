@@ -3,7 +3,7 @@ import Spinner from '../../utils/Spinner'
 import MemberMenu from '../../components/Menus/MemberMenu'
 import MemberImage from '../../components/Images/MemberImage'
 import { useGetMembers } from '../../lib/ReactQuery'
-import { RiMore2Fill, RiEmotionSadLine } from 'react-icons/ri'
+import { RiCheckboxBlankCircleFill, RiMore2Fill, RiEmotionSadLine } from 'react-icons/ri'
 
 interface IProps {
   userId: string
@@ -60,63 +60,81 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
       <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
         <div className="flex flex-col w-full px-2 space-y-2">
           {checkUserMembers !== undefined && <h3 className="font-semibold text-xs text-zinc-500 px-3 uppercase">Members</h3> }
-          {members.map((member: { id: string, index: string, role: string, user: any }, i: number) => (
-            <React.Fragment key={i}>
-              {member.role === 'USER' && (
-                <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]">
-                  <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
-                    <MemberImage src={member.user.image} />
-                  </div>
-                  <div className="inline-flex items-center justify-between w-full">
-                    <div className="block w-full max-w-xs space-y-1">
-                      <h3 className="font-light text-sm">{ member.user.name }</h3>
-                      <h3 className="font-light text-xs text-zinc-500">{ member.user.email }</h3>
+          {members.map((member: { id: string, index: string, role: string, user: any }, i: number) => {
+            //check if the normal participants are online
+            const onlineUsers = member.user.sessions.some((online: { userId: string }) => online.userId === member.user.id)
+            return (
+              <React.Fragment key={i}>
+                {member.role === 'USER' && (
+                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]">
+                    <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
+                      <MemberImage src={member.user.image} />
                     </div>
-                    <div className="relative inline-flex justify-end w-full max-w-xs space-x-3">
-                      <MemberMenu
-                        title={'More'}
-                        room={members}
-                        role={checkRole && checkRole.role}
-                        memberUserId={member.user.id}
-                        loggedInUserId={userId}
-                      >
-                        <RiMore2Fill className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-                      </MemberMenu>
+                    <div className="inline-flex items-center justify-between w-full">
+                      <div className="block w-full max-w-xs space-y-1">
+                        <div className="inline-flex items-center justify-start space-x-2">
+                          <h3 className="font-light text-sm">{ member.user.name }</h3>
+                          {onlineUsers && (
+                            <RiCheckboxBlankCircleFill className="w-2 h-2 text-green-400"/>
+                          )}
+                        </div>
+                        <h3 className="font-light text-xs text-zinc-500">{ member.user.email }</h3>
+                      </div>
+                      <div className="relative inline-flex justify-end w-full max-w-xs space-x-3">
+                        <MemberMenu
+                          title={'More'}
+                          room={members}
+                          role={checkRole && checkRole.role}
+                          memberUserId={member.user.id}
+                          loggedInUserId={userId}
+                        >
+                          <RiMore2Fill className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
+                        </MemberMenu>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </React.Fragment>
-          ))}
+                )}
+              </React.Fragment>
+            )
+          })}
           {checkAdminMembers !== undefined && <h3 className="font-semibold text-xs text-zinc-500 px-3 uppercase">Admins</h3> }
-          {members.map((member: { id: string, index: string, role: string, user: any }, i: number) => (
-            <React.Fragment key={i}>
-              {member.role === 'ADMIN' && (
-                <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]">
-                  <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
-                    <MemberImage src={member.user.image} />
-                  </div>
-                  <div className="inline-flex items-center justify-between w-full space-x-3">
-                    <div className="block w-full max-w-xs space-y-1">
-                      <h3 className="font-light text-sm">{ member.user.name }</h3>
-                      <h3 className="font-light text-xs text-zinc-500">{ member.user.email }</h3>
+          {members.map((member: { id: string, index: string, role: string, user: any }, i: number) => {
+            //check if the admin participants are online
+            const onlineUsers = member.user.sessions.some((online: { userId: string }) => online.userId === member.user.id)
+            return (
+              <React.Fragment key={i}>
+                {member.role === 'ADMIN' && (
+                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]">
+                    <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
+                      <MemberImage src={member.user.image} />
                     </div>
-                    <div className="relative inline-flex justify-end w-full max-w-xs space-x-3">
-                      <MemberMenu
-                        title="More"
-                        room={members}
-                        role={checkRole && checkRole.role} 
-                        memberUserId={member.user.id}
-                        loggedInUserId={userId}
-                      >
-                        <RiMore2Fill className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-                      </MemberMenu>
+                    <div className="inline-flex items-center justify-between w-full space-x-3">
+                      <div className="block w-full max-w-xs space-y-1">
+                        <div className="inline-flex items-center space-x-2">
+                          <h3 className="font-light text-sm">{ member.user.name }</h3>
+                          {onlineUsers && (
+                            <RiCheckboxBlankCircleFill className="w-2 h-2 text-green-400"/>
+                          )}
+                        </div>
+                        <h3 className="font-light text-xs text-zinc-500">{ member.user.email }</h3>
+                      </div>
+                      <div className="relative inline-flex justify-end w-full max-w-xs space-x-3">
+                        <MemberMenu
+                          title="More"
+                          room={members}
+                          role={checkRole && checkRole.role} 
+                          memberUserId={member.user.id}
+                          loggedInUserId={userId}
+                        >
+                          <RiMore2Fill className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
+                        </MemberMenu>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </React.Fragment>
-          ))}
+                )}
+              </React.Fragment>
+            )
+          })}
         </div>
       </div>
     </div>
