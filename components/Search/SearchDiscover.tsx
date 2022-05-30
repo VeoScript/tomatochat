@@ -19,7 +19,7 @@ const SearchDiscover: React.FC<IProps> = ({ searchTerm, setSearchTerm, setIsDisp
   }
 
   return (
-    <span className="inline-flex items-center w-[23rem] px-3 py-2 z-20 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
+    <span className="inline-flex items-center w-[23rem] px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
       <input
         type="text"
         className="w-full outline-none bg-transparent text-sm"
