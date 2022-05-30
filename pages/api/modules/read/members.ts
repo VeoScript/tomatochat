@@ -23,7 +23,13 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
           image: true,
           name: true,
           username: true,
-          email: true
+          email: true,
+          sessions: {
+            select: {
+              id: true,
+              userId: true
+            }
+          }
         }
       }
     }
