@@ -29,6 +29,8 @@ const Private: React.FC<IProps> = ({ user, slug, name, description }) => {
 
   const onJoinPrivate = async (formData: FormData) => {
     const passcode = formData.passcode
+
+    reset()
     
     // join private room function
     await joinPrivateRoomMutation.mutateAsync({
@@ -65,8 +67,6 @@ const Private: React.FC<IProps> = ({ user, slug, name, description }) => {
         })
       }
     })
-
-    reset()
   }
 
   return (
@@ -82,7 +82,7 @@ const Private: React.FC<IProps> = ({ user, slug, name, description }) => {
                 type="password"
                 className="w-full outline-none bg-transparent text-sm"
                 placeholder="Enter Room Passcode"
-                disabled={isSubmitting}
+                disabled={isSubmitSuccessful}
                 {...register('passcode', { required: true })}
               />
               <RiKey2Line className="w-6 h-6" />
@@ -98,6 +98,7 @@ const Private: React.FC<IProps> = ({ user, slug, name, description }) => {
                 title="Join"
                 type="submit"
                 className="outline-none w-full px-2 py-3 rounded-md text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                disabled={isSubmitSuccessful}
               >
                 Join
               </button>

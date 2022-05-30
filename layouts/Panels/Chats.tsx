@@ -194,7 +194,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                 <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                   {getRoom.photo
                     ? <RoomImage src={getRoom.photo} />
-                    : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:[#201A2C]">
+                    : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#201A2C]">
                         <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
                       </div>
                   }
