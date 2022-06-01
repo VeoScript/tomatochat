@@ -3,6 +3,7 @@ import React from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
 import MainLayout from '../../layouts/Main'
+import Profile from '../../layouts/Panels/Profile'
 import LoadingPage from '../../layouts/Loading'
 import ErrorPage from '../../layouts/Error'
 import { useSession } from 'next-auth/react'
@@ -51,7 +52,7 @@ const UserID: NextPage<IProps> = ({ params }) => {
         <title>{ profile.name }</title>
       </Head>
       <MainLayout user={user}>
-        {profile.name}
+        <Profile profile={profile} />
       </MainLayout>
     </React.Fragment>
   )
