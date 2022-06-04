@@ -9,6 +9,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
     select: {
       id: true,
       image: true,
+      coverImage: true,
       name: true,
       email: true,
       username: true

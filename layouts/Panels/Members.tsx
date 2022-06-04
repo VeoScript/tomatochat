@@ -66,7 +66,7 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
             return (
               <React.Fragment key={i}>
                 {member.role === 'ADMIN' && (
-                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]">
+                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]">
                     <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                       <MemberImage src={member.user.image} />
                     </div>
@@ -104,7 +104,7 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
             return (
               <React.Fragment key={i}>
                 {member.role === 'USER' && (
-                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]">
+                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]">
                     <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                       <MemberImage src={member.user.image} />
                     </div>

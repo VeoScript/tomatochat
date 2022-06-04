@@ -30,7 +30,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
   
   return (
     <div className="flex flex-col w-full h-full overflow-hidden border-x border-zinc-300 dark:border-[#1F1836]">
-      <div className="inline-flex items-center justify-between w-full px-6 py-3 border-b border-zinc-300 dark:border-[#1F1836] bg-white dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]">
+      <div className="inline-flex items-center justify-between w-full px-6 py-3 border-b border-zinc-300 dark:border-[#1F1836] bg-zinc-100 dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]">
         <div className="block items-center w-full space-y-1 select-none">
           <h3 className="font-medium">Discover</h3>
           <p className="font-light text-xs">Join to start a conversation to everyone.</p>
@@ -84,7 +84,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                     <React.Fragment key={i}>
                       {!existRoom && (
                         <div
-                          className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]"
+                          className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]"
                         >
                           <div className="flex items-start w-full max-w-[4rem] h-full max-h-[3.5rem]">
                             {room.photo
@@ -176,7 +176,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                         <React.Fragment key={i}>
                           {!existRoom && (
                             <div
-                              className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]"
+                              className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]"
                             >
                               <div className="flex items-start w-full max-w-[4rem] h-full max-h-[3.5rem]">
                                 {room.photo

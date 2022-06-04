@@ -39,7 +39,7 @@ const Login: NextPage<IProps> = ({ providers }) => {
           {Object.values(providers).map((provider: any) => (
             <div className="flex justify-center w-full" key={provider.name}>
               <button
-                className={`flex items-center space-x-5 p-4 rounded-md w-[21rem] transition ease-in-out hover:bg-opacity-50 dark:hover:bg-opacity-90 ${provider.name === 'Google' && 'text-black bg-zinc-100 dark:bg-white'} ${provider.name === 'Facebook' && 'bg-blue-600 text-white'}`}
+                className={`flex items-center space-x-5 p-4 rounded-md w-[21rem] transition ease-in-out hover:bg-opacity-50 dark:hover:bg-opacity-90 ${provider.name === 'Google' && 'text-black bg-zinc-200 dark:bg-white'} ${provider.name === 'Facebook' && 'bg-blue-600 text-white'}`}
                 onClick={() => signIn(provider.id)}
               >
                 {provider.name === 'Google' && (

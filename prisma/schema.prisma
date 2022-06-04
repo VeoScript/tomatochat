@@ -43,6 +43,14 @@ model Session {
   @@index([userId])
 }
 
+model VerificationToken {
+  identifier                      String
+  token                           String                @unique
+  expires                         DateTime
+
+  @@unique([identifier, token])
+}
+
 model User {
   id                              String                @id @default(cuid())
   name                            String?
@@ -51,19 +59,32 @@ model User {
   email                           String?               @unique
   emailVerified                   DateTime?
   image                           String?
+  coverImage                      String?
+  facebook                        String?
+  instagram                       String?
+  linkedin                        String?
+  twitter                         String?
+  tiktok                          String?
+  youtube                         String?
   accounts                        Account[]
   sessions                        Session[]
+  hobbies                         Hobbies[]
   rooms                           Room[]
   chats                           Chat[]
   joinedrooms                     JoinedRoom[]
+  posts                           Post[]
+  likes                           Like[]
+  comments                        Comment[]
+  bookmarks                       Bookmark[]
 }
 
-model VerificationToken {
-  identifier                      String
-  token                           String                @unique
-  expires                         DateTime
-
-  @@unique([identifier, token])
+model Hobbies {
+  id                              String                @id @default(cuid())
+  name                            String
+  user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                          String
+  
+  @@index([userId])
 }
 
 model Room {
@@ -117,6 +138,73 @@ model Chat {
   userId                          String
   
   @@index([roomSlug, userId])
+}
+
+model Post {
+  id                              String                @id @default(cuid())
+  index                           Int                   @unique @default(autoincrement())
+  description                     String?               @db.LongText
+  createdAt                       DateTime              @default(now())
+  updatedAt                       DateTime              @default(now())
+  stories                         Story[]
+  likes                           Like[]
+  comments                        Comment[]
+  bookmarks                       Bookmark[]
+  user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                          String
+
+  @@index([userId])
+}
+
+model Story {
+  id                              String                @id @default(cuid())
+  index                           Int                   @unique @default(autoincrement())
+  createdAt                       DateTime              @default(now())
+  updatedAt                       DateTime              @default(now())
+  post                            Post                  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId                          String
+
+  @@index([postId])
+}
+
+model Like {
+  id                              String                @id @default(cuid())
+  index                           Int                   @unique @default(autoincrement())
+  createdAt                       DateTime              @default(now())
+  updatedAt                       DateTime              @default(now())
+  post                            Post                  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId                          String
+  user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                          String
+
+  @@index([postId, userId])
+}
+
+model Comment {
+  id                              String                @id @default(cuid())
+  index                           Int                   @unique @default(autoincrement())
+  mesesage                        String                @db.LongText
+  createdAt                       DateTime              @default(now())
+  updatedAt                       DateTime              @default(now())
+  post                            Post                  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId                          String
+  user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                          String
+
+  @@index([postId, userId])
+}
+
+model Bookmark {
+  id                              String                @id @default(cuid())
+  index                           Int                   @unique @default(autoincrement())
+  createdAt                       DateTime              @default(now())
+  updatedAt                       DateTime              @default(now())
+  post                            Post                  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId                          String
+  user                            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                          String
+
+  @@index([postId, userId])
 }
 
 enum Role {

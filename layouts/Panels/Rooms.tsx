@@ -103,7 +103,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                     <button
                       key={joined_room.index}
                       type="button"
-                      className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-zinc-100 dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]'} hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E] dark:focus:bg-gradient-to-r dark:focus:from-[#1F1E35] dark:focus:to-[#14121E]`}
+                      className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E] dark:focus:bg-gradient-to-r dark:focus:from-[#1F1E35] dark:focus:to-[#14121E]`}
                       onClick={() => {
                         Router.replace(`/${joined_room.room.slug}`)
                         seenChat.mutate({
@@ -208,7 +208,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                         <button
                           key={joined_room.index}
                           type="button"
-                          className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-zinc-100 dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]'} hover:bg-zinc-100 focus:bg-zinc-100 dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E] dark:focus:bg-gradient-to-r dark:focus:from-[#1F1E35] dark:focus:to-[#14121E]`}
+                          className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E] dark:focus:bg-gradient-to-r dark:focus:from-[#1F1E35] dark:focus:to-[#14121E]`}
                           onClick={() => {
                             Router.replace(`/${joined_room.room.slug}`)
                             seenChat.mutate({

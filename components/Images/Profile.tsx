@@ -12,7 +12,7 @@ const Profile: React.FC<IProps> = ({ src }) => {
       blurDataURL={src}
       width={25}
       height={25}
-      className="flex max-w-[2.5rem] h-full max-h-[3rem] rounded-full object-cover bg-[#201A2C]"
+      className="flex max-w-[2.5rem] h-full max-h-[3rem] rounded-full object-cover bg-white dark:bg-[#201A2C]"
       layout="intrinsic"
       quality={100}
       alt="Profile"
