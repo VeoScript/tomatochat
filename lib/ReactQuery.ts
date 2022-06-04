@@ -6,6 +6,8 @@ import {
 } from 'react-query'
 
 import {
+  changeProfile,
+  changeCover,
   createRoom,
   updateRoom,
   deleteRoom,
@@ -223,6 +225,24 @@ export function useGetChats(roomSlug: string) {
 }
 
 // ------------- REACT-QUERY (MUTATIONS) ------------- //
+
+// MUTATION FOR UPDATING NEW PROFILE PHOTO
+export const useChangeProfileMutation = () => {
+  return useMutation((_args: any) => changeProfile({
+      photo: _args.photo,
+      userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR UPDATING NEW COVER PHOTO
+export const useChangeCoverMutation = () => {
+  return useMutation((_args: any) => changeCover({
+      photo: _args.photo,
+      userId: _args.userId
+    })
+  )
+}
 
 // MUTATION FOR CREATING A NEW ROOM
 export const useCreateRoomMutation = () => {

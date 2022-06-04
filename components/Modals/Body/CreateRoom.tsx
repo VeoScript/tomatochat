@@ -100,7 +100,6 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
   }
 
   const onCreateRoom = async (formData: FormData) => {
-    console.log(formData)
     try {
       let photo
       const name = formData.name

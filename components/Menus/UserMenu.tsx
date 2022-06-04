@@ -63,12 +63,12 @@ const UserMenu: React.FC<IProps> = ({ children, title, user }) => {
                       ? 
                         <React.Fragment>
                           <RiSunFill className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-                          <span>Switch to Light Mode</span>
+                          <span>Light Mode</span>
                         </React.Fragment>
                       :
                         <React.Fragment>
                           <RiMoonFill className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-                          <span>Switch to Dark Mode</span>
+                          <span>Dark Mode</span>
                         </React.Fragment>
                     }
                   </button>

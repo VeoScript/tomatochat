@@ -275,7 +275,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                     <div className="flex">
                                       <Profile src={chat.user.image} />
                                     </div>
-                                    <div className="bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap bg-zinc-100 dark:bg-[#19182B]">
+                                    <div className="bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap bg-white dark:bg-[#19182B]">
                                       <p>{chat.message}</p>
                                       <span className="font-light dark:font-thin text-[9px]">
                                         <Moment date={chat.date} fromNow />
@@ -348,14 +348,14 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                 )}
               </div>
             </div>
-            <div className="w-full border-t border-zinc-300 dark:border-transparent bg-white dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]">
+            <div className="w-full border-t border-zinc-300 dark:border-transparent bg-zinc-100 dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]">
               <form
                 className="inline-flex w-full p-3 space-x-3"
                 onSubmit={handleSubmit(onSendChat)}
               >
                 <div
                   id="contentEditable"
-                  className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none p-3 font-light text-xs rounded-xl bg-transparent border border-zinc-200 focus:border-zinc-400 dark:border-[#1F1836] dark:focus:border-[#2B214B]"
+                  className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none p-3 font-light text-xs rounded-xl bg-white dark:bg-[#19182B] border border-zinc-200 focus:border-zinc-400 dark:border-[#1F1836] dark:focus:border-[#2B214B]"
                   placeholder="Write a message..."
                   title="Shift+Enter to execute new line."
                   contentEditable="true"

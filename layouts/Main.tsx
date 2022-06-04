@@ -14,7 +14,7 @@ interface IProps {
 
 const MainLayout: React.FC<IProps> = ({ user, children }) => {
   return (
-    <main className="font-poppins flex flex-col w-full h-screen overflow-hidden text-[#333] dark:text-white bg-white dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]">
+    <main className="font-poppins flex flex-col w-full h-screen overflow-hidden text-[#333] dark:text-white bg-zinc-100 dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]">
       <Toaster
         position="top-right"
         reverseOrder={true}
@@ -41,7 +41,7 @@ const MainLayout: React.FC<IProps> = ({ user, children }) => {
           </UserMenu>
         </div>
       </div>
-      <div className="inline-flex w-full h-full overflow-hidden">
+      <div className="flex flex-row w-full h-full overflow-hidden">
         <Rooms user={user} />
         {children}
       </div>

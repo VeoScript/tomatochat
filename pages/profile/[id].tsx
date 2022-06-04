@@ -52,7 +52,10 @@ const UserID: NextPage<IProps> = ({ params }) => {
         <title>{ profile.name }</title>
       </Head>
       <MainLayout user={user}>
-        <Profile profile={profile} />
+        <Profile
+          user={user}
+          profile={profile}
+        />
       </MainLayout>
     </React.Fragment>
   )

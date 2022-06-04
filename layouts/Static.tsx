@@ -7,7 +7,7 @@ interface IProps {
 
 const StaticLayout: React.FC<IProps> = ({ children }) => {
   return (
-    <main className="font-poppins inline-flex items-center justify-center w-full h-screen overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]">
+    <main className="font-poppins inline-flex items-center justify-center w-full h-screen overflow-hidden bg-zinc-100 dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]">
       <Toaster
         position="top-right"
         reverseOrder={true}

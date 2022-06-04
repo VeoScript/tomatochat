@@ -1,5 +1,44 @@
 // ------------- API-ROUTE ------------- //
 
+// API-ROUTE FOR UPDATING NEW PROFILE PHOTO
+export const changeProfile = async (_args: any) => {
+  const res = await fetch('/api/modules/update/upload/profile', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      photo: _args.photo,
+      userId: _args.userId
+    })
+  })
+
+  if (!res.ok) {
+    const json = await res.json()
+    throw String(json.message)
+  }
+}
+
+// API-ROUTE FOR UPDATING NEW COVER PHOTO
+export const changeCover = async (_args: any) => {
+  const res = await fetch('/api/modules/update/upload/cover', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      photo: _args.photo,
+      userId: _args.userId
+    })
+  })
+
+  if (!res.ok) {
+    const json = await res.json()
+    throw String(json.message)
+  }
+}
+
+
 // API-ROUTE FOR CREATING A NEW ROOM
 export const createRoom = async (_args: any) => {
   const res = await fetch('/api/modules/create/room', {
