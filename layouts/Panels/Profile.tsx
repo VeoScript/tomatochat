@@ -2,8 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
 import Image from 'next/image'
-import CoverUpload from '../../components/Uploads/CoverUpload'
 import ProfileUpload from '../../components/Uploads/ProfileUpload'
+import CoverUpload from '../../components/Uploads/CoverUpload'
 import CreatePost from '../../components/CreatePost'
 import CardPost from '../../components/Cards/CardPost'
 import { RiMapPin2Line, RiUserHeartLine, RiLinkedinFill } from 'react-icons/ri'
@@ -145,10 +145,10 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
           </div>
         </div>
         <div className="flex flex-col w-full max-w-xl space-y-3">
-          <CreatePost
+          {/* <CreatePost
             user={user}
             profile={profile}
-          />
+          /> */}
           {posts.map((post: any, i: number) => (
             <CardPost
               key={i}
