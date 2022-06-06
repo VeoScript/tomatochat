@@ -11,8 +11,8 @@ interface IProps {
 
 const CreatePost: React.FC<IProps> = ({ user, profile }) => {
 
-  const [previewImage, setPreviewImage] = React.useState<any>([])
-  const [imageUploaded, setImageUploaded] = React.useState<any>([{}])
+  const [previewPostImage, setPreviewPostImage] = React.useState<any>([])
+  const [imagePostUploaded, setImagePostUploaded] = React.useState<any>([{}])
 
   const handleAddImage = async (e: any) => {
     try {
@@ -22,7 +22,7 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
 
         if(e.target.value !== '' && !allowedExtensions.exec(e.target.value)) {
           e.target.value = ''
-          setImageUploaded([])
+          setImagePostUploaded([])
           toast.custom((trigger) => (
             <CustomToaster
               toast={toast}
@@ -35,8 +35,8 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
         }
   
         if(file.size > 2097152) {
-          setImageUploaded([])
-          setPreviewImage([])
+          setImagePostUploaded([])
+          previewPostImage([])
           toast.custom((trigger) => (
             <CustomToaster
               toast={toast}
@@ -55,27 +55,27 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
       });
 
       const res = await Promise.all(files)
-      setPreviewImage(res)
-      setImageUploaded(res)
+      previewPostImage(res)
+      setImagePostUploaded(res)
 
     } catch(error) {
       console.error(error)
     }
   }
 
-  console.log(previewImage)
-  // console.log(imageUploaded)
+  console.log(previewPostImage)
+  // console.log(imagePostUploaded)
 
   const onUploadPhotos = async () => {
     try {
       let photo
 
       // check if there is selected photo, hence it will upload it to the gallery hosting
-      if (imageUploaded || previewImage) {
+      if (imagePostUploaded || previewPostImage) {
         const body = new FormData()
 
-        for (let i = 0; i < imageUploaded.length; i++) {
-          body.append('image', imageUploaded[i])
+        for (let i = 0; i < imagePostUploaded.length; i++) {
+          body.append('image', imagePostUploaded[i])
         }
 
         await fetch(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API}`, {
