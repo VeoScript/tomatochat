@@ -15,26 +15,26 @@ const CoverUpload: React.FC<IProps> = ({ profile }) => {
 
   const changeCoverMutation = useChangeCoverMutation()
 
-  const [previewImage, setPreviewImage] = React.useState<any>('')
-  const [imageUploaded, setImageUploaded] = React.useState<any>('')
+  const [previewCoverImage, setPreviewCoverImage] = React.useState<any>('')
+  const [imageCoverUploaded, setImageCoverUploaded] = React.useState<any>('')
 
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpenCover, setisOpenCover] = React.useState(false)
 
   const { handleSubmit, formState: { isSubmitting } } = useForm()
 
-  function closeModal() {
-    setIsOpen(false)
-    setPreviewImage('')
-    setImageUploaded('')
+  function closeModalCover() {
+    setisOpenCover(false)
+    setPreviewCoverImage('')
   }
 
-  function openModal() {
-    setIsOpen(true)
+  function openModalCover() {
+    setisOpenCover(true)
+    setPreviewCoverImage('')
   }
 
-  const handleAddImage = (e: any) => {
+  const handleAddCoverImage = (e: any) => {
     try {
-      setImageUploaded(e.target.files[0])
+      setImageCoverUploaded(e.target.files[0])
 
       var file    = e.target.files[0]
       var reader  = new FileReader()
@@ -42,7 +42,7 @@ const CoverUpload: React.FC<IProps> = ({ profile }) => {
 
       if(e.target.value !== '' && !allowedExtensions.exec(e.target.value)) {
         e.target.value = ''
-        setImageUploaded('')
+        setImageCoverUploaded('')
         toast.custom((trigger) => (
           <CustomToaster
             toast={toast}
@@ -55,8 +55,8 @@ const CoverUpload: React.FC<IProps> = ({ profile }) => {
       }
 
       if(e.target.files[0].size > 2097152) {
-        setImageUploaded('')
-        setPreviewImage('')
+        setImageCoverUploaded('')
+        setPreviewCoverImage('')
         toast.custom((trigger) => (
           <CustomToaster
             toast={toast}
@@ -69,30 +69,30 @@ const CoverUpload: React.FC<IProps> = ({ profile }) => {
       }
 
       reader.onloadend = function () {
-        setPreviewImage(reader.result)
+        setPreviewCoverImage(reader.result)
       }
 
       if(file) {
         reader.readAsDataURL(file)
       } else {
-        setPreviewImage('')
+        setPreviewCoverImage('')
       }
 
-      openModal()
+      openModalCover()
       
     } catch(error) {
       console.error(error)
     }
   }
 
-  const onUpdateProfile = async () => {
+  const onUpdateCover = async () => {
     try {
-      let photo
+      let photo: string
 
       // check if there is selected photo, hence it will upload it to the gallery hosting
-      if (imageUploaded || previewImage) {
+      if (imageCoverUploaded || previewCoverImage) {
         const body = new FormData()
-        body.append('image', imageUploaded)
+        body.append('image', imageCoverUploaded)
 
         await fetch(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API}`, {
           method: 'POST',
@@ -102,17 +102,27 @@ const CoverUpload: React.FC<IProps> = ({ profile }) => {
         .then((result) => {
           photo = result.data.url
         })
+        .then(async () => {
+          await changeCoverMutation.mutateAsync({
+            photo: String(photo),
+            userId: String(profile.id)
+          })
+        })
         .catch(() => {
-          console.error('Upload Failed')
+          toast.custom((trigger) => (
+            <CustomToaster
+              toast={toast}
+              trigger={trigger}
+              type={'Error'}
+              message={'Cover photo upload failed. Check your internet.'}
+            />
+          ))
         })
       }
 
-      await changeCoverMutation.mutateAsync({
-        photo: String(photo),
-        userId: String(profile.id)
-      })
+      
 
-      closeModal()
+      closeModalCover()
 
     } catch(err) {
       console.error(err)
@@ -122,7 +132,7 @@ const CoverUpload: React.FC<IProps> = ({ profile }) => {
   return (
     <React.Fragment>
       <label
-        htmlFor="uploadProfile"
+        htmlFor="uploadCover"
         className="absolute right-3 bottom-3 inline-flex items-center space-x-1 p-2 z-10 cursor-pointer rounded-md text-white dark:text-black text-xs bg-black dark:bg-white bg-opacity-60 dark:bg-opacity-80 transition ease-in-out duration-200 hover:bg-opacity-50 dark:hover:bg-opacity-50"
       >
         <RiCameraFill className="w-4 h-4" />
@@ -130,24 +140,24 @@ const CoverUpload: React.FC<IProps> = ({ profile }) => {
       </label>
       <input
         type="file"
-        id="uploadProfile"
+        id="uploadCover"
         className="hidden"
-        onChange={handleAddImage}
+        onChange={handleAddCoverImage}
         accept=".jpg, .png, .jpeg, .jfif"
       />
       <DialogBox
         title="Update Cover Photo"
         maxWidth="max-w-4xl"
         className="outline-none"
-        isOpen={isOpen}
-        openModal={openModal}
-        closeModal={closeModal}
+        isOpen={isOpenCover}
+        openModal={openModalCover}
+        closeModal={closeModalCover}
         button=""
       >
         <div className="flex flex-col items-center justify-center w-full h-full max-h-[30rem] space-y-3 overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-slate-600 scrollbar-track-transparent">
           <img
             className="flex w-full h-[18rem] rounded-md bg-center object-cover bg-no-repeat"
-            src={previewImage}
+            src={previewCoverImage}
             alt="Set Profile"
           />
           <div className="flex flex-col items-center w-full space-y-3">
@@ -157,7 +167,7 @@ const CoverUpload: React.FC<IProps> = ({ profile }) => {
                 title="Create"
                 type="button"
                 className="outline-none w-full p-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
-                onClick={handleSubmit(onUpdateProfile)}
+                onClick={handleSubmit(onUpdateCover)}
               >
                 Update Cover Photo
               </button>

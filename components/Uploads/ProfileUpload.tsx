@@ -15,26 +15,26 @@ const ProfileUpload: React.FC<IProps> = ({ profile }) => {
 
   const changeProfileMutation = useChangeProfileMutation()
 
-  const [previewImage, setPreviewImage] = React.useState<any>('')
-  const [imageUploaded, setImageUploaded] = React.useState<any>('')
+  const [previewProfileImage, setPreviewProfileImage] = React.useState<any>('')
+  const [imageProfileUploaded, setImageProfileUploaded] = React.useState<any>('')
 
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpenProfile, setIsOpenProfile] = React.useState(false)
 
   const { handleSubmit, formState: { isSubmitting } } = useForm()
 
   function closeModal() {
-    setIsOpen(false)
-    setPreviewImage('')
-    setImageUploaded('')
+    setIsOpenProfile(false)
+    setPreviewProfileImage('')
   }
 
   function openModal() {
-    setIsOpen(true)
+    setIsOpenProfile(true)
+    setPreviewProfileImage('')
   }
 
-  const handleAddImage = (e: any) => {
+  const handleAddProfileImage = (e: any) => {
     try {
-      setImageUploaded(e.target.files[0])
+      setImageProfileUploaded(e.target.files[0])
 
       var file    = e.target.files[0]
       var reader  = new FileReader()
@@ -42,7 +42,7 @@ const ProfileUpload: React.FC<IProps> = ({ profile }) => {
 
       if(e.target.value !== '' && !allowedExtensions.exec(e.target.value)) {
         e.target.value = ''
-        setImageUploaded('')
+        setImageProfileUploaded('')
         toast.custom((trigger) => (
           <CustomToaster
             toast={toast}
@@ -55,8 +55,8 @@ const ProfileUpload: React.FC<IProps> = ({ profile }) => {
       }
 
       if(e.target.files[0].size > 2097152) {
-        setImageUploaded('')
-        setPreviewImage('')
+        setImageProfileUploaded('')
+        setPreviewProfileImage('')
         toast.custom((trigger) => (
           <CustomToaster
             toast={toast}
@@ -69,13 +69,13 @@ const ProfileUpload: React.FC<IProps> = ({ profile }) => {
       }
 
       reader.onloadend = function () {
-        setPreviewImage(reader.result)
+        setPreviewProfileImage(reader.result)
       }
 
       if(file) {
         reader.readAsDataURL(file)
       } else {
-        setPreviewImage('')
+        setPreviewProfileImage('')
       }
 
       openModal()
@@ -87,12 +87,12 @@ const ProfileUpload: React.FC<IProps> = ({ profile }) => {
 
   const onUpdateProfile = async () => {
     try {
-      let photo
+      let photo: string
 
       // check if there is selected photo, hence it will upload it to the gallery hosting
-      if (imageUploaded || previewImage) {
+      if (imageProfileUploaded || previewProfileImage) {
         const body = new FormData()
-        body.append('image', imageUploaded)
+        body.append('image', imageProfileUploaded)
 
         await fetch(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API}`, {
           method: 'POST',
@@ -102,15 +102,23 @@ const ProfileUpload: React.FC<IProps> = ({ profile }) => {
         .then((result) => {
           photo = result.data.url
         })
+        .then(async () => {
+          await changeProfileMutation.mutateAsync({
+            photo: String(photo),
+            userId: String(profile.id)
+          })
+        })
         .catch(() => {
-          console.error('Upload Failed')
+          toast.custom((trigger) => (
+            <CustomToaster
+              toast={toast}
+              trigger={trigger}
+              type={'Error'}
+              message={'Profile photo upload failed. Check your internet.'}
+            />
+          ))
         })
       }
-
-      await changeProfileMutation.mutateAsync({
-        photo: String(photo),
-        userId: String(profile.id)
-      })
 
       closeModal()
 
@@ -131,14 +139,14 @@ const ProfileUpload: React.FC<IProps> = ({ profile }) => {
         type="file"
         id="uploadProfile"
         className="hidden"
-        onChange={handleAddImage}
+        onChange={handleAddProfileImage}
         accept=".jpg, .png, .jpeg, .jfif"
       />
       <DialogBox
         title="Update Profile"
         maxWidth="max-w-md"
         className="outline-none"
-        isOpen={isOpen}
+        isOpen={isOpenProfile}
         openModal={openModal}
         closeModal={closeModal}
         button=""
@@ -146,7 +154,7 @@ const ProfileUpload: React.FC<IProps> = ({ profile }) => {
         <div className="flex flex-col items-center justify-center w-full h-full max-h-[30rem] space-y-3 overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-slate-600 scrollbar-track-transparent">
           <img
             className="flex w-[20rem] h-[20rem] rounded-full object-cover"
-            src={previewImage}
+            src={previewProfileImage}
             alt="Set Profile"
           />
           <div className="inline-flex w-full space-x-2">
