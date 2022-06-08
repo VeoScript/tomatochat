@@ -226,6 +226,30 @@ export function useGetChats(roomSlug: string) {
   )
 }
 
+// QUERY FOR GETTING ALL POSTS OF SPECIFIC USER (FIND-FIRST)
+export function useGetUserPosts(userId: string) {
+  return useInfiniteQuery('get_user_posts', 
+    async ({ pageParam = '' }) => {
+      const get_user_posts = fetch(`/api/modules/read/posts?cursor=${ pageParam }`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId })
+      })
+      return (await get_user_posts).json()
+    },
+    {
+      enabled: !!userId,
+      refetchInterval: 1000,
+      getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+    }
+  )
+}
+
+
+
+
 // ------------- REACT-QUERY (MUTATIONS) ------------- //
 
 // MUTATION FOR UPDATING NEW PROFILE PHOTO
