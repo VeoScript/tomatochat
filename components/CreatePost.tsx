@@ -2,101 +2,210 @@ import React from 'react'
 import Image from 'next/image'
 import CustomToaster from './CustomToaster'
 import PostUpload from '../components/Uploads/PostUpload'
+import Spinner from '../utils/Spinner'
 import { toast } from 'react-hot-toast'
+import { useForm } from 'react-hook-form'
+import { useCreatePost, useCreateStory } from '../lib/ReactQuery'
+import { RiCloseFill } from 'react-icons/ri'
 
 interface IProps {
   user: any
   profile: any
 }
 
+interface FormData {
+  postcaption: string
+}
+
+const imageTypeRegex = /image\/(png|jpg|jpeg)/gm
+
 const CreatePost: React.FC<IProps> = ({ user, profile }) => {
 
-  const [previewPostImage, setPreviewPostImage] = React.useState<any>([])
-  const [imagePostUploaded, setImagePostUploaded] = React.useState<any>([{}])
+  const createPost = useCreatePost()
+  const createStory = useCreateStory()
 
-  const handleAddImage = async (e: any) => {
+  const [imageFiles, setImageFiles] = React.useState<any>([])
+  const [images, setImages] = React.useState<any>([])
+
+  const { handleSubmit, register, reset, setValue, formState: { isSubmitting } } = useForm<FormData>()
+
+  const handleAddImage = (e: any) => {
+    const { files } = e.target
+    const validImagesFiles = []
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i]
+
+      if (file.type.match(imageTypeRegex)) {
+        validImagesFiles.push(file)
+      } else {
+        toast.custom((trigger) => (
+          <CustomToaster
+            toast={toast}
+            trigger={trigger}
+            type={'Error'}
+            message={'Please select jpg, jpeg or png only!'}
+          />
+        ))
+        return
+      }
+
+      if(file.size > 2097152) {
+        setImages([])
+        setImageFiles([])
+        toast.custom((trigger) => (
+          <CustomToaster
+            toast={toast}
+            trigger={trigger}
+            type={'Info'}
+            message={'Selected photo size exceeds 2 MB. Choose another one.'}
+          />
+        ))
+        return
+      }
+    }
+
+    if (validImagesFiles.length > 4) {
+      toast.custom((trigger) => (
+        <CustomToaster
+          toast={toast}
+          trigger={trigger}
+          type={'Info'}
+          message={'Only up to 4 photos can be uploaded.'}
+        />
+      ))
+      return
+    }
+
+    if (validImagesFiles.length) {
+      setImageFiles(validImagesFiles)
+      return
+    }
+  }
+
+  React.useEffect(() => {
+    const images: any[] = []
+    const fileReaders: FileReader[] = []
+    let isCancel = false
+
+    // for post caption text input
+    register('postcaption', { required: true })
+
+    if (imageFiles.length) {
+      imageFiles.forEach((file: any) => {
+        const fileReader = new FileReader()
+        fileReaders.push(fileReader)
+
+        fileReader.onload = (e: any) => {
+          const { result } = e.target
+
+          if (result) {
+            images.push(result)
+          }
+
+          if (images.length === imageFiles.length && !isCancel) {
+            setImages(images)
+          }
+        }
+        fileReader.readAsDataURL(file)
+      })
+    }
+
+    return () => {
+      isCancel = true
+      fileReaders.forEach(fileReader => {
+        if (fileReader.readyState === 1) {
+          fileReader.abort()
+        }
+      })
+    }
+  }, [imageFiles])
+
+  const onSubmitPost = async (formData: FormData) => {
     try {
-      const files = [...e.target.files].map(file => {
-        const reader = new FileReader();
-        var allowedExtensions = /(\.jpg|\.jpeg|\.jfif|\.png)$/i
+      let photo = new Array
+      
+      // check if there is selected photo, hence it will upload it to the gallery hosting
+      if (imageFiles || images) {
+        const body = new FormData()
 
-        if(e.target.value !== '' && !allowedExtensions.exec(e.target.value)) {
-          e.target.value = ''
-          setImagePostUploaded([])
+        // uploading multiple images
+        for (let i = 0; i < imageFiles.length; i++) {
+          body.append('image', imageFiles[i])
+
+          await fetch(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API}`, {
+            method: 'POST',
+            body: body
+          })
+          .then((response) => response.json())
+          .then((result) => {
+            photo.push(result.data.url)
+          })
+          .catch((err) => {
+            console.log(err)
+            toast.custom((trigger) => (
+              <CustomToaster
+                toast={toast}
+                trigger={trigger}
+                type={'Error'}
+                message={'Upload failed. Check your internet.'}
+              />
+            ))
+            return
+          })
+        }
+      }
+
+      const postcaption = document.getElementById('postcaption')
+
+      // for creating a dynamic unique post uuid
+      const postId = Math.random().toString(36).slice(-8)
+      const userId = user.id
+      const description = formData.postcaption
+
+      // send this post to post model
+      await createPost.mutateAsync({
+        description: String(description),
+        postId: String(postId),
+        userId: String(userId)
+      },
+      {
+        onError: async (error: any) => {
           toast.custom((trigger) => (
             <CustomToaster
               toast={toast}
               trigger={trigger}
               type={'Error'}
-              message={'Please select jpg, jpeg or png only!'}
+              message={`${ error }`}
             />
           ))
-          return
-        }
-  
-        if(file.size > 2097152) {
-          setImagePostUploaded([])
-          previewPostImage([])
+        },
+        onSuccess: async () => {
+          // for sending all of the selected images to database
+          for (let i = 0; i < photo.length; i++) {
+            await createStory.mutateAsync({
+              imageUrl: String(photo[i]),
+              postId: String(postId)
+            })
+          }
           toast.custom((trigger) => (
             <CustomToaster
               toast={toast}
               trigger={trigger}
-              type={'Info'}
-              message={'Selected photo size exceeds 2 MB. Choose another one.'}
+              type={'Success'}
+              message="Post created successfully."
             />
           ))
-          return
         }
+      })
 
-        return new Promise(resolve => {
-          reader.onload = () => resolve(reader.result)
-          reader.readAsDataURL(file);
-        });
-      });
+      setImages([])
+      setImageFiles([])
+      reset()
 
-      const res = await Promise.all(files)
-      previewPostImage(res)
-      setImagePostUploaded(res)
-
-    } catch(error) {
-      console.error(error)
-    }
-  }
-
-  console.log(previewPostImage)
-  // console.log(imagePostUploaded)
-
-  const onUploadPhotos = async () => {
-    try {
-      let photo
-
-      // check if there is selected photo, hence it will upload it to the gallery hosting
-      if (imagePostUploaded || previewPostImage) {
-        const body = new FormData()
-
-        for (let i = 0; i < imagePostUploaded.length; i++) {
-          body.append('image', imagePostUploaded[i])
-        }
-
-        await fetch(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API}`, {
-          method: 'POST',
-          body: body
-        })
-        .then((response) => response.json())
-        .then((result) => {
-          console.log(result.data.url)
-        })
-        .catch(() => {
-          console.error('Upload Failed')
-        })
-      }
-
-      // await changeProfileMutation.mutateAsync({
-      //   photo: String(photo),
-      //   userId: String(profile.id)
-      // })
-
-      // closeModal()
+      postcaption !== null ?
+      postcaption.innerHTML = '' : ''
+      postcaption?.focus()
 
     } catch(err) {
       console.error(err)
@@ -104,7 +213,7 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
   }
 
   return (
-    <div className="flex flex-col w-full p-3 rounded-md bg-white dark:bg-[#1F1E35]">
+    <div className="flex flex-col w-full space-y-2 p-3 rounded-md bg-white dark:bg-[#1F1E35]">
       <div className="flex items-start space-x-2">
         <Image
           src={profile.image}
@@ -116,27 +225,89 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
           quality={100}
           alt="Profile"
         />
-        <div className="flex flex-col w-full">
+        <div className="flex flex-row items-start w-full px-5 py-3 rounded-3xl bg-zinc-100 dark:bg-[#302E50] border border-transparent dark:border-transparent focus-within:border-zinc-300 dark:focus-within:border-purple-600">
           <div
-            id="contentEditable"
-            className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none p-3 font-normal text-sm rounded-full border border-transparent focus:border-purple-600"
-            placeholder="What's on your mind?"
+            id="postcaption"
+            className="w-full h-full max-h-[15rem] mt-0.5 overflow-y-auto cursor-text whitespace-pre-wrap outline-none font-normal text-sm"
+            placeholder="Share your thoughts here in tomatochat..."
             title="Shift+Enter to execute new line."
             contentEditable="true"
             suppressContentEditableWarning
             spellCheck={false}
+            onPaste={(e) => {
+              e.preventDefault()
+              var text = e.clipboardData.getData('text/plain')
+              document.execCommand('insertText', false, text)
+            }}
+            onInput={(e: any) => setValue('postcaption', e.currentTarget.textContent, { shouldValidate: true })}
+          />
+          <PostUpload
+            handleAddImage={handleAddImage}
           />
         </div>
-        <PostUpload
-          handleAddImage={handleAddImage}
-        />
       </div>
-      <button
-        type="button"
-        onClick={onUploadPhotos}
-      >
-        Upload
-      </button>
+      <div className="flex items-center w-full">
+        {images.length > 0 && (
+          <div className="flex items-center justify-center w-full space-x-1">
+            {images.map(( image: any, i: number ) => {
+              return (
+                <div className="relative" key={i}>
+                  <button
+                    title="Remove"
+                    type="button"
+                    className="absolute top-1 right-1 z-10 p-1 rounded-full bg-black bg-opacity-80 hover:bg-opacity-50"
+                    onClick={() => {
+                      // for deleting specific photo
+                      let previewImages = images.map((photo: any) => photo).indexOf(image)
+                      let toUploadImages = imageFiles.map((photo: any) => photo.name).indexOf(image)
+                      if (previewImages > -1 || toUploadImages > -1) {
+                        images.splice(previewImages, 1)
+                        imageFiles.splice(toUploadImages, 1)
+                        setImages(images)
+                        setImageFiles(imageFiles)
+                      }
+                    }}
+                  >
+                    <RiCloseFill className="w-4 h-4 text-white" />
+                  </button>
+                  <Image
+                    src={image}
+                    blurDataURL={image}
+                    width={300}
+                    height={300}
+                    className="rounded-md object-cover bg-white dark:bg-[#201A2C]"
+                    layout="intrinsic"
+                    quality={100}
+                    alt="Post Images"
+                  />
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
+      <div className="inline-flex justify-end w-full space-x-2">
+        {!isSubmitting && (
+          <button
+            title="Create"
+            type="button"
+            className="outline-none w-[8rem] p-2 rounded-lg text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+            onClick={handleSubmit(onSubmitPost)}
+          >
+            Post
+          </button>
+        )}
+        {isSubmitting && (
+          <div className="inline-flex items-center justify-center w-[8rem] space-x-2 p-2 cursor-wait rounded-lg text-sm text-white bg-purple-800 bg-opacity-80">
+            <Spinner
+              width={20}
+              height={20}
+              color={'#FFFFFF'}
+            />
+            <span className="font-light">Posting...</span>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

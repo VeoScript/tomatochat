@@ -248,3 +248,32 @@ export const deleteRoom = (_args: any) => {
     })
   })
 }
+
+// API-ROUTE FOR CREATING NEW POST
+export const createPost = (_args: any) => {
+  return fetch('/api/modules/create/post', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      description: _args.description,
+      postId: _args.postId,
+      userId: _args.userId
+    })
+  })
+}
+
+// API-ROUTE FOR CREATING NEW STORY (MULTIPLE POST IMAGES)
+export const createStory = (_args: any) => {
+  return fetch('/api/modules/create/story', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      imageUrl: _args.imageUrl,
+      postId: _args.postId
+    })
+  })
+}

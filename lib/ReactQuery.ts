@@ -20,7 +20,9 @@ import {
   sendChatJoin,
   sendLastChat,
   seenChat,
-  deleteChat
+  deleteChat,
+  createPost,
+  createStory
 } from './API'
 
 
@@ -398,6 +400,25 @@ export const useKickOutUser = () => {
 export const useDeleteRoom = () => {
   return useMutation((_args: any) => deleteRoom({
       roomId: _args.roomId
+    })
+  )
+}
+
+// MUTATION FOR CREATING NEW POST
+export const useCreatePost = () => {
+  return useMutation((_args: any) => createPost({
+      description: _args.description,
+      postId: _args.postId,
+      userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR CREATING NEW STORY
+export const useCreateStory = () => {
+  return useMutation((_args: any) => createStory({
+      imageUrl: _args.imageUrl,
+      postId: _args.postId
     })
   )
 }
