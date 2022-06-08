@@ -213,7 +213,7 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
   }
 
   return (
-    <div className="flex flex-col w-full space-y-2 p-3 rounded-md bg-white dark:bg-[#1F1E35]">
+    <div className="flex flex-col w-full space-y-2 p-5 rounded-md bg-white dark:bg-[#1F1E35]">
       <div className="flex items-start space-x-2">
         <Image
           src={profile.image}
@@ -252,24 +252,26 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
             {images.map(( image: any, i: number ) => {
               return (
                 <div className="relative" key={i}>
-                  <button
-                    title="Remove"
-                    type="button"
-                    className="absolute top-1 right-1 z-10 p-1 rounded-full bg-black bg-opacity-80 hover:bg-opacity-50"
-                    onClick={() => {
-                      // for deleting specific photo
-                      let previewImages = images.map((photo: any) => photo).indexOf(image)
-                      let toUploadImages = imageFiles.map((photo: any) => photo.name).indexOf(image)
-                      if (previewImages > -1 || toUploadImages > -1) {
-                        images.splice(previewImages, 1)
-                        imageFiles.splice(toUploadImages, 1)
-                        setImages(images)
-                        setImageFiles(imageFiles)
-                      }
-                    }}
-                  >
-                    <RiCloseFill className="w-4 h-4 text-white" />
-                  </button>
+                  {!isSubmitting && (
+                    <button
+                      title="Remove"
+                      type="button"
+                      className="absolute top-1 right-1 z-10 p-1 rounded-full bg-black bg-opacity-80 hover:bg-opacity-50"
+                      onClick={() => {
+                        // for deleting specific photo
+                        let previewImages = images.map((photo: any) => photo).indexOf(image)
+                        let toUploadImages = imageFiles.map((photo: any) => photo.name).indexOf(image)
+                        if (previewImages > -1 || toUploadImages > -1) {
+                          images.splice(previewImages, 1)
+                          imageFiles.splice(toUploadImages, 1)
+                          setImages(images)
+                          setImageFiles(imageFiles)
+                        }
+                      }}
+                    >
+                      <RiCloseFill className="w-4 h-4 text-white" />
+                    </button>
+                  )}
                   <Image
                     src={image}
                     blurDataURL={image}

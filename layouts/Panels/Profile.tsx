@@ -6,7 +6,10 @@ import ProfileUpload from '../../components/Uploads/ProfileUpload'
 import CoverUpload from '../../components/Uploads/CoverUpload'
 import CreatePost from '../../components/CreatePost'
 import CardPost from '../../components/Cards/CardPost'
-import { RiMapPin2Line, RiUserHeartLine, RiLinkedinFill } from 'react-icons/ri'
+import Spinner from '../../utils/Spinner'
+import { useGetUserPosts } from '../../lib/ReactQuery'
+import { useInView } from 'react-intersection-observer'
+import { RiMapPin2Line, RiUserHeartLine, RiLinkedinFill, RiEmotionSadLine } from 'react-icons/ri'
 import { Facebook, Instagram, Twitter, TikTok, Youtube } from '../../utils/SocialMediaIcons'
 
 import { posts } from '../../mock/posts'
@@ -17,6 +20,17 @@ interface IProps {
 }
 
 const Profile: React.FC<IProps> = ({ user, profile }) => {
+
+  const { ref, inView } = useInView()
+
+  const { data: userPosts, isLoading: postLoading, isError: postError, refetch, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetUserPosts(profile.id)
+
+  React.useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage()
+    }
+  }, [fetchNextPage, hasNextPage, inView])
+
   return (
     <div className="flex flex-col items-center w-full max-w-full h-full border-x border-zinc-300 dark:border-[#1F1836] overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-500 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
       <div className="relative flex flex-col w-full max-w-4xl">
@@ -77,8 +91,8 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
           </div>
         </div>
       </div>
-      <div className="relative flex flex-row items-start w-full max-w-4xl mt-[9rem] mb-[2rem] space-x-3">
-        <div className="sticky top-2 flex flex-col w-full max-w-xs p-3 space-y-3 rounded-md bg-white dark:bg-[#1F1E35]">
+      <div className="relative flex flex-row items-start w-full max-w-4xl mt-[9rem] mb-[1rem] space-x-3">
+        <div className="sticky top-2 flex flex-col w-full max-w-xs p-5 space-y-3 rounded-md bg-white dark:bg-[#1F1E35]">
           <div className="flex flex-col">
             <h2 className="font-bold text-lg text-zinc-700 dark:text-purple-400">Intro</h2>
             <h3 className="font-normal text-sm">
@@ -88,8 +102,8 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
           <div className="flex flex-col">
             <h2 className="font-bold text-lg text-zinc-700 dark:text-purple-400">Hobbies</h2>
             <div className="flex space-x-1">
-              <span className="px-2 py-1 rounded-full text-xs text-white cursor-default bg-purple-400">Shabu</span>
-              <span className="px-2 py-1 rounded-full text-xs text-white cursor-default bg-purple-400">Marijuana</span>
+              <span className="px-2 py-1 rounded-full text-xs text-white cursor-default bg-purple-400">Pianist</span>
+              <span className="px-2 py-1 rounded-full text-xs text-white cursor-default bg-purple-400">Coder</span>
             </div>
           </div>
           <div className="flex flex-col space-y-2">
@@ -151,13 +165,61 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
               profile={profile}
             />
           )}
-          {posts.map((post: any, i: number) => (
-            <CardPost
-              key={i}
-              profile={profile}
-              post={post}          
-            />
-          ))}
+          {postLoading && (
+            <div className="flex flex-row items-center justify-center w-full">
+              <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
+                <Spinner width={50} height={50} color={'#4D38A2'} />
+                <h3 className="font-light text-sm">Loading...</h3>
+              </div>
+            </div>
+          )}
+          {postError && (
+            <div className="flex flex-col items-center justify-center w-full space-y-2">
+              <RiEmotionSadLine className="w-14 h-14" />
+              <div className="inline-flex items-center justify-center w-full space-x-1 text-xs">
+                <h3 className="font-light">Failed to load, try to</h3>
+                <button
+                  type="button"
+                  className="outline-none font-bold text-[#6b50d8] hover:underline"
+                  onClick={() => refetch()}
+                >
+                  Reload
+                </button>
+              </div>
+            </div>
+          )}
+          {!(postLoading && postError) && (
+            <React.Fragment>
+              {userPosts && userPosts.pages[0].posts.length === 0 && (
+                <div className="inline-flex items-center justify-center w-full">
+                  <div className="flex flex-col items-start w-full max-w-md space-y-3">
+                    <h1 className="font-black text-4xl text-zinc-800 dark:text-zinc-100">
+                      {profile.name} has no posts yet.
+                    </h1>
+                    <h3 className="text-lg text-zinc-500">When they do, their posts will show up here.</h3>
+                  </div>
+                </div>
+              )}
+              {userPosts && userPosts.pages.map((page: any, i: number) => (
+                <React.Fragment key={i}>
+                  {page.posts.map((post: any) => (
+                    <CardPost
+                      profile={profile}
+                      post={post}                      
+                    />
+                  ))}
+                </React.Fragment>
+              ))}
+              {isFetchingNextPage && (
+                <div className="inline-flex justify-center w-full p-3">
+                  <Spinner width={30} height={30} color={'#4D38A2'} />
+                </div>
+              )}
+              <details ref={ref} className="invisible">
+                Intersecrion Observer Marker
+              </details>
+            </React.Fragment>
+          )}
         </div>
       </div>
     </div>

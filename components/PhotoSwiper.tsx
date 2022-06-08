@@ -1,6 +1,5 @@
 import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { MdClose } from 'react-icons/md'
+import Image from 'next/image'
 import DialogBox from './Modals/DialogBox'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
@@ -18,7 +17,7 @@ const PhotoSwiper: React.FC<IProps> = ({ post }) => {
   return (
     <Fragment>
       <Swiper className="w-full h-full max-h-[20rem] overflow-auto rounded-xl">
-        {post.stories.map((story: { imageUrl: string }, i: number) => (
+        {post.stories.map((story: any, i: number) => (
           <SwiperSlide key={i}>
             <PhotoDisplay 
               post={post} 
@@ -44,7 +43,7 @@ const PhotoDisplay: React.FC<ViewStoryProps> = ({ post, story }) => {
 
   return (
     <DialogBox
-      title={post.name}
+      title={post.user.name}
       subtitle={post.description}
       maxWidth="max-w-xl"
       className="w-full outline-none"
@@ -54,20 +53,32 @@ const PhotoDisplay: React.FC<ViewStoryProps> = ({ post, story }) => {
       openModal={openModal}
       closeModal={closeModal}
       button={
-        <img
-          key={story.imageUrl}
-          src={story.imageUrl}
-          alt={`Story by ${ post.username }`}
-          className="object-cover w-full h-[20rem]"
+        <Image
+          key={story.image}
+          src={story.image}
+          blurDataURL={story.image}
+          className="flex object-cover rounded-md bg-zinc-100 dark:bg-[#1C1A28]"
+          layout="responsive"
+          width="100%"
+          height="100%"
+          quality={100}
+          objectFit='cover'
+          alt="Post Image"
         />
       }
     >
-      <div className="flex flex-col w-full h-full max-h-[30rem] overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-slate-600 scrollbar-track-transparent">
-        <img
-          key={story.imageUrl}
-          src={story.imageUrl}
-          alt={`Story by ${ post.username }`}
-          className="flex object-cover rounded-md"
+      <div className="flex flex-col w-full h-full max-h-[30rem]">
+        <Image
+          key={story.image}
+          src={story.image}
+          blurDataURL={story.image}
+          className="flex object-cover rounded-md bg-zinc-100 dark:bg-[#1C1A28]"
+          layout="responsive"
+          width="100%"
+          height="100%"
+          quality={100}
+          objectFit='contain'
+          alt="Post Image"
         />
       </div>
     </DialogBox>
