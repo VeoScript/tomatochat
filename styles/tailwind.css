@@ -16,5 +16,5 @@
 
 [contenteditable][placeholder]:empty:before {
   content: attr(placeholder);
-  color: #B6B6B6;
+  color: #999999;
 }

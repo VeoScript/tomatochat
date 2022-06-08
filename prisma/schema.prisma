@@ -141,7 +141,7 @@ model Chat {
 }
 
 model Post {
-  id                              String                @id @default(cuid())
+  id                              String                @id
   index                           Int                   @unique @default(autoincrement())
   description                     String?               @db.LongText
   createdAt                       DateTime              @default(now())
@@ -159,6 +159,7 @@ model Post {
 model Story {
   id                              String                @id @default(cuid())
   index                           Int                   @unique @default(autoincrement())
+  image                           String
   createdAt                       DateTime              @default(now())
   updatedAt                       DateTime              @default(now())
   post                            Post                  @relation(fields: [postId], references: [id], onDelete: Cascade)

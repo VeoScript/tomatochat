@@ -145,10 +145,12 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
           </div>
         </div>
         <div className="flex flex-col w-full max-w-xl space-y-3">
-          {/* <CreatePost
-            user={user}
-            profile={profile}
-          /> */}
+          {user.id === profile.id && (
+            <CreatePost
+              user={user}
+              profile={profile}
+            />
+          )}
           {posts.map((post: any, i: number) => (
             <CardPost
               key={i}
