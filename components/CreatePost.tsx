@@ -213,14 +213,14 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
   }
 
   return (
-    <div className="flex flex-col w-full space-y-2 p-5 rounded-md bg-white dark:bg-[#1F1E35]">
+    <div className="flex flex-col w-full space-y-2 p-5 rounded-md bg-white dark:bg-[#1C1A28]">
       <div className="flex items-start space-x-2">
         <Image
           src={profile.image}
           blurDataURL={profile.image}
-          width={50}
-          height={50}
-          className="flex w-full max-w-[2.5rem] rounded-full object-cover bg-white dark:bg-[#201A2C]"
+          width={58}
+          height={58}
+          className="rounded-full object-cover bg-white dark:bg-[#201A2C]"
           layout="intrinsic"
           quality={100}
           alt="Profile"
@@ -288,19 +288,24 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
           </div>
         )}
       </div>
-      <div className="inline-flex justify-end w-full space-x-2">
+      <div className="inline-flex items-start justify-between w-full space-x-2">
+        <div className="w-[25rem]">
+          <p className="font-light text-[12px]">
+            Note: Be responsible with your post, any hateful or offensive posts will be automatically deleted.
+          </p>
+        </div>
         {!isSubmitting && (
           <button
             title="Create"
             type="button"
-            className="outline-none w-[8rem] p-2 rounded-lg text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+            className="outline-none w-[6rem] p-2 rounded-lg text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
             onClick={handleSubmit(onSubmitPost)}
           >
             Post
           </button>
         )}
         {isSubmitting && (
-          <div className="inline-flex items-center justify-center w-[8rem] space-x-2 p-2 cursor-wait rounded-lg text-sm text-white bg-purple-800 bg-opacity-80">
+          <div className="inline-flex items-center justify-center w-[6rem] space-x-2 p-2 cursor-wait rounded-lg text-sm text-white bg-purple-800 bg-opacity-80">
             <Spinner
               width={20}
               height={20}
