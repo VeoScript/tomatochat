@@ -12,8 +12,6 @@ import { useInView } from 'react-intersection-observer'
 import { RiMapPin2Line, RiUserHeartLine, RiLinkedinFill, RiEmotionSadLine } from 'react-icons/ri'
 import { Facebook, Instagram, Twitter, TikTok, Youtube } from '../../utils/SocialMediaIcons'
 
-import { posts } from '../../mock/posts'
-
 interface IProps {
   user: any
   profile: any
@@ -32,7 +30,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
   }, [fetchNextPage, hasNextPage, inView])
 
   return (
-    <div className="flex flex-col items-center w-full max-w-full h-full border-x border-zinc-300 dark:border-[#1F1836] overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-500 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
+    <div className="flex flex-col items-center w-full max-w-full h-full border-x border-zinc-300 dark:border-[#1F1836] overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
       <div className="relative flex flex-col w-full max-w-4xl">
         <div
           className="relative flex w-full h-[18rem] rounded-b-xl bg-white dark:bg-[#1F1E35] bg-center bg-cover bg-no-repeat"
@@ -77,22 +75,36 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
               </h3>
             </div>
             <div className="flex flex-col mt-5 mr-10">
-              <button
-                title="Follow"
-                type="button"
-                className="w-[10rem] outline-none px-3 py-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
-                onClick={() => {
-                  Router.push('/')
-                }}
-              >
-                Edit Profile
-              </button>
+              {user.id === profile.id
+                ? <button
+                    title="Follow"
+                    type="button"
+                    className="w-[10rem] outline-none px-3 py-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                    onClick={() => {
+                      Router.push('/')
+                    }}
+                  >
+                    Edit Profile
+                  </button>
+                : <div className="flex flex-row items-center w-full space-x-1">
+                    <button
+                      title="Follow"
+                      type="button"
+                      className="w-[10rem] outline-none px-3 py-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                      onClick={() => {
+                        Router.push('/')
+                      }}
+                    >
+                      Follow
+                    </button>
+                  </div>
+              }
             </div>
           </div>
         </div>
       </div>
       <div className="relative flex flex-row items-start w-full max-w-4xl mt-[9rem] mb-[1rem] space-x-3">
-        <div className="sticky top-2 flex flex-col w-full max-w-xs p-5 space-y-3 rounded-md bg-white dark:bg-[#1F1E35]">
+        <div className="sticky top-2 flex flex-col w-full max-w-xs p-5 space-y-3 rounded-md bg-white dark:bg-[#1C1A28]">
           <div className="flex flex-col">
             <h2 className="font-bold text-lg text-zinc-700 dark:text-purple-400">Intro</h2>
             <h3 className="font-normal text-sm">
@@ -202,8 +214,9 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
               )}
               {userPosts && userPosts.pages.map((page: any, i: number) => (
                 <React.Fragment key={i}>
-                  {page.posts.map((post: any) => (
+                  {page.posts.map((post: any, i: number) => (
                     <CardPost
+                      key={i}
                       profile={profile}
                       post={post}                      
                     />

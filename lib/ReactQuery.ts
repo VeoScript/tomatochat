@@ -247,6 +247,20 @@ export function useGetUserPosts(userId: string) {
   )
 }
 
+// QUERY FOR GETTING ALL POSTS DISPLAYING IN NEWSFEED PAGE
+export function useGetNewsFeedPosts() {
+  return useInfiniteQuery('get_newsfeed_posts', 
+    async ({ pageParam = '' }) => {
+      const get_newsfeed_posts = fetch(`/api/modules/read/posts/newsfeed?cursor=${ pageParam }`)
+      return (await get_newsfeed_posts).json()
+    },
+    {
+      refetchInterval: 1000,
+      getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+    }
+  )
+}
+
 
 
 

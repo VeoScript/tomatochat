@@ -7,7 +7,7 @@ import NewsFeed from '../layouts/Panels/NewsFeed'
 import LoadingPage from '../layouts/Loading'
 import ErrorPage from '../layouts/Error'
 import { useSession } from 'next-auth/react'
-import { useGetUser } from '../lib/ReactQuery'
+import { useGetUser, useGetProfile } from '../lib/ReactQuery'
 
 const Home: NextPage = () => {
 
@@ -16,6 +16,7 @@ const Home: NextPage = () => {
   const email = session ? session.user?.email : ''
 
   const { data: user, isLoading, isError } = useGetUser(email as string)
+  const { data: profile, isLoading: profileLoading, isError: profileError } = useGetProfile(user && String(user.id))
 
   if (status === 'unauthenticated') {
     Router.replace('/login')
@@ -24,13 +25,13 @@ const Home: NextPage = () => {
     )
   }
 
-  if (status === 'loading' || isLoading) {
+  if (status === 'loading' || isLoading || profileLoading) {
     return (
       <LoadingPage />
     )
   }
 
-  if (isError) {
+  if (isError || profileError) {
     return (
       <ErrorPage
         errorType={'Error'}
@@ -45,7 +46,10 @@ const Home: NextPage = () => {
         <title>TomatoChat</title>
       </Head>
       <MainLayout user={user}>
-        <NewsFeed />
+        <NewsFeed
+          user={user}
+          profile={profile}
+        />
       </MainLayout>
     </React.Fragment>
   )
