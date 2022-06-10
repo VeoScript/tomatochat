@@ -151,6 +151,21 @@ export const sendChatJoin = (_args: any) => {
   })
 }
 
+// API-ROUTE FOR SENDING CHATS (IMAGE)
+export const sendChatImage = (_args: any) => {
+  return fetch('/api/modules/create/chat/image', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      chatbox: _args.chatbox,
+      userId: _args.userId,
+      roomSlug: _args.roomSlug
+    })
+  })
+}
+
 // API-ROUTE FOR GETTING THE LAST CHAT OF THE MEMBER
 export const sendLastChat = (_args: any) => {
   return fetch('/api/modules/update/chat/lastchat', {

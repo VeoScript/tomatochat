@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 import Spinner from '../../utils/Spinner'
 import Profile from '../../components/Images/Profile'
 import Seeners from '../../components/Images/Seeners'
@@ -8,11 +9,14 @@ import Public from '../../components/Join/Public'
 import Private from '../../components/Join/Private'
 import ChatSettingMenu from '../../components/Menus/ChatSettingMenu'
 import DeleteChat from '../../components/Modals/Body/DeleteChat'
+import ChatUpload from '../../components/Uploads/ChatUpload'
+import CustomToaster from '../../components/CustomToaster'
 import Moment from 'react-moment'
+import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
 import { useInView } from 'react-intersection-observer'
-import { useGetJoinedRoom, useGetChats, useSendChatMutation, useLastChatMutation, useSeenChatMutation } from '../../lib/ReactQuery'
-import { RiMoreFill, RiSendPlane2Line, RiSpyFill, RiEmotionSadLine, RiCheckDoubleLine } from 'react-icons/ri'
+import { useGetJoinedRoom, useGetChats, useSendChatMutation, useSendChatImageMutation, useLastChatMutation, useSeenChatMutation } from '../../lib/ReactQuery'
+import { RiMoreFill, RiSendPlane2Line, RiSpyFill, RiEmotionSadLine, RiCheckDoubleLine, RiCloseFill } from 'react-icons/ri'
 
 interface IProps {
   user: any
@@ -22,6 +26,8 @@ interface IProps {
 interface FormData {
   chatbox: string
 }
+
+const imageTypeRegex = /image\/(png|jpg|jpeg)/gm
 
 const Chats: React.FC<IProps> = ({ user, room }) => {
 
@@ -35,10 +41,16 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
   const { data: chats, isLoading: chatsLoading, isError: chatsError, refetch, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetChats(roomSlug)
 
   const seenChat = useSeenChatMutation()
-  const { mutate: lastChat } = useLastChatMutation()
-  const { mutate: optimisticChatMutation } = useSendChatMutation()
+  const { mutateAsync: lastChat } = useLastChatMutation()
+  const { mutateAsync: optimisticChatMutation } = useSendChatMutation()
+  const { mutateAsync: sendChatImageMutation } = useSendChatImageMutation()
+
+  // for upload image message states
+  const [chatImageFiles, setChatImageFiles] = React.useState<any>([])
+  const [chatImages, setChatImages] = React.useState<any>([])
 
   const { handleSubmit, register, reset, setValue, formState: { isSubmitting } } = useForm<FormData>()
+  const { handleSubmit: handleSubmitPhoto, formState: { isSubmitting: isSubmittingPhoto } } = useForm()
 
   const chatContainer = document.getElementById('chatContainer')
   const chatMainContainer = document.getElementById('chatMainContainer')
@@ -54,6 +66,41 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
     scrollToBottom(chatMainContainer)
     register('chatbox', { required: true })
   }, [chatMainContainer, refetch, register, fetchNextPage, hasNextPage, inView])
+
+  React.useEffect(() => {
+    const images: any[] = []
+    const fileReaders: FileReader[] = []
+    let isCancel = false
+
+    if (chatImageFiles.length) {
+      chatImageFiles.forEach((file: any) => {
+        const fileReader = new FileReader()
+        fileReaders.push(fileReader)
+
+        fileReader.onload = (e: any) => {
+          const { result } = e.target
+
+          if (result) {
+            images.push(result)
+          }
+
+          if (images.length === chatImageFiles.length && !isCancel) {
+            setChatImages(images)
+          }
+        }
+        fileReader.readAsDataURL(file)
+      })
+    }
+
+    return () => {
+      isCancel = true
+      fileReaders.forEach(fileReader => {
+        if (fileReader.readyState === 1) {
+          fileReader.abort()
+        }
+      })
+    }
+  }, [chatImageFiles])
 
   if (getRoomLoading) {
     return (
@@ -96,6 +143,140 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
   // get the last chat user id
   const getLastChat = chats && chats.pages[0].chats[0]
 
+  // get selected image for upload
+  const handleAddImage = (e: any) => {
+    const { files } = e.target
+    const validImagesFiles = []
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i]
+
+      if (file.type.match(imageTypeRegex)) {
+        validImagesFiles.push(file)
+      } else {
+        toast.custom((trigger) => (
+          <CustomToaster
+            toast={toast}
+            trigger={trigger}
+            type={'Error'}
+            message={'Please select jpg, jpeg or png only!'}
+          />
+        ))
+        return
+      }
+
+      if(file.size > 2097152) {
+        setChatImages([])
+        setChatImageFiles([])
+        toast.custom((trigger) => (
+          <CustomToaster
+            toast={toast}
+            trigger={trigger}
+            type={'Info'}
+            message={'Selected photo size exceeds 2 MB. Choose another one.'}
+          />
+        ))
+        return
+      }
+    }
+
+    if (validImagesFiles.length > 4) {
+      toast.custom((trigger) => (
+        <CustomToaster
+          toast={toast}
+          trigger={trigger}
+          type={'Info'}
+          message={'Only up to 4 photos can be uploaded.'}
+        />
+      ))
+      return
+    }
+
+    if (validImagesFiles.length) {
+      setChatImageFiles(validImagesFiles)
+      return
+    }
+  }
+
+  // send chat with images
+  const onSendPhotos = async () => {
+    try {
+      let photo = new Array
+      
+      // check if there is selected photo, hence it will upload it to the gallery hosting
+      if (chatImageFiles || chatImages) {
+        const body = new FormData()
+
+        // uploading multiple images
+        for (let i = 0; i < chatImageFiles.length; i++) {
+          body.append('image', chatImageFiles[i])
+
+          await fetch(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API}`, {
+            method: 'POST',
+            body: body
+          })
+          .then((response) => response.json())
+          .then((result) => {
+            photo.push(result.data.url)
+          })
+          .catch((err) => {
+            console.log(err)
+            toast.custom((trigger) => (
+              <CustomToaster
+                toast={toast}
+                trigger={trigger}
+                type={'Error'}
+                message={'Upload failed. Check your internet.'}
+              />
+            ))
+            return
+          })
+        }
+      }
+
+      // for sending all of the selected images to database
+      for (let i = 0; i < photo.length; i++) {
+        await sendChatImageMutation({
+          chatbox: String(photo[i]),
+          userId,
+          roomSlug
+        },
+        {
+          onError: async (err) => {
+            console.log(err)
+          },
+          onSuccess: async () => {
+            const chatbox = `${user.name} send a photo.`
+
+            await lastChat({
+              roomSlug: roomSlug,
+              lastChat: String(chatbox),
+              lastChatType: 'IMAGE',
+              lastSentUserId: findJoinedRoom.user.id,
+              lastSentUserImage: findJoinedRoom.user.image,
+              lastSentUserName: findJoinedRoom.user.name
+            },
+            {
+              onSuccess: async () => {
+                await seenChat.mutateAsync({
+                  joinedRoomId: findJoinedRoom.id
+                })
+              }
+            })
+          }
+        })
+      }
+
+      setChatImages([])
+      setChatImageFiles([])
+      reset()
+      
+    } catch(err) {
+      console.error(err)
+    }
+  }
+
+  // send chat function
   const onSendChat = async (formData: FormData) => {
     const userId = user.id
     const roomSlug = room.slug
@@ -312,6 +493,59 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                 </span>
                               </div>
                             )}
+                            {chat.chattype === 'IMAGE' && (
+                              <React.Fragment>
+                                {chat.user.id !== user.id && (
+                                  <div className="flex items-end justify-start w-full space-x-2">
+                                    <div className="flex">
+                                      <Profile src={chat.user.image} />
+                                    </div>
+                                    <div className="bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap bg-white dark:bg-[#19182B]">
+                                      <Image
+                                        src={chat.message}
+                                        blurDataURL={chat.message}
+                                        width={300}
+                                        height={300}
+                                        className="rounded-md object-cover"
+                                        layout="intrinsic"
+                                        quality={100}
+                                        alt="Chat Image"
+                                      />
+                                      <span className="font-light dark:font-thin text-[9px]">
+                                        <Moment date={chat.date} fromNow />
+                                      </span>
+                                    </div>
+                                  </div>
+                                )}
+                                {chat.user.id === user.id && (
+                                  <div className="flex items-end justify-end w-full space-x-2">
+                                    <div className="bubble-sender flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap text-white bg-[#4D38A2]">
+                                      <Image
+                                        src={chat.message}
+                                        blurDataURL={chat.message}
+                                        width={300}
+                                        height={300}
+                                        className="rounded-md object-cover"
+                                        layout="intrinsic"
+                                        quality={100}
+                                        alt="Chat Image"
+                                      />
+                                      <span className="inline-flex items-center space-x-2 font-thin text-[9px]">
+                                        <Moment date={chat.date} fromNow />
+                                        <div className="inline-flex items-center space-x-1">
+                                          <RiCheckDoubleLine title="Sent" className="w-5 h-5 text-[#CDA0F5]" />
+                                          <DeleteChat
+                                            user={user}
+                                            chatId={chat.id}
+                                            roomSlug={roomSlug}
+                                          />
+                                        </div>
+                                      </span>
+                                    </div>
+                                  </div>
+                                )}
+                              </React.Fragment>
+                            )}
                           </React.Fragment>
                         ))}
                       </React.Fragment>
@@ -349,45 +583,116 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
               </div>
             </div>
             <div className="w-full border-t border-zinc-300 dark:border-transparent bg-zinc-100 dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]">
+              {chatImageFiles.length > 0 && (
+                <div className="flex items-center justify-center w-full p-2 space-x-1">
+                  {chatImages.map(( image: any, i: number ) => {
+                    return (
+                      <div className="relative" key={i}>
+                        {!isSubmitting && (
+                          <button
+                            title="Remove"
+                            type="button"
+                            className="absolute top-1 right-1 z-10 p-1 rounded-full bg-black bg-opacity-80 hover:bg-opacity-50"
+                            onClick={() => {
+                              // for deleting specific photo
+                              let previewImages = chatImages.map((photo: any) => photo).indexOf(image)
+                              let toUploadImages = chatImageFiles.map((photo: any) => photo.name).indexOf(image)
+                              if (previewImages > -1 || toUploadImages > -1) {
+                                chatImages.splice(previewImages, 1)
+                                chatImageFiles.splice(toUploadImages, 1)
+                                setChatImages(chatImages)
+                                setChatImageFiles(chatImageFiles)
+                              }
+                            }}
+                          >
+                            <RiCloseFill className="w-4 h-4 text-white" />
+                          </button>
+                        )}
+                        <Image
+                          src={image}
+                          blurDataURL={image}
+                          width={300}
+                          height={300}
+                          className="rounded-md object-cover"
+                          layout="intrinsic"
+                          quality={100}
+                          alt="Post Images"
+                        />
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
               <form
-                className="inline-flex w-full p-3 space-x-3"
+                className="inline-flex items-start w-full p-3 space-x-3"
                 onSubmit={handleSubmit(onSendChat)}
               >
-                <div
-                  id="contentEditable"
-                  className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none p-3 font-light text-xs rounded-xl bg-white dark:bg-[#19182B] border border-zinc-200 focus:border-zinc-400 dark:border-[#1F1836] dark:focus:border-[#2B214B]"
-                  placeholder="Write a message..."
-                  title="Shift+Enter to execute new line."
-                  contentEditable="true"
-                  suppressContentEditableWarning
-                  spellCheck={false}
-                  onFocus={() => {
-                    seenChat.mutate({
-                      joinedRoomId: findJoinedRoom.id
-                    })
-                  }}
-                  onPaste={(e) => {
-                    e.preventDefault()
-                    var text = e.clipboardData.getData('text/plain')
-                    document.execCommand('insertText', false, text)
-                  }}
-                  onKeyPress={handleLineBreak}
-                  onClick={() => scrollToBottom(chatContainer)}
-                  onInput={(e: any) => setValue('chatbox', e.currentTarget.textContent, { shouldValidate: true })}
+                <ChatUpload
+                  handleAddImage={handleAddImage}
                 />
-                {isSubmitting && (
-                  <div className="w-6 h-6 py-2 outline-none cursor-wait">
-                    <Spinner width={25} height={25} color={'#9333EA'} />
+                {chatImageFiles.length > 0 && (
+                  <div className="inline-flex items-start justify-between w-full space-x-2">
+                    {!isSubmittingPhoto && (
+                      <button
+                        title="Send Photo"
+                        type="button"
+                        className="outline-none w-full p-2 rounded-lg text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                        onClick={handleSubmitPhoto(onSendPhotos)}
+                      >
+                        Send
+                      </button>
+                    )}
+                    {isSubmittingPhoto && (
+                      <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-lg text-sm text-white bg-purple-800 bg-opacity-80">
+                        <Spinner
+                          width={20}
+                          height={20}
+                          color={'#FFFFFF'}
+                        />
+                        <span className="font-light">Sending...</span>
+                      </div>
+                    )}
                   </div>
                 )}
-                {!isSubmitting && (
-                  <button
-                    title="Send"
-                    type="submit"
-                    className="outline-none"
-                  >
-                    <RiSendPlane2Line className="w-6 h-6 text-purple-600 transition ease-in-out duration-200 transform hover:scale-90" />
-                  </button>
+                {chatImageFiles.length == 0 && (
+                  <>
+                    <div
+                      id="contentEditable"
+                      className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none p-3 font-light text-xs rounded-xl bg-white dark:bg-[#19182B] border border-zinc-200 focus:border-zinc-400 dark:border-[#1F1836] dark:focus:border-[#2B214B]"
+                      placeholder="Write a message..."
+                      title="Shift+Enter to execute new line."
+                      contentEditable="true"
+                      suppressContentEditableWarning
+                      spellCheck={false}
+                      onFocus={() => {
+                        seenChat.mutate({
+                          joinedRoomId: findJoinedRoom.id
+                        })
+                      }}
+                      onPaste={(e) => {
+                        e.preventDefault()
+                        var text = e.clipboardData.getData('text/plain')
+                        document.execCommand('insertText', false, text)
+                      }}
+                      onKeyPress={handleLineBreak}
+                      onClick={() => scrollToBottom(chatContainer)}
+                      onInput={(e: any) => setValue('chatbox', e.currentTarget.textContent, { shouldValidate: true })}
+                    />
+                    {isSubmitting && (
+                      <div className="w-6 h-6 mt-2 py-2 outline-none cursor-wait">
+                        <Spinner width={25} height={25} color={'#9333EA'} />
+                      </div>
+                    )}
+                    {!isSubmitting && (
+                      <button
+                        title="Send"
+                        type="submit"
+                        className="outline-none"
+                      >
+                        <RiSendPlane2Line className="w-6 h-6 mt-2 text-purple-600 transition ease-in-out duration-200 transform hover:scale-90" />
+                      </button>
+                    )}
+                  </>
                 )}
               </form>
             </div>
