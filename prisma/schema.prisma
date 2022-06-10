@@ -216,4 +216,5 @@ enum Role {
 enum ChatType {
   NORMAL
   JOIN
+  IMAGE
 }

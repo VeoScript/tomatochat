@@ -18,6 +18,7 @@ import {
   changeRole,
   sendChat,
   sendChatJoin,
+  sendChatImage,
   sendLastChat,
   seenChat,
   deleteChat,
@@ -354,7 +355,7 @@ export const useSendChatJoinMutation = () => {
   )
 }
 
-// MUTATION FOR OPTIMISTIC UPDATES IN CHAT ROOM
+// OPTIMISTIC MUTATION FOR SENDING A NORMAL CHAT
 export const useSendChatMutation = () => {
   const queryClient = useQueryClient()
   return useMutation(sendChat, {
@@ -375,7 +376,33 @@ export const useSendChatMutation = () => {
       queryClient.setQueryData('createChat', context?.previousChatData)
     },
     onSettled: () => {
-      queryClient.invalidateQueries('chats')
+      queryClient.invalidateQueries('createChat')
+    }
+  })
+}
+
+// OPTIMISTIC MUTATION FOR SENDING AN IMAGE CHAT
+export const useSendChatImageMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation(sendChatImage, {
+    onMutate: async (newChat) => {
+      await queryClient.cancelQueries('createChatImage')
+      const previousChatData = queryClient.getQueriesData('createChatImage')
+      queryClient.setQueriesData('createChatImage', (oldQueryData: any) => {
+        return {
+          ...oldQueryData,
+          data: [...oldQueryData.data, { index: oldQueryData?.data.length + 1, ...newChat }]
+        }
+      })
+      return {
+        previousChatData,
+      }
+    },
+    onError: (_error, _chat, context: any) => {
+      queryClient.setQueryData('createChatImage', context?.previousChatData)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries('createChatImage')
     }
   })
 }

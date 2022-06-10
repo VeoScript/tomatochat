@@ -132,7 +132,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                               )
                             : (
                                 <React.Fragment>
-                                  {joined_room.lastChatType === 'JOIN' && (
+                                  {(joined_room.lastChatType === 'JOIN' || joined_room.lastChatType === 'IMAGE') && (
                                     <div className="inline-block text-xs text-zinc-400 line-clamp-2">
                                       { joined_room.lastChat }
                                     </div>
@@ -237,7 +237,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                                   )
                                 : (
                                     <React.Fragment>
-                                      {joined_room.lastChatType === 'JOIN' && (
+                                      {(joined_room.lastChatType === 'JOIN' || joined_room.lastChatType === 'IMAGE') && (
                                         <div className="inline-block text-xs text-zinc-400 line-clamp-2">
                                           { joined_room.lastChat }
                                         </div>

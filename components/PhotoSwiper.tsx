@@ -57,7 +57,7 @@ const PhotoDisplay: React.FC<ViewStoryProps> = ({ post, story }) => {
           key={story.image}
           src={story.image}
           blurDataURL={story.image}
-          className="flex object-cover rounded-md bg-zinc-100 dark:bg-[#1C1A28]"
+          className="flex object-cover rounded-md"
           layout="responsive"
           width="100%"
           height="100%"
@@ -72,7 +72,7 @@ const PhotoDisplay: React.FC<ViewStoryProps> = ({ post, story }) => {
           key={story.image}
           src={story.image}
           blurDataURL={story.image}
-          className="flex object-cover rounded-md bg-zinc-100 dark:bg-[#1C1A28]"
+          className="flex object-cover rounded-md"
           layout="responsive"
           width="100%"
           height="100%"
