@@ -36,7 +36,8 @@ export function useGetUser(email: string) {
       return (await user).json()
     },
     {
-      enabled: !!email
+      enabled: !!email,
+      refetchInterval: 5000
     }
   )
 }
@@ -55,7 +56,7 @@ export function useGetProfile(userId: string) {
       return (await profile).json()
     },
     {
-      refetchInterval: 1000
+      refetchInterval: 5000
     }
   )
 }
@@ -125,7 +126,7 @@ export function useGetRooms() {
       return (await rooms).json()
     },
     {
-      refetchInterval: 1000,
+      refetchInterval: 5000,
       getNextPageParam: (lastPage) => lastPage.nextId ?? false,
     }
   )
@@ -140,7 +141,7 @@ export function useGetRoom(roomSlug: string) {
     },
     {
       enabled: !!roomSlug,
-      refetchInterval: 1000
+      refetchInterval: 5000
     }
   )
 }
@@ -160,7 +161,7 @@ export function useGetJoinedRooms(userId: string) {
     },
     {
       enabled: !!userId,
-      refetchInterval: 1000,
+      refetchInterval: 5000,
       getNextPageParam: (lastPage) => lastPage.nextId ?? false,
     }
   )
@@ -176,7 +177,7 @@ export function useGetJoinedRoom(roomSlug: string) {
     {
       retry: false,
       enabled: !!roomSlug,
-      refetchInterval: 1000
+      refetchInterval: 5000
     }
   )
 }
@@ -196,7 +197,7 @@ export function useGetMembers(roomSlug: string) {
     },
     {
       enabled: !!roomSlug,
-      refetchInterval: 1000
+      refetchInterval: 5000
     }
   )
 }
@@ -220,7 +221,7 @@ export function useGetChats(roomSlug: string) {
         pageParams: [...chats.pageParams].reverse()
       }),
       enabled: !!roomSlug,
-      refetchInterval: 1000,
+      refetchInterval: 5000,
       getNextPageParam: (lastPage) => lastPage.nextId ?? false
     }
   )
@@ -241,7 +242,7 @@ export function useGetUserPosts(userId: string) {
     },
     {
       enabled: !!userId,
-      refetchInterval: 1000,
+      refetchInterval: 5000,
       getNextPageParam: (lastPage) => lastPage.nextId ?? false,
     }
   )
@@ -255,7 +256,7 @@ export function useGetNewsFeedPosts() {
       return (await get_newsfeed_posts).json()
     },
     {
-      refetchInterval: 1000,
+      refetchInterval: 5000,
       getNextPageParam: (lastPage) => lastPage.nextId ?? false,
     }
   )

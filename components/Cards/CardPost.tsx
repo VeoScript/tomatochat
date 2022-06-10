@@ -13,16 +13,16 @@ interface IProps {
 
 const CardPost: React.FC<IProps> = ({ profile, post }) => {
 
-  const { asPath } = useRouter()
+  const { pathname } = useRouter()
 
   return (
     <div className="flex flex-col w-full p-5 space-y-5 rounded-md bg-white dark:bg-[#1C1A28]">
       <div className="flex flex-row items-start justify-between w-full">
         <div className="flex items-start space-x-2">
-          <PostProfile src={asPath === '/' ? post.user.image : profile.image} />
+          <PostProfile src={pathname === '/' ? post.user.image : profile.image} />
           <div className="flex flex-col">
-            <Link href={`/profile/${asPath === '/' ? post.user.id : profile.id}`}>
-              <a className="font-bold text-base">{asPath === '/' ? post.user.name : profile.name}</a>
+            <Link href={`/profile/${pathname === '/' ? post.user.id : profile.id}`}>
+              <a className="font-bold text-base">{pathname === '/' ? post.user.name : profile.name}</a>
             </Link>
             <p className="font-light text-xs text-zinc-400">
               {moment(post.createdAt).fromNow()}
