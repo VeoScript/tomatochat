@@ -360,23 +360,23 @@ export const useSendChatMutation = () => {
   const queryClient = useQueryClient()
   return useMutation(sendChat, {
     onMutate: async (newChat) => {
-      await queryClient.cancelQueries('createChat')
-      const previousChatData = queryClient.getQueriesData('createChat')
-      queryClient.setQueriesData('createChat', (oldQueryData: any) => {
-        return {
-          ...oldQueryData,
-          data: [...oldQueryData.data, { index: oldQueryData?.data.length + 1, ...newChat }]
-        }
+      await queryClient.cancelQueries('chats')
+      const previousChatData = queryClient.getQueriesData('chats')
+      queryClient.setQueriesData('chats', (oldQueryData: any) => {
+        oldQueryData.pages.map((page: { chats: any }) => ({
+          ...page,
+          chats: [...page.chats, { index: page?.chats.length + 1, ...newChat }]
+        }))
       })
       return {
         previousChatData,
       }
     },
-    onError: (_error, _chat, context: any) => {
-      queryClient.setQueryData('createChat', context?.previousChatData)
+    onError: (context: any) => {
+      queryClient.setQueryData('chats', context?.previousChatData)
     },
     onSettled: () => {
-      queryClient.invalidateQueries('createChat')
+      queryClient.invalidateQueries('chats')
     }
   })
 }
@@ -386,23 +386,23 @@ export const useSendChatImageMutation = () => {
   const queryClient = useQueryClient()
   return useMutation(sendChatImage, {
     onMutate: async (newChat) => {
-      await queryClient.cancelQueries('createChatImage')
-      const previousChatData = queryClient.getQueriesData('createChatImage')
-      queryClient.setQueriesData('createChatImage', (oldQueryData: any) => {
-        return {
-          ...oldQueryData,
-          data: [...oldQueryData.data, { index: oldQueryData?.data.length + 1, ...newChat }]
-        }
+      await queryClient.cancelQueries('chats')
+      const previousChatData = queryClient.getQueriesData('chats')
+      queryClient.setQueriesData('chats', (oldQueryData: any) => {
+        oldQueryData.pages.map((page: { chats: any }) => ({
+          ...page,
+          chats: [...page.chats, { index: page?.chats.length + 1, ...newChat }]
+        }))
       })
       return {
         previousChatData,
       }
     },
-    onError: (_error, _chat, context: any) => {
-      queryClient.setQueryData('createChatImage', context?.previousChatData)
+    onError: (context: any) => {
+      queryClient.setQueryData('chats', context?.previousChatData)
     },
     onSettled: () => {
-      queryClient.invalidateQueries('createChatImage')
+      queryClient.invalidateQueries('chats')
     }
   })
 }
