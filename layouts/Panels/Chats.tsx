@@ -43,7 +43,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
 
   const seenChat = useSeenChatMutation()
   const { mutateAsync: lastChat } = useLastChatMutation()
-  const { mutateAsync: optimisticChatMutation } = useSendChatMutation()
+  const { mutateAsync: sendChatMutation } = useSendChatMutation()
   const { mutateAsync: sendChatImageMutation } = useSendChatImageMutation()
 
   // for upload image message states
@@ -287,7 +287,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
     if (contentEditable!.innerText.trim().length === 0 || chatbox === '') return
 
     // send chat to the database
-    await optimisticChatMutation({
+    await sendChatMutation({
       chatbox,
       userId,
       roomSlug
@@ -575,7 +575,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                   {chatImages.map(( image: any, i: number ) => {
                     return (
                       <div className="relative" key={i}>
-                        {!isSubmitting && (
+                        {!isSubmittingPhoto && (
                           <button
                             title="Remove"
                             type="button"
