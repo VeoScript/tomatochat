@@ -52,17 +52,18 @@ const Login: NextPage<IProps> = ({ providers }) => {
               </button>
             </div>
           ))}
-          <div className="flex items-center justify-center w-full pt-3 space-x-2">
+          <div className="flex flex-col items-center justify-center w-full pt-3">
             <p className="font-light text-[11px] text-zinc-800 dark:text-white text-center">
               By using TomatoChat you agree to its&nbsp;
               <Link href="/">
-                <a className="text-purple-500 hover:underline">Terms of Service</a>
+                <a className="text-tomato-orange hover:underline">Terms of Service</a>
               </Link>
               &nbsp;and&nbsp;
               <Link href="/">
-                <a className="text-purple-500 hover:underline">Privacy Policy</a>
+                <a className="text-tomato-orange hover:underline">Privacy Policy</a>
               </Link>
             </p>
+            <p className="font-light text-zinc-800 dark:text-zinc-100 text-[11px]">&copy; 2022 TomatoChat. All rights reserved.</p>
           </div>
         </div>
       </StaticLayout>

@@ -47,7 +47,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                 title="Home"
                 className="outline-none"
               >
-                <RiHome5Line className={`${pathname === '/' ? 'text-zinc-500 dark:text-zinc-400' : 'text-purple-500 dark:text-zinc-500'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
+                <RiHome5Line className={`${pathname === '/' ? 'text-tomato-orange' : 'text-zinc-500'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
               </a>
             </Link>
             <button
@@ -58,7 +58,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                 Router.push('/discover', undefined, { shallow: true })
               }}
             >
-              <RiCompass3Line className={`${pathname === '/discover' ? 'text-zinc-500 dark:text-zinc-400' : 'text-purple-500 dark:text-zinc-500'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
+              <RiCompass3Line className={`${pathname === '/discover' ? 'text-tomato-orange' : 'text-zinc-500'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
             </button>
             <CreateRoom user={user} />
           </span>
@@ -71,13 +71,13 @@ const Rooms: React.FC<IProps> = ({ user }) => {
           />
         </div>
       </div>
-      <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
+      <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
         {/* Search Result Display Inbox */}
         {isDisplay && (
           <div className="flex flex-col w-full px-2 space-y-2">
             {searchInboxLoading && (
               <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-                <Spinner width={40}  height={40} color={'#4D38A2'} />
+                <Spinner width={40}  height={40} color={'#F16506'} />
                 <h3 className="font-light text-xs">Loading...</h3>
               </div>
             )}
@@ -103,7 +103,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                     <button
                       key={joined_room.index}
                       type="button"
-                      className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E] dark:focus:bg-gradient-to-r dark:focus:from-[#1F1E35] dark:focus:to-[#14121E]`}
+                      className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526] dark:focus:bg-gradient-to-r dark:focus:from-[#33383B] dark:focus:to-[#222526]`}
                       onClick={() => {
                         Router.replace(`/${joined_room.room.slug}`)
                         seenChat.mutate({
@@ -115,20 +115,20 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                         <div className="flex items-start w-full max-w-[4rem] h-full max-h-[3.5rem]">
                           {joined_room.room.photo
                             ? <RoomImage src={joined_room.room.photo} />
-                            : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#201A2C]">
-                                <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
+                            : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#161818]">
+                                <RiSpyFill className="w-5 h-5 text-[#F16506]" />
                               </div>
                           }
                         </div>
                         <div className="block w-full space-y-1">
                           <div className="inline-flex items-center space-x-2">
                             <h3 className="font-light text-sm">{ joined_room.room.name }</h3>
-                            {joined_room.room.privacy === 'Private' && <RiLockFill className="w-3 h-3 text-purple-500" />}
+                            {joined_room.room.privacy === 'Private' && <RiLockFill className="w-3 h-3 text-tomato-orange" />}
                           </div>
                           {/* check if the last chat is null (if null it will display the room description otherwise, it will displaying the last chat of the room...) */}
                           {joined_room.lastChat === null
                             ? (
-                                <h3 className="text-xs text-[#CDA0F5] line-clamp-2">{ joined_room.room.description }</h3>
+                                <h3 className="text-xs text-zinc-400 line-clamp-2">{ joined_room.room.description }</h3>
                               )
                             : (
                                 <React.Fragment>
@@ -139,7 +139,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                                   )}
                                   {joined_room.lastChatType === 'NORMAL' && (
                                     <div className="inline-block text-xs text-zinc-400 line-clamp-2">
-                                      <span className="text-purple-400">{ joined_room.lastSentUserName }: &nbsp;</span>
+                                      <span className="text-tomato-orange">{ joined_room.lastSentUserName }: &nbsp;</span>
                                       { joined_room.lastChat }
                                     </div>
                                   )}
@@ -150,7 +150,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                       </div>
                       {joined_room.seen === false && (
                         <span className="inline-flex items-center h-full pl-3">
-                          <RiBubbleChartFill className="w-5 h-5 text-purple-400" />
+                          <RiBubbleChartFill className="w-5 h-5 text-tomato-orange" />
                         </span>
                       )}
                     </button>
@@ -165,7 +165,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
           <div className="flex flex-col w-full px-2 space-y-2">
             {isLoading && (
               <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-                <Spinner width={40}  height={40} color={'#4D38A2'} />
+                <Spinner width={40}  height={40} color={'#F16506'} />
                 <h3 className="font-light text-xs">Loading...</h3>
               </div>
             )}
@@ -194,7 +194,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                         <h3 className="font-light text-xs">Your inbox is empty.</h3>
                       </div>
                       <Link href="/discover">
-                        <a className="w-[12rem] p-2 rounded-md text-center text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80">
+                        <a className="w-[12rem] p-2 rounded-md text-center text-sm text-white bg-tomato-orange transition ease-in-out duration-200 hover:bg-opacity-80">
                           Discover
                         </a>
                       </Link>
@@ -208,7 +208,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                         <button
                           key={joined_room.index}
                           type="button"
-                          className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E] dark:focus:bg-gradient-to-r dark:focus:from-[#1F1E35] dark:focus:to-[#14121E]`}
+                          className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526] dark:focus:bg-gradient-to-r dark:focus:from-[#33383B] dark:focus:to-[#222526]`}
                           onClick={() => {
                             Router.replace(`/${joined_room.room.slug}`)
                             seenChat.mutate({
@@ -220,15 +220,15 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                             <div className="flex items-start w-full max-w-[4rem] h-full max-h-[3.5rem]">
                               {joined_room.room.photo
                                 ? <RoomImage src={joined_room.room.photo} />
-                                : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#201A2C]">
-                                    <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
+                                : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-300 dark:bg-[#161818]">
+                                    <RiSpyFill className="w-5 h-5 text-[#F16506]" />
                                   </div>
                               }
                             </div>
                             <div className="block w-full space-y-1">
                               <div className="inline-flex items-center space-x-2">
                                 <h3 className="font-light text-sm">{ joined_room.room.name }</h3>
-                                {joined_room.room.privacy === 'Private' && <RiLockFill className="w-3 h-3 text-purple-500" />}
+                                {joined_room.room.privacy === 'Private' && <RiLockFill className="w-3 h-3 text-tomato-orange" />}
                               </div>
                               {/* check if the last chat is null (if null it will display the room description otherwise, it will displaying the last chat of the room...) */}
                               {joined_room.lastChat === null
@@ -244,7 +244,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                                       )}
                                       {joined_room.lastChatType === 'NORMAL' && (
                                         <div className="inline-block text-xs text-zinc-400 line-clamp-2">
-                                          <span className="text-purple-400">{ joined_room.lastSentUserName }: &nbsp;</span>
+                                          <span className="text-tomato-orange">{ joined_room.lastSentUserName }: &nbsp;</span>
                                           { joined_room.lastChat }
                                         </div>
                                       )}
@@ -255,7 +255,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                           </div>
                           {joined_room.seen === false && (
                             <span className="inline-flex items-center h-full pl-3">
-                              <RiBubbleChartFill className="w-5 h-5 text-purple-400" />
+                              <RiBubbleChartFill className="w-5 h-5 text-tomato-orange" />
                             </span>
                           )}
                         </button>

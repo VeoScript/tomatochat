@@ -30,10 +30,10 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
   }, [fetchNextPage, hasNextPage, inView])
 
   return (
-    <div className="flex flex-col items-center w-full max-w-full h-full border-x border-zinc-300 dark:border-[#1F1836] overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
+    <div className="flex flex-col items-center w-full max-w-full h-full border-x border-zinc-300 dark:border-tomato-dark-secondary overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
       <div className="relative flex flex-col w-full max-w-4xl">
         <div
-          className="relative flex w-full h-[18rem] rounded-b-xl bg-white dark:bg-[#1F1E35] bg-center bg-cover bg-no-repeat"
+          className="relative flex w-full h-[18rem] rounded-b-xl bg-white dark:bg-tomato-dark-secondary bg-center bg-cover bg-no-repeat"
           style={{ backgroundImage: `url(${profile.coverImage ? profile.coverImage : null})` }}
         >
           {user.id === profile.id && (
@@ -47,7 +47,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
               blurDataURL={profile.image}
               width={150}
               height={150}
-              className="flex w-full max-w-[2.5rem] rounded-full object-cover bg-white dark:bg-[#201A2C]"
+              className="flex w-full max-w-[2.5rem] rounded-full object-cover bg-tomato-light dark:bg-tomato-dark-secondary"
               layout="intrinsic"
               quality={100}
               alt="Profile"
@@ -79,7 +79,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
                 ? <button
                     title="Follow"
                     type="button"
-                    className="w-[10rem] outline-none px-3 py-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                    className="w-[10rem] outline-none px-3 py-2 rounded-md text-sm text-white bg-tomato-orange transition ease-in-out duration-200 hover:bg-opacity-80"
                     onClick={() => {
                       Router.push('/')
                     }}
@@ -90,7 +90,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
                     <button
                       title="Follow"
                       type="button"
-                      className="w-[10rem] outline-none px-3 py-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                      className="w-[10rem] outline-none px-3 py-2 rounded-md text-sm text-white bg-tomato-orange transition ease-in-out duration-200 hover:bg-opacity-80"
                       onClick={() => {
                         Router.push('/')
                       }}
@@ -104,24 +104,24 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
         </div>
       </div>
       <div className="relative flex flex-row items-start w-full max-w-4xl mt-[9rem] mb-[1rem] space-x-3">
-        <div className="sticky top-2 flex flex-col w-full max-w-xs p-5 space-y-3 rounded-md bg-white dark:bg-[#1C1A28]">
+        <div className="sticky top-2 flex flex-col w-full max-w-xs p-5 space-y-3 rounded-md bg-white dark:bg-tomato-dark-slight">
           <div className="flex flex-col">
-            <h2 className="font-bold text-lg text-zinc-700 dark:text-purple-400">Intro</h2>
+            <h2 className="font-bold text-lg text-zinc-700 dark:text-tomato-orange">Intro</h2>
             <h3 className="font-normal text-sm">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur accusantium in aut sapiente? Perferendis dolorem laborum iste laudantium, delectus nemo autem nobis officiis eveniet quia in possimus, deleniti sequi minima?
             </h3>
           </div>
           <div className="flex flex-col">
-            <h2 className="font-bold text-lg text-zinc-700 dark:text-purple-400">Hobbies</h2>
+            <h2 className="font-bold text-lg text-zinc-700 dark:text-tomato-orange">Hobbies</h2>
             <div className="flex space-x-1">
-              <span className="px-2 py-1 rounded-full text-xs text-white cursor-default bg-purple-400">Pianist</span>
-              <span className="px-2 py-1 rounded-full text-xs text-white cursor-default bg-purple-400">Coder</span>
+              <span className="px-2 py-1 rounded-full text-xs text-white cursor-default bg-tomato-orange">Pianist</span>
+              <span className="px-2 py-1 rounded-full text-xs text-white cursor-default bg-tomato-orange">Coder</span>
             </div>
           </div>
           <div className="flex flex-col space-y-2">
-            <h2 className="font-bold text-lg text-zinc-700 dark:text-purple-400">Social Links</h2>
+            <h2 className="font-bold text-lg text-zinc-700 dark:text-tomato-orange">Social Links</h2>
             <Link href={`https://www.facebook.com/${profile.facebook}`}>
-              <a className="flex items-center space-x-2 hover:text-zinc-400 dark:hover:text-purple-300" target="_blank">
+              <a className="flex items-center space-x-2 hover:text-zinc-400 dark:hover:text-tomato-orange" target="_blank">
                 <Facebook className="w-4 h-4 fill-current text-zinc-500" />
                 <span className="font-normal text-sm">
                   @facebook
@@ -129,7 +129,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
               </a>
             </Link>
             <Link href={`https://www.facebook.com/${profile.instagram}`}>
-              <a className="flex items-center space-x-2 hover:text-zinc-400 dark:hover:text-purple-300" target="_blank">
+              <a className="flex items-center space-x-2 hover:text-zinc-400 dark:hover:text-tomato-orange" target="_blank">
                 <Instagram className="w-4 h-4 fill-current text-zinc-500" />
                 <span className="font-normal text-sm">
                   @instagram
@@ -137,7 +137,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
               </a>
             </Link>
             <Link href={`https://www.facebook.com/${profile.linkedin}`}>
-              <a className="flex items-center space-x-2 hover:text-zinc-400 dark:hover:text-purple-300" target="_blank">
+              <a className="flex items-center space-x-2 hover:text-zinc-400 dark:hover:text-tomato-orange" target="_blank">
                 <RiLinkedinFill className="w-4 h-4 fill-current text-zinc-500" />
                 <span className="font-normal text-sm">
                   @linkedin
@@ -145,7 +145,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
               </a>
             </Link>
             <Link href={`https://www.facebook.com/${profile.twitter}`}>
-              <a className="flex items-center space-x-2 hover:text-zinc-400 dark:hover:text-purple-300" target="_blank">
+              <a className="flex items-center space-x-2 hover:text-zinc-400 dark:hover:text-tomato-orange" target="_blank">
                 <Twitter className="w-4 h-4 fill-current text-zinc-500" />
                 <span className="font-normal text-sm">
                   @twitter
@@ -153,7 +153,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
               </a>
             </Link>
             <Link href={`https://www.facebook.com/${profile.tiktok}`}>
-              <a className="flex items-center space-x-2 hover:text-zinc-400 dark:hover:text-purple-300" target="_blank">
+              <a className="flex items-center space-x-2 hover:text-zinc-400 dark:hover:text-tomato-orange" target="_blank">
                 <TikTok className="w-4 h-4 fill-current text-zinc-500" />
                 <span className="font-normal text-sm">
                   @tiktok
@@ -161,7 +161,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
               </a>
             </Link>
             <Link href={`https://www.facebook.com/${profile.youtube}`}>
-              <a className="flex items-center space-x-2 hover:text-zinc-400 dark:hover:text-purple-300" target="_blank">
+              <a className="flex items-center space-x-2 hover:text-zinc-400 dark:hover:text-tomato-orange" target="_blank">
                 <Youtube className="w-4 h-4 fill-current text-zinc-500" />
                 <span className="font-normal text-sm">
                   @youtube
@@ -180,7 +180,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
           {postLoading && (
             <div className="flex flex-row items-center justify-center w-full py-5">
               <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-                <Spinner width={40} height={40} color={'#4D38A2'} />
+                <Spinner width={40} height={40} color={'#F16506'} />
                 <h3 className="font-light text-sm">Fetching...</h3>
               </div>
             </div>
@@ -203,7 +203,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
           {!(postLoading && postError) && (
             <React.Fragment>
               {userPosts && userPosts.pages[0].posts.length === 0 && (
-                <div className="inline-flex items-center justify-center w-full">
+                <div className="inline-flex items-center justify-center w-full py-5">
                   <div className="flex flex-col items-start w-full max-w-md space-y-3">
                     <h1 className="font-black text-4xl text-zinc-800 dark:text-zinc-100">
                       {profile.name} has no posts yet.
@@ -223,14 +223,17 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
                   ))}
                 </React.Fragment>
               ))}
-              {isFetchingNextPage && (
-                <div className="inline-flex justify-center w-full p-3">
-                  <Spinner width={30} height={30} color={'#4D38A2'} />
-                </div>
-              )}
-              <details ref={ref} className="invisible">
-                Intersecrion Observer Marker
-              </details>
+              <button
+                ref={ref}
+                onClick={() => fetchNextPage()}
+                disabled={!hasNextPage || isFetchingNextPage}
+              >
+                {isFetchingNextPage
+                  ? <Spinner width={40} height={40} color={'#F16506'} />
+                  : hasNextPage
+                  ? 'Fetching new posts...'
+                  : ''}
+              </button>
             </React.Fragment>
           )}
         </div>

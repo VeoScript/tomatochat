@@ -12,7 +12,7 @@ const PostUpload: React.FC<IProps> = ({ handleAddImage }) => {
       <label
         title="Media"
         htmlFor="uploadPostMultiple"
-        className="cursor-pointer text-purple-500 transition ease-in-out duration-200 transform hover:scale-95"
+        className="cursor-pointer text-tomato-orange transition ease-in-out duration-200 transform hover:scale-95"
       >
         <RiImage2Line className="w-6 h-6" />
       </label>

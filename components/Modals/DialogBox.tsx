@@ -36,7 +36,7 @@ const DialogBox: React.FC<IProps> = ({ children, button, title, subtitle, isLink
       >
         <div className="flex items-center justify-center min-h-screen">
           <Dialog.Overlay className="fixed inset-0 bg-[#333] dark:bg-white opacity-20" />
-          <div className={`relative flex flex-col w-full ${ maxWidth } mx-auto p-5 space-y-3 rounded-md text-[#333] dark:text-white bg-white dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]`}>
+          <div className={`relative flex flex-col w-full ${ maxWidth } mx-auto p-5 space-y-3 rounded-md text-[#333] dark:text-white bg-white dark:bg-tomato-dark`}>
             <div className="inline-flex w-full">
               {isLink
                 ? <Link href={`/profile/${linkValue}`}><a className="font-semibold text-xl outline-none">{ title }</a></Link>

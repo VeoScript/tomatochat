@@ -12,9 +12,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'tomato-white': '#F7F7FB',
-        'tomato-lavender': '#786A9F',
-        'tomato-lavender-light': '#D4C7ED'
+        'tomato-light': '#FFFFFF',
+        'tomato-light-secondary': '#F0F2F5',
+        'tomato-dark': '#222526',
+        'tomato-dark-slight': '#272B2C',
+        'tomato-dark-secondary': '#33383B',
+        'tomato-orange': '#F16506',
+        'tomato-orange-secondary': '#E77326',
+        'tomato-red': '#BD3207',
+        'tomato-red-secondary': '#7A3015',
       },
       fontFamily: {
         rowdies: ['Rowdies'],

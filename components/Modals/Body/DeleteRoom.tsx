@@ -66,9 +66,9 @@ const DeleteRoom: React.FC<IProps> = ({ room }) => {
       className="outline-none flex w-full"
       maxWidth="max-w-md"
       button={
-       <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer hover:bg-tomato-lavender-light dark:hover:bg-red-700 text-purewhite transition ease-in-out duration-200">
-         <RiDeleteBin6Line className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-          <span>Delete Room</span>
+       <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer text-zinc-400 hover:bg-red-600 hover:text-tomato-light transition ease-in-out duration-200">
+         <RiDeleteBin6Line className="w-5 h-5" />
+          <span className="text-tomato-light">Delete Room</span>
        </div>
       } 
     >
@@ -88,7 +88,7 @@ const DeleteRoom: React.FC<IProps> = ({ room }) => {
               </button>
               <button
                 type="button"
-                className="outline-none w-full p-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                className="outline-none w-full p-2 rounded-md text-sm text-white bg-tomato-dark-secondary transition ease-in-out duration-200 hover:bg-opacity-80"
                 onClick={closeModal}
               >
                 Cancel

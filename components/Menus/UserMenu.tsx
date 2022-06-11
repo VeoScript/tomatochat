@@ -38,11 +38,11 @@ const UserMenu: React.FC<IProps> = ({ children, title, user }) => {
             }} 
           />
           <div className="absolute top-16 right-5 z-30 w-48">
-            <div className="flex w-full overflow-hidden shadow-sm rounded-md ring-1 ring-zinc-300 dark:ring-[#1F1E35] bg-white dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A] focus:outline-none">
-              <div className="flex flex-col w-full divide-y divide-zinc-300 dark:divide-[#1F1E35]">
+            <div className="flex w-full overflow-hidden shadow-sm rounded-md ring-1 ring-zinc-300 dark:ring-[#464A4D] bg-white dark:bg-tomato-dark-secondary focus:outline-none">
+              <div className="flex flex-col w-full divide-y divide-zinc-300 dark:divide-[#464A4D]">
                 <Link href={`/profile/${user.id}`}>
                   <a
-                    className="inline-flex items-center space-x-2 p-3 font-normal text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-zinc-100 dark:hover:bg-[#1F1E35]"
+                    className="inline-flex items-center space-x-2 p-3 font-normal text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-zinc-100 dark:hover:bg-[#464A4D]"
                     onClick={() => {
                       setIsDropdown(false)
                     }} 
@@ -53,7 +53,7 @@ const UserMenu: React.FC<IProps> = ({ children, title, user }) => {
                 </Link>
                 <Link href="/">
                   <a
-                    className="inline-flex items-center space-x-2 p-3 font-normal text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-zinc-100 dark:hover:bg-[#1F1E35]"
+                    className="inline-flex items-center space-x-2 p-3 font-normal text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-zinc-100 dark:hover:bg-[#464A4D]"
                     onClick={() => {
                       setIsDropdown(false)
                     }} 
@@ -64,7 +64,7 @@ const UserMenu: React.FC<IProps> = ({ children, title, user }) => {
                 </Link>
                 {theme !== undefined && (
                   <button
-                    className="inline-flex items-center space-x-2 p-3 font-normal text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-zinc-100 dark:hover:bg-[#1F1E35]"
+                    className="inline-flex items-center space-x-2 p-3 font-normal text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-zinc-100 dark:hover:bg-[#464A4D]"
                     onClick={() => {
                       setTheme(theme === 'dark' ? 'light' : 'dark')
                     }}

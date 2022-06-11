@@ -70,7 +70,7 @@ const Public: React.FC<IProps> = ({ user, slug, name, description }) => {
           <h3 className="text-sm text-zinc-600 dark:text-zinc-400">{ description }</h3>
           <form onSubmit={handleSubmit(onJoinPublic)} className="flex flex-col w-full space-y-3 mt-5">
             {(isSubmitting || isSubmitSuccessful) && (
-              <div className="cursor-wait outline-none inline-flex items-center justify-center w-full space-x-2 px-2 py-3 rounded-md text-white bg-purple-800 bg-opacity-80">
+              <div className="cursor-wait outline-none inline-flex items-center justify-center w-full space-x-2 px-2 py-3 rounded-md text-white bg-tomato-orange bg-opacity-80">
                 <Spinner width={20} height={20} color={'#FFFFFF'} />
                 <span>Joining...</span>
               </div>
@@ -79,7 +79,7 @@ const Public: React.FC<IProps> = ({ user, slug, name, description }) => {
               <button
                 title="Join"
                 type="submit"
-                className="outline-none w-full px-2 py-3 rounded-md text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                className="outline-none w-full px-2 py-3 rounded-md text-white bg-tomato-orange transition ease-in-out duration-200 hover:bg-opacity-80"
               >
                 Join
               </button>
@@ -87,7 +87,7 @@ const Public: React.FC<IProps> = ({ user, slug, name, description }) => {
           </form>
         </div>
       </div>
-      <RiEarthLine className="w-[20rem] h-[20rem] text-zinc-300 dark:text-[#1F1E35]" />
+      <RiEarthLine className="w-[20rem] h-[20rem] text-zinc-300 dark:text-tomato-orange dark:text-opacity-20" />
     </div>
   )
 }

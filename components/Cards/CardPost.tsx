@@ -16,7 +16,7 @@ const CardPost: React.FC<IProps> = ({ profile, post }) => {
   const { pathname } = useRouter()
 
   return (
-    <div className="flex flex-col w-full p-5 space-y-5 rounded-md bg-white dark:bg-[#1C1A28]">
+    <div className="flex flex-col w-full p-5 space-y-5 rounded-md bg-white dark:bg-tomato-dark-slight">
       <div className="flex flex-row items-start justify-between w-full">
         <div className="flex items-start space-x-2">
           <PostProfile src={pathname === '/' ? post.user.image : profile.image} />

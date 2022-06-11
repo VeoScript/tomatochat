@@ -68,7 +68,7 @@ const PhotoDisplay: React.FC<ViewStoryProps> = ({ post, story }) => {
         />
       }
     >
-      <div className="flex flex-col w-full h-full max-h-[30rem] rounded-md bg-zinc-100 dark:bg-[#1C1A28]">
+      <div className="flex flex-col w-full h-full max-h-[30rem] rounded-md bg-zinc-100 dark:bg-tomato-dark-slight">
         <Image
           key={story.image}
           src={story.image}

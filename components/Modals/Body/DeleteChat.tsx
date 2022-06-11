@@ -77,7 +77,7 @@ const DeleteChat: React.FC<IProps> = ({ user, chatId, roomSlug }) => {
       className="outline-none flex w-full"
       maxWidth="max-w-md"
       button={
-        <RiCloseCircleLine className="w-3 h-3 text-pink-400" />
+        <RiCloseCircleLine className="w-3 h-3 text-red-600" />
       } 
     >
       <div className="flex flex-col items-center justify-center w-full space-y-5 text-sm">
@@ -96,7 +96,7 @@ const DeleteChat: React.FC<IProps> = ({ user, chatId, roomSlug }) => {
               </button>
               <button
                 type="button"
-                className="outline-none w-full p-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                className="outline-none w-full p-2 rounded-md text-sm text-white bg-tomato-dark-secondary transition ease-in-out duration-200 hover:bg-opacity-80"
                 onClick={closeModal}
               >
                 Cancel

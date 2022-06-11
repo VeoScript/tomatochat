@@ -4,14 +4,14 @@ import NextNprogress from 'nextjs-progressbar'
 const NextJSProgress: React.FC = () => {
   return (
     <NextNprogress
-      color="#9333EA
+      color="#F16506
       linear-gradient(
         to right,
-        #9333EA,
-        #6E2AAF,
-        #491C74,
-        #9333EA,
-        #6E2AAF
+        #F16506,
+        #E77326,
+        #F16506,
+        #E77326,
+        #F16506
       );"
       startPosition={0.3}
       stopDelayMs={200}
