@@ -213,7 +213,7 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
   }
 
   return (
-    <div className="flex flex-col w-full space-y-2 p-5 rounded-md bg-white dark:bg-[#1C1A28]">
+    <div className="flex flex-col w-full space-y-2 p-5 rounded-md bg-white dark:bg-tomato-dark-slight">
       <div className="flex items-start space-x-2">
         <Image
           src={profile.image}
@@ -225,7 +225,7 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
           quality={100}
           alt="Profile"
         />
-        <div className="flex flex-row items-start w-full px-5 py-3 rounded-3xl bg-zinc-100 dark:bg-[#302E50] border border-transparent dark:border-transparent focus-within:border-zinc-300 dark:focus-within:border-purple-600">
+        <div className="flex flex-row items-start w-full px-5 py-3 rounded-3xl bg-zinc-100 dark:bg-tomato-dark-secondary border border-transparent dark:border-transparent focus-within:border-transparent dark:focus-within:border-tomato-orange">
           <div
             id="postcaption"
             className="w-full h-full max-h-[15rem] mt-0.5 overflow-y-auto cursor-text whitespace-pre-wrap outline-none font-normal text-sm"
@@ -298,14 +298,14 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
           <button
             title="Create"
             type="button"
-            className="outline-none w-[6rem] p-2 rounded-lg text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+            className="outline-none w-[6rem] p-2 rounded-lg text-sm text-white bg-tomato-orange transition ease-in-out duration-200 hover:bg-opacity-80"
             onClick={handleSubmit(onSubmitPost)}
           >
             Post
           </button>
         )}
         {isSubmitting && (
-          <div className="inline-flex items-center justify-center w-[6rem] space-x-2 p-2 cursor-wait rounded-lg text-sm text-white bg-purple-800 bg-opacity-80">
+          <div className="inline-flex items-center justify-center w-[6rem] space-x-2 p-2 cursor-wait rounded-lg text-sm text-white bg-tomato-orange bg-opacity-80">
             <Spinner
               width={20}
               height={20}

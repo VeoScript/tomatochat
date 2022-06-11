@@ -106,7 +106,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
   if (getRoomLoading) {
     return (
       <div className="flex flex-col items-center justify-center w-full h-full space-y-2 border-l border-zinc-300 dark:border-[#1F1836]">
-        <Spinner width={40} height={40} color={'#4D38A2'} />
+        <Spinner width={40} height={40} color={'#F16506'} />
         <h3 className="font-light text-xs">Loading...</h3>
       </div>
     )
@@ -331,14 +331,14 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
   return (
     <React.Fragment>
       {!matchJoinedUser && (
-        <div className="flex flex-col w-full max-w-full h-full border-x border-zinc-300 dark:border-[#1F1836]">
-          <div className="inline-flex items-center justify-between w-full p-3 border-b border-zinc-300 dark:border-[#1F1836] bg-white dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]">
+        <div className="flex flex-col w-full max-w-full h-full border-x border-zinc-300 dark:border-tomato-dark-secondary">
+          <div className="inline-flex items-center justify-between w-full p-3 border-b border-zinc-300 dark:border-tomato-dark-secondary bg-transparent dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]">
             <span className="inline-flex items-start w-full max-w-lg rounded-xl select-none">
               <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                 {getRoom.photo
                   ? <RoomImage src={getRoom.photo} />
-                  : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#201A2C]">
-                      <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
+                  : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#161818]">
+                      <RiSpyFill className="w-5 h-5 text-tomato-orange" />
                     </div>
                 }
               </div>
@@ -370,8 +370,8 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
       )}
       {matchJoinedUser && (
         <div className="inline-flex w-full">
-          <div className="flex flex-col w-full max-w-full h-full border-x border-zinc-300 dark:border-[#1F1836]">
-            <div className="inline-flex items-center justify-between w-full p-3 border-b border-zinc-300 dark:border-[#1F1836] bg-white dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]">
+          <div className="flex flex-col w-full max-w-full h-full border-x border-zinc-300 dark:border-tomato-dark-secondary">
+            <div className="inline-flex items-center justify-between w-full p-3 border-b border-zinc-300 dark:border-tomato-dark-secondary bg-transparent dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]">
               <span className="inline-flex items-start w-full max-w-lg rounded-xl select-none">
                 <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                   {getRoom.photo
@@ -383,7 +383,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                 </div>
                 <div className="block">
                   <h3 className="font-light text-base">{ getRoom.name }</h3>
-                  <h3 className="font-normal text-xs text-[#CDA0F5]">{ getRoom.description }</h3>
+                  <h3 className="font-normal text-xs text-tomato-orange">{ getRoom.description }</h3>
                 </div>
               </span>
               <div className="relative">
@@ -400,10 +400,10 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
               </div>
             </div>
             <div id="chatMainContainer" className="flex flex-col justify-end w-full h-full overflow-hidden">
-              <div id="chatContainer" className="flex flex-col-reverse w-full space-y-reverse space-y-3 p-3 overflow-y-auto scroll-smooth">
+              <div id="chatContainer" className="flex flex-col-reverse w-full space-y-reverse space-y-3 p-3 overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
                 {chatsLoading && (
                   <div className="flex flex-col items-center justify-center w-full h-screen space-y-2">
-                    <Spinner width={40} height={40} color={'#4D38A2'} />
+                    <Spinner width={40} height={40} color={'#F16506'} />
                     <h3 className="font-light text-xs">Loading...</h3>
                   </div>
                 )}
@@ -457,7 +457,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                     <div className="flex">
                                       <Profile src={chat.user.image} />
                                     </div>
-                                    <div className="bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap bg-white dark:bg-[#19182B]">
+                                    <div className="bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap bg-white dark:bg-tomato-dark-secondary">
                                       <p>{chat.message}</p>
                                       <span className="font-light dark:font-thin text-[9px]">
                                         <Moment date={chat.date} fromNow />
@@ -467,12 +467,12 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                 )}
                                 {chat.user.id === user.id && (
                                   <div className="flex items-end justify-end w-full space-x-2">
-                                    <div className="bubble-sender flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap text-white bg-[#4D38A2]">
+                                    <div className="bubble-sender flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap text-white bg-[#464A4D] dark:bg-[#161818]">
                                       <p>{chat.message}</p>
                                       <span className="inline-flex items-center space-x-2 font-thin text-[9px]">
                                         <Moment date={chat.date} fromNow />
                                         <div className="inline-flex items-center space-x-1">
-                                          <RiCheckDoubleLine title="Sent" className="w-5 h-5 text-[#CDA0F5]" />
+                                          <RiCheckDoubleLine title="Sent" className="w-5 h-5 text-blue-400" />
                                           <DeleteChat
                                             user={user}
                                             chatId={chat.id}
@@ -489,7 +489,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                             {chat.chattype === 'JOIN' && (
                               <div className="flex flex-col items-center justify-center w-full space-x-2">
                                 <p className="font-light text-xs text-zinc-400">{chat.message}</p>
-                                <span className="font-light text-[10px] text-purple-800">
+                                <span className="font-light text-[10px] text-tomato-orange">
                                   <Moment date={chat.date} fromNow />
                                 </span>
                               </div>
@@ -501,7 +501,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                     <div className="flex">
                                       <Profile src={chat.user.image} />
                                     </div>
-                                    <div className="bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap bg-white dark:bg-[#19182B]">
+                                    <div className="bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap bg-white dark:bg-tomato-dark-secondary">
                                       <ViewImage
                                         imageURL={chat.message}
                                       />
@@ -513,14 +513,14 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                 )}
                                 {chat.user.id === user.id && (
                                   <div className="flex items-end justify-end w-full space-x-2">
-                                    <div className="bubble-sender flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap text-white bg-[#4D38A2]">
+                                    <div className="bubble-sender flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap text-white bg-[#464A4D] dark:bg-[#161818]">
                                       <ViewImage
                                         imageURL={chat.message}
                                       />
                                       <span className="inline-flex items-center space-x-2 font-thin text-[9px]">
                                         <Moment date={chat.date} fromNow />
                                         <div className="inline-flex items-center space-x-1">
-                                          <RiCheckDoubleLine title="Sent" className="w-5 h-5 text-[#CDA0F5]" />
+                                          <RiCheckDoubleLine title="Sent" className="w-5 h-5 text-blue-400" />
                                           <DeleteChat
                                             user={user}
                                             chatId={chat.id}
@@ -544,7 +544,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                         disabled={!hasNextPage || isFetchingNextPage}
                       >
                         {isFetchingNextPage
-                          ? <Spinner width={25} height={25} color={'#4D38A2'} />
+                          ? <Spinner width={25} height={25} color={'#F16506'} />
                           : hasNextPage
                           ? 'Load Older Message'
                           : ''}
@@ -554,12 +554,12 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                 )}
                 {chatsError && (
                   <div className="flex flex-col items-center justify-center w-full h-screen space-y-2 text-zinc-400">
-                    <RiEmotionSadLine className="w-14 h-14" />
+                    <RiEmotionSadLine className="w-14 h-14 text-tomato-orange text-opacity-50" />
                     <div className="inline-flex items-center justify-center w-full space-x-1 text-xs">
                       <h3 className="font-light">Failed to load, try to</h3>
                       <button
                         type="button"
-                        className="outline-none font-bold text-[#6b50d8] hover:underline"
+                        className="outline-none font-bold text-tomato-orange hover:underline"
                         onClick={() => refetch()}
                       >
                         Reload
@@ -569,7 +569,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                 )}
               </div>
             </div>
-            <div className="w-full border-t border-zinc-300 dark:border-transparent bg-zinc-100 dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]">
+            <div className="w-full -space-y-2 border-t border-zinc-300 dark:border-transparent bg-transparent dark:bg-[#33383B]">
               {chatImageFiles.length > 0 && (
                 <div className="flex items-center justify-center w-full p-2 space-x-1">
                   {chatImages.map(( image: any, i: number ) => {
@@ -623,14 +623,14 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                       <button
                         title="Send Photo"
                         type="button"
-                        className="outline-none w-full p-2 rounded-lg text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                        className="outline-none w-full p-2 rounded-lg text-sm text-white bg-tomato-orange transition ease-in-out duration-200 hover:bg-opacity-80"
                         onClick={handleSubmitPhoto(onSendPhotos)}
                       >
                         Send
                       </button>
                     )}
                     {isSubmittingPhoto && (
-                      <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-lg text-sm text-white bg-purple-800 bg-opacity-80">
+                      <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-lg text-sm text-white bg-tomato-orange bg-opacity-80">
                         <Spinner
                           width={20}
                           height={20}
@@ -645,7 +645,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                   <>
                     <div
                       id="contentEditable"
-                      className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none p-3 font-light text-xs rounded-xl bg-white dark:bg-[#19182B] border border-zinc-200 focus:border-zinc-400 dark:border-[#1F1836] dark:focus:border-[#2B214B]"
+                      className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none p-3 font-light text-xs rounded-xl bg-white dark:bg-tomato-dark border border-zinc-200 focus:border-zinc-400 dark:border-transparent dark:focus:border-tomato-orange"
                       placeholder="Write a message..."
                       title="Shift+Enter to execute new line."
                       contentEditable="true"
@@ -667,7 +667,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                     />
                     {isSubmitting && (
                       <div className="w-6 h-6 mt-2 py-2 outline-none cursor-wait">
-                        <Spinner width={25} height={25} color={'#9333EA'} />
+                        <Spinner width={25} height={25} color={'#F16506'} />
                       </div>
                     )}
                     {!isSubmitting && (
@@ -676,7 +676,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                         type="submit"
                         className="outline-none"
                       >
-                        <RiSendPlane2Line className="w-6 h-6 mt-2 text-purple-600 transition ease-in-out duration-200 transform hover:scale-90" />
+                        <RiSendPlane2Line className="w-6 h-6 mt-2 text-tomato-orange transition ease-in-out duration-200 transform hover:scale-90" />
                       </button>
                     )}
                   </>

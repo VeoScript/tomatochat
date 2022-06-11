@@ -29,7 +29,7 @@ const DialogBoxLarge: React.FC<IProps> = ({ children, button, className, isOpen,
         className="fixed z-30 inset-0 overflow-y-auto"
       >
         <div className="relative flex items-center justify-center min-h-screen">
-          <Dialog.Overlay className="fixed inset-0 bg-zinc-100 dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]" />
+          <Dialog.Overlay className="fixed inset-0 bg-zinc-100 dark:bg-tomato-dark bg-opacity-80 dark:bg-opacity-80" />
           <button
             title="Close (Esc)"
             type="button"

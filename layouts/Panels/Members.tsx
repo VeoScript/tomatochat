@@ -17,7 +17,7 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
   if (getMembersLoading) {
     return (
       <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-        <Spinner width={40} height={40} color={'#4D38A2'} />
+        <Spinner width={40} height={40} color={'#F16506'} />
         <h3 className="font-light text-xs">Loading...</h3>
       </div>
     )
@@ -66,7 +66,7 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
             return (
               <React.Fragment key={i}>
                 {member.role === 'ADMIN' && (
-                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]">
+                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526]">
                     <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                       <MemberImage src={member.user.image} />
                     </div>
@@ -104,7 +104,7 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
             return (
               <React.Fragment key={i}>
                 {member.role === 'USER' && (
-                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]">
+                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526]">
                     <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                       <MemberImage src={member.user.image} />
                     </div>

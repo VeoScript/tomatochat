@@ -209,7 +209,7 @@ const RoomSettings: React.FC<IProps> = ({ room, user }) => {
       className="outline-none flex w-full"
       maxWidth="max-w-md"
       button={
-        <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-zinc-100 dark:hover:bg-[#1F1E35]">
+        <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-zinc-100 dark:hover:bg-[#464A4D]">
           <RiSettingsLine className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
           <span>Settings</span>
         </div>
@@ -225,7 +225,7 @@ const RoomSettings: React.FC<IProps> = ({ room, user }) => {
                   <React.Fragment>
                     {room.photo && <RoomImage src={room.photo} />}
                     {!room.photo && (
-                      <div className="inline-flex items-center justify-center rounded-xl object-cover w-[50px] h-[50px] bg-zinc-200 dark:bg-[#201A2C] transition ease-in-out duration-200 hover:bg-black hover:bg-opacity-30 dark:hover:bg-white dark:hover:bg-opacity-20">
+                      <div className="inline-flex items-center justify-center rounded-xl object-cover w-[50px] h-[50px] bg-zinc-200 dark:bg-[#161818] transition ease-in-out duration-200 hover:bg-black hover:bg-opacity-30 dark:hover:bg-white dark:hover:bg-opacity-20">
                         <RiCameraFill  />
                       </div>
                     )}
@@ -242,7 +242,7 @@ const RoomSettings: React.FC<IProps> = ({ room, user }) => {
             />
           </div>
           <div className="flex flex-col items-end w-full space-y-2">
-            <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
+            <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-tomato-light bg-white dark:bg-tomato-dark-secondary border border-zinc-300 dark:border-transparent focus-within:border-tomato-orange dark:focus-within:border-tomato-orange">
               <input
                 type="text"
                 className="w-full outline-none bg-transparent text-sm"
@@ -251,9 +251,9 @@ const RoomSettings: React.FC<IProps> = ({ room, user }) => {
               />
               <RiText className="w-4 h-4" />
             </span>
-            <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
+            <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-tomato-light bg-white dark:bg-tomato-dark-secondary border border-zinc-300 dark:border-transparent focus-within:border-tomato-orange dark:focus-within:border-tomato-orange">
               <select
-                className="w-full outline-none bg-white dark:bg-[#201A2C] text-sm cursor-pointer"
+                className="w-full outline-none bg-white dark:bg-tomato-dark-secondary text-sm cursor-pointer"
                 {...register('privacy', { required: true })}
                 onInput={(e: any) => {
                   switch(e.currentTarget.value) {
@@ -277,7 +277,7 @@ const RoomSettings: React.FC<IProps> = ({ room, user }) => {
           </div>
         </div>
         <div className="block w-full space-y-2">
-          <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
+          <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-tomato-light bg-white dark:bg-tomato-dark-secondary border border-zinc-300 dark:border-transparent focus-within:border-tomato-orange dark:focus-within:border-tomato-orange">
             <input
               type="text"
               className="w-full outline-none bg-transparent text-sm"
@@ -292,7 +292,7 @@ const RoomSettings: React.FC<IProps> = ({ room, user }) => {
                 {!isChangePasscode && (
                   <button
                     type="button"
-                    className="outline-none w-full p-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                    className="outline-none w-full p-2 rounded-md text-sm text-white bg-tomato-orange transition ease-in-out duration-200 hover:bg-opacity-80"
                     onClick={() => {
                       setIsChangePasscode(true)
                     }}
@@ -313,7 +313,7 @@ const RoomSettings: React.FC<IProps> = ({ room, user }) => {
                       <RiCloseLine className="w-3.5 h-3.5 text-zinc-400" />
                     </button>
                   </div>
-                  <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
+                  <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-tomato-light bg-white dark:bg-tomato-dark-secondary border border-zinc-300 dark:border-transparent focus-within:border-tomato-orange dark:focus-within:border-tomato-orange">
                     <input
                       type="password"
                       className="w-full outline-none bg-transparent text-sm"
@@ -322,7 +322,7 @@ const RoomSettings: React.FC<IProps> = ({ room, user }) => {
                     />
                     <RiKey2Line className="w-4 h-4" />
                   </span>
-                  <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
+                  <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-tomato-light bg-white dark:bg-tomato-dark-secondary border border-zinc-300 dark:border-transparent focus-within:border-tomato-orange dark:focus-within:border-tomato-orange">
                     <input
                       type="password"
                       className="w-full outline-none bg-transparent text-sm"
@@ -338,13 +338,13 @@ const RoomSettings: React.FC<IProps> = ({ room, user }) => {
               {!isSubmitting && (
                 <button
                   type="submit"
-                  className="outline-none w-full p-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                  className="outline-none w-full p-2 rounded-md text-sm text-white bg-tomato-orange transition ease-in-out duration-200 hover:bg-opacity-80"
                 >
                   Update
                 </button>
               )}
               {isSubmitting && (
-                <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm text-white bg-purple-800 bg-opacity-80">
+                <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm text-white bg-tomato-orange bg-opacity-80">
                   <Spinner
                     width={20}
                     height={20}

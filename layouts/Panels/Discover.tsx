@@ -29,8 +29,8 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
   }, [fetchNextPage, hasNextPage, inView])
   
   return (
-    <div className="flex flex-col w-full h-full overflow-hidden border-x border-zinc-300 dark:border-[#1F1836]">
-      <div className="inline-flex items-center justify-between w-full px-6 py-3 border-b border-zinc-300 dark:border-[#1F1836] bg-zinc-100 dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]">
+    <div className="flex flex-col w-full h-full overflow-hidden border-x border-zinc-300 dark:border-tomato-dark-secondary">
+      <div className="inline-flex items-center justify-between w-full px-6 py-3 border-b border-zinc-300 dark:border-tomato-dark-secondary bg-transparent dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]">
         <div className="block items-center w-full space-y-1 select-none">
           <h3 className="font-medium">Discover</h3>
           <p className="font-light text-xs">Join to start a conversation to everyone.</p>
@@ -41,13 +41,13 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
           setIsDisplay={setIsDisplay}        
         />
       </div>
-      <div className="flex flex-col w-full h-full p-3 overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
+      <div className="flex flex-col w-full h-full p-3 overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-700 scrollbar-track-transparent">
         {/* Search Result Display */}
         {isDisplay && (
           <React.Fragment>
             {searchDiscoverLoading && (
               <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-                <Spinner width={50} height={50} color={'#4D38A2'} />
+                <Spinner width={50} height={50} color={'#F16506'} />
                 <h3 className="font-light text-sm">Loading...</h3>
               </div>
             )}
@@ -84,13 +84,13 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                     <React.Fragment key={i}>
                       {!existRoom && (
                         <div
-                          className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]"
+                          className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526]"
                         >
                           <div className="flex items-start w-full max-w-[4rem] h-full max-h-[3.5rem]">
                             {room.photo
                               ? <RoomImage src={room.photo} />
-                              : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#201A2C]">
-                                  <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
+                              : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#161818]">
+                                  <RiSpyFill className="w-5 h-5 text-[#F16506]" />
                                 </div>
                             }
                           </div>
@@ -106,7 +106,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                               <button
                                 title="Join"
                                 type="button"
-                                className="outline-none px-3 py-2 rounded-md text-xs text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                                className="outline-none px-3 py-2 rounded-md text-xs text-white bg-tomato-orange transition ease-in-out duration-200 hover:bg-opacity-80"
                                 onClick={() => {
                                   Router.push(`${room.slug}`)
                                 }}
@@ -129,7 +129,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
           <React.Fragment>
             {isLoading && (
               <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-                <Spinner width={50} height={50} color={'#4D38A2'} />
+                <Spinner width={50} height={50} color={'#F16506'} />
                 <h3 className="font-light text-sm">Loading...</h3>
               </div>
             )}
@@ -176,13 +176,13 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                         <React.Fragment key={i}>
                           {!existRoom && (
                             <div
-                              className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E]"
+                              className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526]"
                             >
                               <div className="flex items-start w-full max-w-[4rem] h-full max-h-[3.5rem]">
                                 {room.photo
                                   ? <RoomImage src={room.photo} />
-                                  : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#201A2C]">
-                                      <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
+                                  : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#161818]">
+                                      <RiSpyFill className="w-5 h-5 text-[#F16506]" />
                                     </div>
                                 }
                               </div>
@@ -198,7 +198,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                                   <button
                                     title="Join"
                                     type="button"
-                                    className="outline-none px-3 py-2 rounded-md text-xs text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                                    className="outline-none px-3 py-2 rounded-md text-xs text-white bg-tomato-orange transition ease-in-out duration-200 hover:bg-opacity-80"
                                     onClick={() => {
                                       Router.push(`${room.slug}`)
                                     }}

@@ -12,7 +12,7 @@ const ChatUpload: React.FC<IProps> = ({ handleAddImage }) => {
       <label
         title="Media"
         htmlFor="uploadChatMultiple"
-        className="mt-2 cursor-pointer text-purple-600 transition ease-in-out duration-200 transform hover:scale-95"
+        className="mt-2 cursor-pointer text-tomato-orange transition ease-in-out duration-200 transform hover:scale-95"
       >
         <RiImageLine className="w-6 h-6" />
       </label>

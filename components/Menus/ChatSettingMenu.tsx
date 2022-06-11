@@ -50,8 +50,8 @@ const ChatSettingMenu: React.FC<IProps> = ({ children, role, title, room, user, 
             }} 
           />
           <div className="absolute origin-top-right right-0 z-20 w-48">
-            <div className="flex w-full overflow-hidden shadow-sm rounded-md ring-1 ring-zinc-300 dark:ring-[#1F1E35] bg-white dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A] focus:outline-none">
-              <div className="flex flex-col w-full divide-y divide-zinc-300 dark:divide-[#1F1E35]">
+            <div className="flex w-full overflow-hidden shadow-sm rounded-md ring-1 ring-zinc-300 dark:ring-[#464A4D] bg-white dark:bg-tomato-dark-secondary focus:outline-none">
+              <div className="flex flex-col w-full divide-y divide-zinc-300 dark:divide-[#464A4D]">
                 {role === 'ADMIN' && (
                   <RoomSettings
                     room={room}
@@ -59,7 +59,7 @@ const ChatSettingMenu: React.FC<IProps> = ({ children, role, title, room, user, 
                   />
                 )}
                 <Link href="/">
-                  <a className="inline-flex items-center space-x-2 p-3 font-light text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-zinc-100 dark:hover:bg-[#1F1E35]">
+                  <a className="inline-flex items-center space-x-2 p-3 font-light text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-zinc-100 dark:hover:bg-[#464A4D]">
                     <RiFeedbackLine className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
                     <span>Report</span>
                   </a>

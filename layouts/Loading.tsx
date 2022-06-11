@@ -29,11 +29,11 @@ const LoadingPage: React.FC<IProps> = ({ room }) => {
             />
         }
       </Head>
-      <main className="flex items-center justify-center w-full h-screen text-zinc-600 dark:text-white bg-zinc-100 dark:bg-gradient-to-br dark:from-[#1B1325] dark:via-[#12111B] dark:to-[#18132A]">
+      <main className="flex items-center justify-center w-full h-screen text-zinc-600 dark:text-white bg-tomato-light dark:bg-tomato-dark">
         <div className="flex flex-col items-center w-full space-y-2">
           <CubeLoader />
           <span className="flex font-poppins text-3xl">
-            <p className="font-rubikglitch text-tomato-lavender dark:text-white lowercase">tomatochat</p>
+            <p className="font-rubikglitch text-tomato-red">tomato<span className="text-tomato-orange">chat</span></p>
           </span>
           <span className="font-light">Loading...</span>
         </div>

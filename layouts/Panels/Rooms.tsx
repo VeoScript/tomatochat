@@ -47,7 +47,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                 title="Home"
                 className="outline-none"
               >
-                <RiHome5Line className={`${pathname === '/' ? 'text-zinc-500 dark:text-zinc-400' : 'text-purple-500 dark:text-zinc-500'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
+                <RiHome5Line className={`${pathname === '/' ? 'text-tomato-orange' : 'text-zinc-500'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
               </a>
             </Link>
             <button
@@ -58,7 +58,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                 Router.push('/discover', undefined, { shallow: true })
               }}
             >
-              <RiCompass3Line className={`${pathname === '/discover' ? 'text-zinc-500 dark:text-zinc-400' : 'text-purple-500 dark:text-zinc-500'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
+              <RiCompass3Line className={`${pathname === '/discover' ? 'text-tomato-orange' : 'text-zinc-500'} w-6 h-6 transition ease-in-out duration-200 transform hover:scale-90`} />
             </button>
             <CreateRoom user={user} />
           </span>
@@ -71,13 +71,13 @@ const Rooms: React.FC<IProps> = ({ user }) => {
           />
         </div>
       </div>
-      <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
+      <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
         {/* Search Result Display Inbox */}
         {isDisplay && (
           <div className="flex flex-col w-full px-2 space-y-2">
             {searchInboxLoading && (
               <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-                <Spinner width={40}  height={40} color={'#4D38A2'} />
+                <Spinner width={40}  height={40} color={'#F16506'} />
                 <h3 className="font-light text-xs">Loading...</h3>
               </div>
             )}
@@ -103,7 +103,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                     <button
                       key={joined_room.index}
                       type="button"
-                      className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E] dark:focus:bg-gradient-to-r dark:focus:from-[#1F1E35] dark:focus:to-[#14121E]`}
+                      className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526] dark:focus:bg-gradient-to-r dark:focus:from-[#33383B] dark:focus:to-[#222526]`}
                       onClick={() => {
                         Router.replace(`/${joined_room.room.slug}`)
                         seenChat.mutate({
@@ -115,8 +115,8 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                         <div className="flex items-start w-full max-w-[4rem] h-full max-h-[3.5rem]">
                           {joined_room.room.photo
                             ? <RoomImage src={joined_room.room.photo} />
-                            : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#201A2C]">
-                                <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
+                            : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#161818]">
+                                <RiSpyFill className="w-5 h-5 text-[#F16506]" />
                               </div>
                           }
                         </div>
@@ -165,7 +165,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
           <div className="flex flex-col w-full px-2 space-y-2">
             {isLoading && (
               <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-                <Spinner width={40}  height={40} color={'#4D38A2'} />
+                <Spinner width={40}  height={40} color={'#F16506'} />
                 <h3 className="font-light text-xs">Loading...</h3>
               </div>
             )}
@@ -208,7 +208,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                         <button
                           key={joined_room.index}
                           type="button"
-                          className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#1F1E35] dark:to-[#14121E]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#1F1E35] dark:hover:to-[#14121E] dark:focus:bg-gradient-to-r dark:focus:from-[#1F1E35] dark:focus:to-[#14121E]`}
+                          className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526] dark:focus:bg-gradient-to-r dark:focus:from-[#33383B] dark:focus:to-[#222526]`}
                           onClick={() => {
                             Router.replace(`/${joined_room.room.slug}`)
                             seenChat.mutate({
@@ -220,8 +220,8 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                             <div className="flex items-start w-full max-w-[4rem] h-full max-h-[3.5rem]">
                               {joined_room.room.photo
                                 ? <RoomImage src={joined_room.room.photo} />
-                                : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#201A2C]">
-                                    <RiSpyFill className="w-5 h-5 text-[#4D38A2]" />
+                                : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-300 dark:bg-[#161818]">
+                                    <RiSpyFill className="w-5 h-5 text-[#F16506]" />
                                   </div>
                               }
                             </div>

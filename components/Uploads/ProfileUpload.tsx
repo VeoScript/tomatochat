@@ -151,7 +151,7 @@ const ProfileUpload: React.FC<IProps> = ({ profile }) => {
         closeModal={closeModal}
         button=""
       >
-        <div className="flex flex-col items-center justify-center w-full h-full max-h-[30rem] space-y-3 overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-slate-600 scrollbar-track-transparent">
+        <div className="flex flex-col items-center justify-center w-full h-full max-h-[30rem] space-y-3 overflow-hidden">
           <img
             className="flex w-[20rem] h-[20rem] rounded-full object-cover"
             src={previewProfileImage}
@@ -162,14 +162,14 @@ const ProfileUpload: React.FC<IProps> = ({ profile }) => {
               <button
                 title="Create"
                 type="button"
-                className="outline-none w-full p-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                className="outline-none w-full p-2 rounded-md text-sm text-white bg-tomato-orange transition ease-in-out duration-200 hover:bg-opacity-80"
                 onClick={handleSubmit(onUpdateProfile)}
               >
                 Save Profile
               </button>
             )}
             {isSubmitting && (
-              <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm text-white bg-purple-800 bg-opacity-80">
+              <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm text-white bg-tomato-orange bg-opacity-80">
                 <Spinner
                   width={20}
                   height={20}

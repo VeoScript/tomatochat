@@ -104,7 +104,7 @@ const KickOut: React.FC<IProps> = ({ room, memberUserId, loggedInUserId }) => {
               </button>
               <button
                 type="button"
-                className="outline-none w-full p-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                className="outline-none w-full p-2 rounded-md text-sm text-white bg-tomato-dark-secondary transition ease-in-out duration-200 hover:bg-opacity-80"
                 onClick={closeModal}
               >
                 Cancel
