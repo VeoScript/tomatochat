@@ -7,6 +7,7 @@ import RoomImage from '../../components/Images/RoomImage'
 import Members from './Members'
 import Public from '../../components/Join/Public'
 import Private from '../../components/Join/Private'
+import ViewImage from '../../components/Modals/Body/ViewImage'
 import ChatSettingMenu from '../../components/Menus/ChatSettingMenu'
 import DeleteChat from '../../components/Modals/Body/DeleteChat'
 import ChatUpload from '../../components/Uploads/ChatUpload'
@@ -501,15 +502,8 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                       <Profile src={chat.user.image} />
                                     </div>
                                     <div className="bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap bg-white dark:bg-[#19182B]">
-                                      <Image
-                                        src={chat.message}
-                                        blurDataURL={chat.message}
-                                        width={300}
-                                        height={300}
-                                        className="rounded-md object-cover"
-                                        layout="intrinsic"
-                                        quality={100}
-                                        alt="Chat Image"
+                                      <ViewImage
+                                        imageURL={chat.message}
                                       />
                                       <span className="font-light dark:font-thin text-[9px]">
                                         <Moment date={chat.date} fromNow />
@@ -520,15 +514,8 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                 {chat.user.id === user.id && (
                                   <div className="flex items-end justify-end w-full space-x-2">
                                     <div className="bubble-sender flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap text-white bg-[#4D38A2]">
-                                      <Image
-                                        src={chat.message}
-                                        blurDataURL={chat.message}
-                                        width={300}
-                                        height={300}
-                                        className="rounded-md object-cover"
-                                        layout="intrinsic"
-                                        quality={100}
-                                        alt="Chat Image"
+                                      <ViewImage
+                                        imageURL={chat.message}
                                       />
                                       <span className="inline-flex items-center space-x-2 font-thin text-[9px]">
                                         <Moment date={chat.date} fromNow />
