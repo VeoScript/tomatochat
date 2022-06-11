@@ -10,6 +10,7 @@ const Seeners: React.FC<IProps> = ({ src }) => {
     <Image
       src={src}
       blurDataURL={src}
+      placeholder="blur"
       width={17}
       height={17}
       className="flex max-w-[2.5rem] h-full max-h-[3rem] rounded-full object-cover bg-white dark:bg-[#201A2C]"

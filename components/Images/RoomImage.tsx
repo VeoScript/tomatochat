@@ -15,6 +15,7 @@ const RoomImage: React.FC<IProps> = ({ src }) => {
     <Image
       src={src}
       blurDataURL={src}
+      placeholder="blur"
       width={50}
       height={50}
       className="rounded-xl object-cover bg-white dark:bg-[#201A2C]"

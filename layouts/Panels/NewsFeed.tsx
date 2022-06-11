@@ -23,8 +23,6 @@ const NewsFeed: React.FC<IProps> = ({ user, profile }) => {
     }
   }, [fetchNextPage, hasNextPage, inView])
 
-  console.log(newsfeedPosts)
-
   return (
     <div className="inline-flex w-full max-w-full h-full overflow-hidden border-x border-zinc-300 dark:border-[#1F1836]">
       <div className="flex flex-col items-center justify-start w-full max-w-full h-full p-3 space-y-3 overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
@@ -33,15 +31,15 @@ const NewsFeed: React.FC<IProps> = ({ user, profile }) => {
           profile={profile}
         />
         {newsfeedLoading && (
-          <div className="flex flex-row items-center justify-center w-full">
+          <div className="flex flex-row items-center justify-center w-full py-5">
             <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-              <Spinner width={50} height={50} color={'#4D38A2'} />
+              <Spinner width={40} height={40} color={'#4D38A2'} />
               <h3 className="font-light text-sm">Loading...</h3>
             </div>
           </div>
         )}
         {newsfeedError && (
-          <div className="flex flex-col items-center justify-center w-full space-y-2">
+          <div className="flex flex-col items-center justify-center w-full py-5 space-y-2">
             <RiEmotionSadLine className="w-14 h-14" />
             <div className="inline-flex items-center justify-center w-full space-x-1 text-xs">
               <h3 className="font-light">Failed to load, try to</h3>

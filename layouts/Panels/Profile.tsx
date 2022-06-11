@@ -178,15 +178,15 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
             />
           )}
           {postLoading && (
-            <div className="flex flex-row items-center justify-center w-full">
+            <div className="flex flex-row items-center justify-center w-full py-5">
               <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-                <Spinner width={50} height={50} color={'#4D38A2'} />
-                <h3 className="font-light text-sm">Loading...</h3>
+                <Spinner width={40} height={40} color={'#4D38A2'} />
+                <h3 className="font-light text-sm">Fetching...</h3>
               </div>
             </div>
           )}
           {postError && (
-            <div className="flex flex-col items-center justify-center w-full space-y-2">
+            <div className="flex flex-col items-center justify-center w-full py-5 space-y-2">
               <RiEmotionSadLine className="w-14 h-14" />
               <div className="inline-flex items-center justify-center w-full space-x-1 text-xs">
                 <h3 className="font-light">Failed to load, try to</h3>
