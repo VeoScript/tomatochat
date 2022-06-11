@@ -105,7 +105,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
 
   if (getRoomLoading) {
     return (
-      <div className="flex flex-col items-center justify-center w-full h-full space-y-2 border-l border-zinc-300 dark:border-[#1F1836]">
+      <div className="flex flex-col items-center justify-center w-full h-full space-y-2 border-l border-zinc-300 dark:border-tomato-dark-secondary">
         <Spinner width={40} height={40} color={'#F16506'} />
         <h3 className="font-light text-xs">Loading...</h3>
       </div>
@@ -114,7 +114,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
 
   if (getRoomError) {
     return (
-      <div className="flex flex-col items-center justify-center w-full h-full space-y-2 text-zinc-400 border-l border-zinc-300 dark:border-[#1F1836]">
+      <div className="flex flex-col items-center justify-center w-full h-full space-y-2 text-zinc-400 border-l border-zinc-300 dark:border-tomato-dark-secondary">
         <div className="inline-flex items-center justify-center w-full space-x-1 text-xs">
           <h3 className="font-bold text-3xl">THIS ROOM DOES NOT EXIST!</h3>
         </div>
@@ -287,7 +287,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
     if (contentEditable!.innerText.trim().length === 0 || chatbox === '') return
 
     // send chat to the database
-    optimisticChatMutation({
+    await optimisticChatMutation({
       chatbox,
       userId,
       roomSlug
@@ -666,7 +666,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                       onInput={(e: any) => setValue('chatbox', e.currentTarget.textContent, { shouldValidate: true })}
                     />
                     {isSubmitting && (
-                      <div className="w-6 h-6 mt-2 py-2 outline-none cursor-wait">
+                      <div className="w-6 h-6 py-2 outline-none cursor-wait">
                         <Spinner width={25} height={25} color={'#F16506'} />
                       </div>
                     )}
