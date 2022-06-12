@@ -37,7 +37,7 @@ const CardPost: React.FC<IProps> = ({ profile, post }) => {
         </button>
       </div>
       <div className="flex flex-col w-full space-y-2">
-        <p className="text-sm ml-1 mb-3">{post.description}</p>
+        <p className="text-sm ml-1 mb-3 whitespace-pre-wrap">{post.description}</p>
         {post.stories.length > 0 && (
           <div className="relative flex w-full">
             <span className="absolute z-10 top-3 right-3 px-3 py-2 rounded-md text-xs text-white bg-black bg-opacity-50">

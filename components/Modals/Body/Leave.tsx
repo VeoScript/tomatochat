@@ -98,9 +98,9 @@ const Leave: React.FC<IProps> = ({ room, userId }) => {
       className="outline-none flex w-full"
       maxWidth="max-w-md"
       button={
-       <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer text-zinc-400 hover:bg-red-600 hover:text-tomato-light transition ease-in-out duration-200">
-         <RiLogoutBoxLine className="w-5 h-5" />
-          <span className="text-tomato-light">Leave Room</span>
+       <div className="inline-flex items-center w-full space-x-2 p-3 font-light text-xs text-left cursor-pointer text-black dark:text-white hover:bg-red-600 hover:text-tomato-light transition ease-in-out duration-200">
+         <RiLogoutBoxLine className="w-5 h-5 text-zinc-400" />
+          <span>Leave Room</span>
        </div>
       } 
     >
