@@ -222,14 +222,19 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                     })}
                   </React.Fragment>
                 ))}
-                {isFetchingNextPage && (
-                  <div className="inline-flex justify-center w-full p-3">
-                    <Spinner width={30} height={30} color={'#4D38A2'} />
-                  </div>
-                )}
-                <details ref={ref} className="invisible">
-                  Intersecrion Observer Marker
-                </details>
+                <div className="inline-flex items-center justify-center w-full pb-3 text-xs text-tomato-orange">
+                  <button
+                    ref={ref}
+                    onClick={() => fetchNextPage()}
+                    disabled={!hasNextPage || isFetchingNextPage}
+                  >
+                    {isFetchingNextPage
+                      ? <Spinner width={40} height={40} color={'#F16506'} />
+                      : hasNextPage
+                      ? 'Load more...'
+                      : ''}
+                  </button>
+                </div>
               </React.Fragment>
             )}
           </React.Fragment>
