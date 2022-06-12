@@ -63,13 +63,15 @@ const Rooms: React.FC<IProps> = ({ user }) => {
             <CreateRoom user={user} />
           </span>
         </div>
-        <div className="flex justify-center w-full">
-          <SearchInbox
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            setIsDisplay={setIsDisplay}
-          />
-        </div>
+        {joined_rooms?.pages[0].joined_rooms.length > 0 && (
+          <div className="flex justify-center w-full">
+            <SearchInbox
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              setIsDisplay={setIsDisplay}
+            />
+          </div>
+        )}
       </div>
       <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
         {/* Search Result Display Inbox */}
