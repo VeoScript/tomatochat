@@ -55,7 +55,7 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
   return (
     <div className="flex flex-col w-full max-w-sm h-full">
       <div className="inline-flex items-center justify-between w-full p-5">
-        <h3 className="font-light">Participants</h3>
+        <h3 className="font-bold">Participants</h3>
       </div>
       <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
         <div className="flex flex-col w-full px-2 space-y-2">

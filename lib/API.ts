@@ -292,3 +292,31 @@ export const createStory = (_args: any) => {
     })
   })
 }
+
+// API-ROUTE FOR LIKING THE POST
+export const likePost = (_args: { postId: string, userId: string }) => {
+  return fetch('/api/modules/create/reactions/like', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      postId: _args.postId,
+      userId: _args.userId
+    })
+  })
+}
+
+// API-ROUTE FOR UNLIKING THE POST
+export const unlikePost = (_args: { postId: string, userId: string }) => {
+  return fetch('/api/modules/create/reactions/unlike', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      postId: _args.postId,
+      userId: _args.userId
+    })
+  })
+}

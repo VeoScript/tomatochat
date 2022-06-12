@@ -45,6 +45,7 @@ const PhotoDisplay: React.FC<ViewStoryProps> = ({ post, story }) => {
     <DialogBox
       title={post.user.name}
       subtitle={post.description}
+      profile={post.user.image}
       maxWidth="max-w-xl"
       className="w-full outline-none"
       isLink={true}
