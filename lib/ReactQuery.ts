@@ -219,12 +219,11 @@ export function useGetChats(roomSlug: string) {
       return (await chats).json()
     },
     {
+      refetchInterval: 1000,
       select: chats => ({
         pages: [...chats.pages],
         pageParams: [...chats.pageParams].reverse()
       }),
-      enabled: !!roomSlug,
-      refetchInterval: 1000,
       getNextPageParam: (lastPage) => lastPage.nextId ?? false
     }
   )
