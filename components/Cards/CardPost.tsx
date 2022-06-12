@@ -16,6 +16,13 @@ const CardPost: React.FC<IProps> = ({ profile, post }) => {
 
   const { pathname } = useRouter()
 
+  // get likers name
+  const getLikers = post.likes.map((liker: { user: { name: string } }) => {
+    return [
+      liker.user.name
+    ]
+  })
+
   return (
     <div className="flex flex-col w-full p-5 space-y-5 rounded-md bg-white dark:bg-tomato-dark-slight">
       <div className="flex flex-row items-start justify-between w-full">
@@ -82,12 +89,20 @@ const CardPost: React.FC<IProps> = ({ profile, post }) => {
             </button>
           </div>
         </div>
-        <div className="inline-flex items-center justify-between w-full">
-          <div className="flex items-center space-x-1 text-xs">
-            <span className="font-light">Liked by</span>
-            <span className="font-bold">Lisa and 128 others</span>
+        {post.likes.length > 0 && (
+          <div className="flex items-center space-x-1 select-none text-xs">
+            <span className="font-light text-neutral-400">Liked by</span>
+            <span className="font-bold">
+              {getLikers[0]}
+              {post.likes.length > 1 &&
+                <>
+                  <span className="inline font-light">&nbsp;and&nbsp;</span>
+                  <span>{post.likes.length -1} others</span>
+                </>
+              }
+            </span>
           </div>
-        </div>
+        )}
       </div>
     </div>
   )
