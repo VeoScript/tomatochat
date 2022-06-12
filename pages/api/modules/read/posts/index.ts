@@ -22,6 +22,12 @@ export default async function handler(req: NextApiRequest,  res: NextApiResponse
           postId: true
         }
       },
+      likes: {
+        select: {
+          postId: true,
+          userId: true
+        }
+      },
       user: {
         select: {
           id: true,

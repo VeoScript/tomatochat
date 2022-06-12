@@ -23,7 +23,9 @@ import {
   seenChat,
   deleteChat,
   createPost,
-  createStory
+  createStory,
+  likePost,
+  unlikePost
 } from './API'
 
 
@@ -505,6 +507,24 @@ export const useCreateStory = () => {
   return useMutation((_args: any) => createStory({
       imageUrl: _args.imageUrl,
       postId: _args.postId
+    })
+  )
+}
+
+// MUTATION FOR LIKING THE POST
+export const useLikePost = () => {
+  return useMutation((_args: { postId: string, userId: string }) => likePost({
+      postId: _args.postId,
+      userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR UNLIKING THE POST
+export const useUnlikePost = () => {
+  return useMutation((_args: { postId: string, userId: string }) => unlikePost({
+      postId: _args.postId,
+      userId: _args.userId
     })
   )
 }

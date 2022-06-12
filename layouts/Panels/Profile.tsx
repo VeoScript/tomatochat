@@ -30,8 +30,8 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
   }, [fetchNextPage, hasNextPage, inView])
 
   return (
-    <div className="flex flex-col items-center w-full max-w-full h-full border-x border-zinc-300 dark:border-tomato-dark-secondary overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
-      <div className="relative flex flex-col w-full max-w-4xl">
+    <div className="flex flex-col items-center w-full max-w-full h-full px-5 border-x border-zinc-300 dark:border-tomato-dark-secondary overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
+      <div className="relative flex flex-col w-full max-w-full">
         <div
           className="relative flex w-full h-[18rem] rounded-b-xl bg-white dark:bg-tomato-dark-secondary bg-center bg-cover bg-no-repeat"
           style={{ backgroundImage: `url(${profile.coverImage ? profile.coverImage : null})` }}
@@ -57,22 +57,24 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
             )}
           </div>
           <div className="flex flex-row items-start justify-between w-full mr-10 mt-[4rem]">
-            <div className="flex flex-col ml-3">
+            <div className="flex flex-col ml-3 space-y-2">
               <h3 className="font-bold text-2xl tracking-tight">{profile.name}</h3>
-              <h3 className="inline-flex items-center space-x-1 font-normal text-sm tracking-tight text-zinc-500 dark:text-zinc-400">
-                <RiUserHeartLine />
-                <Link href="/">
-                  <a className="hover:underline"><span className="font-bold">250</span> followers</a>
-                </Link>
-                <span>&bull;</span>
-                <Link href="/">
-                  <a className="hover:underline"><span className="font-bold">89</span> following</a>
-                </Link>
-              </h3>
-              <h3 className="inline-flex items-center space-x-1 font-normal text-sm tracking-tight text-zinc-500 dark:text-zinc-400">
-                <RiMapPin2Line />
-                <span>Philippines</span>
-              </h3>
+              <div className="flex flex-col">
+                <h3 className="inline-flex items-center space-x-1 font-normal text-sm tracking-tight text-zinc-500 dark:text-zinc-400">
+                  <RiUserHeartLine />
+                  <Link href="/">
+                    <a className="hover:underline"><span className="font-bold">250</span> followers</a>
+                  </Link>
+                  <span>&bull;</span>
+                  <Link href="/">
+                    <a className="hover:underline"><span className="font-bold">89</span> following</a>
+                  </Link>
+                </h3>
+                <h3 className="inline-flex items-center space-x-1 font-normal text-sm tracking-tight text-zinc-500 dark:text-zinc-400">
+                  <RiMapPin2Line />
+                  <span>Philippines</span>
+                </h3>
+              </div>
             </div>
             <div className="flex flex-col mt-5 mr-10">
               {user.id === profile.id
@@ -103,8 +105,8 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
           </div>
         </div>
       </div>
-      <div className="relative flex flex-row items-start w-full max-w-4xl mt-[9rem] mb-[1rem] space-x-3">
-        <div className="sticky top-2 flex flex-col w-full max-w-xs p-5 space-y-3 rounded-md bg-white dark:bg-tomato-dark-slight">
+      <div className="relative flex flex-row items-start w-full max-w-full mt-[9rem] mb-[1rem] space-x-3">
+        <div className="sticky top-2 flex flex-col w-full max-w-md p-5 space-y-3 rounded-md bg-white dark:bg-tomato-dark-slight">
           <div className="flex flex-col">
             <h2 className="font-bold text-lg text-zinc-700 dark:text-tomato-orange">Intro</h2>
             <h3 className="font-normal text-sm">

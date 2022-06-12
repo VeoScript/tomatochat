@@ -3,8 +3,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import PostProfile from '../../components/Images/PostProfile'
 import PhotoSwiper from '../PhotoSwiper'
+import LikeButton from '../Interactions/LikeButton'
 import moment from 'moment'
-import { RiHeart3Fill, RiChat1Fill, RiShareFill, RiBookmarkFill, RiMoreFill } from 'react-icons/ri'
+import { RiChat1Fill, RiShareFill, RiBookmarkFill, RiMoreFill } from 'react-icons/ri'
 
 interface IProps {
   profile: any
@@ -37,32 +38,37 @@ const CardPost: React.FC<IProps> = ({ profile, post }) => {
         </button>
       </div>
       <div className="flex flex-col w-full space-y-2">
-        <p className="text-sm ml-1 mb-3 whitespace-pre-wrap">{post.description}</p>
+        <p className={`${post.stories.length == 0 ? 'text-xl' : 'text-base'} ml-1 mb-3 whitespace-pre-wrap`}>{post.description}</p>
         {post.stories.length > 0 && (
           <div className="relative flex w-full">
-            <span className="absolute z-10 top-3 right-3 px-3 py-2 rounded-md text-xs text-white bg-black bg-opacity-50">
-              {post.stories.length} Photos
-            </span>
+            {post.stories.length > 1 && (
+              <>
+                <span className="absolute z-10 top-3 right-3 px-3 py-1 rounded-md select-none text-xs text-white bg-black bg-opacity-50">
+                  {post.stories.length} Photos
+                </span>
+                <span className="absolute z-10 bottom-3 right-3 px-3 py-1 rounded-md select-none text-xs text-white bg-black bg-opacity-50">
+                  Slide to see more...
+                </span>
+              </>
+            )}
             <PhotoSwiper post={post} />
           </div>
         )}
         <div className="inline-flex items-center justify-between w-full py-3">
           <div className="flex items-center space-x-2">
+            <LikeButton
+              post={post}
+              user={profile}
+            />
             <button
               type="button"
-              className="text-red-600 outline-none transition ease-in-out duration-200 transform hover:scale-90"
-            >
-              <RiHeart3Fill className="w-6 h-6" />
-            </button>
-            <button
-              type="button"
-              className="text-zinc-300 outline-none transition ease-in-out duration-200 transform hover:scale-90"
+              className="text-neutral-500 outline-none transition ease-in-out duration-200 transform hover:scale-90"
             >
               <RiChat1Fill className="w-6 h-6" />
             </button>
             <button
               type="button"
-              className="text-zinc-300 outline-none transition ease-in-out duration-200 transform hover:scale-90"
+              className="text-neutral-500 outline-none transition ease-in-out duration-200 transform hover:scale-90"
             >
               <RiShareFill className="w-6 h-6" />
             </button>
@@ -70,7 +76,7 @@ const CardPost: React.FC<IProps> = ({ profile, post }) => {
           <div className="flex items-center space-x-3">
             <button
               type="button"
-              className="text-zinc-300 outline-none transition ease-in-out duration-200 transform hover:scale-90"
+              className="text-neutral-500 outline-none transition ease-in-out duration-200 transform hover:scale-90"
             >
               <RiBookmarkFill className="w-6 h-6" />
             </button>
