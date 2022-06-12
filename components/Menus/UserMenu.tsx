@@ -84,7 +84,7 @@ const UserMenu: React.FC<IProps> = ({ children, title, user }) => {
                   </button>
                 )}
                 <button
-                  className="inline-flex items-center space-x-2 p-3 font-normal text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-tomato-lavender-light dark:hover:bg-red-600"
+                  className="inline-flex items-center space-x-2 p-3 font-normal text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-tomato-light-secondary dark:hover:bg-red-600"
                   onClick={() => {
                     signOut()
                     setIsDropdown(false)

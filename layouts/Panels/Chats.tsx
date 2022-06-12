@@ -537,7 +537,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                         ))}
                       </React.Fragment>
                     ))}
-                    <div className="inline-flex items-center justify-center w-full pb-3 text-sm text-white text-opacity-50">
+                    <div className="inline-flex items-center justify-center w-full pb-3 text-xs text-tomato-orange">
                       <button
                         ref={ref}
                         onClick={() => fetchNextPage()}
@@ -546,7 +546,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                         {isFetchingNextPage
                           ? <Spinner width={25} height={25} color={'#F16506'} />
                           : hasNextPage
-                          ? 'Load Older Message'
+                          ? 'Load older messages...'
                           : ''}
                       </button>
                     </div>

@@ -48,7 +48,7 @@ const PhotoDisplay: React.FC<ViewStoryProps> = ({ post, story }) => {
       maxWidth="max-w-xl"
       className="w-full outline-none"
       isLink={true}
-      linkValue={post.id}
+      linkValue={post.user.id}
       isOpen={isOpen}
       openModal={openModal}
       closeModal={closeModal}
