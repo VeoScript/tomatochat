@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import PostProfile from '../Images/PostProfile'
+import moment from 'moment'
 import { Dialog } from '@headlessui/react'
 import { RiCloseLine } from 'react-icons/ri'
 
@@ -12,6 +13,7 @@ interface IProps {
   button: any
   title: string
   subtitle?: string
+  postDate?: Date
   profile?: any
   isLink?: boolean
   linkValue?: string
@@ -19,7 +21,7 @@ interface IProps {
   maxWidth: string
 }
 
-const DialogBox: React.FC<IProps> = ({ children, button, title, subtitle, profile, isLink, linkValue, className, maxWidth, isOpen, openModal, closeModal }) => {
+const DialogBox: React.FC<IProps> = ({ children, button, title, subtitle, postDate, profile, isLink, linkValue, className, maxWidth, isOpen, openModal, closeModal }) => {
   return (
     <>
       <button
@@ -44,7 +46,12 @@ const DialogBox: React.FC<IProps> = ({ children, button, title, subtitle, profil
                 ? <Link href={`/profile/${linkValue}`}>
                     <a className="inline-flex items-center space-x-2 outline-none">
                       <PostProfile src={profile} />
-                      <span className="font-semibold text-xl outline-none">{ title }</span>
+                      <div className="flex flex-col">
+                        <span className="font-semibold text-xl outline-none">{ title }</span>
+                        <span className="font-light text-xs text-zinc-400">
+                          {moment(postDate).fromNow()}
+                        </span>
+                      </div>
                     </a>
                   </Link>
                 : <h2 className="font-semibold">{ title }</h2>
