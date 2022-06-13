@@ -25,7 +25,8 @@ import {
   createPost,
   createStory,
   likePost,
-  unlikePost
+  unlikePost,
+  commentPost
 } from './API'
 
 
@@ -259,6 +260,46 @@ export function useGetNewsFeedPosts() {
     {
       refetchInterval: 1000,
       getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+    }
+  )
+}
+
+// QUERY FOR GETTING ALL COMMENTS IN POST
+export function useGetPostComments(postId: string) {
+  return useInfiniteQuery('get_post_comments', 
+    async ({ pageParam = '' }) => {
+      const get_post_comments = fetch(`/api/modules/read/comments?cursor=${ pageParam }`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ postId })
+      })
+      return (await get_post_comments).json()
+    },
+    {
+      refetchInterval: 1000,
+      getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+    }
+  )
+}
+
+// QUERY FOR COUNTING ALL COMMENTS IN SPECIFIC POST
+export function useGetTotalComments(postId: string) {
+  return useQuery('total_comments', 
+    async () => {
+      const total_comments = fetch('/api/modules/read/comments/count', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ postId })
+      })
+      return (await total_comments).json()
+    },
+    {
+      enabled: !!postId,
+      refetchInterval: 1000
     }
   )
 }
@@ -521,6 +562,16 @@ export const useLikePost = () => {
 // MUTATION FOR UNLIKING THE POST
 export const useUnlikePost = () => {
   return useMutation((_args: { postId: string, userId: string }) => unlikePost({
+      postId: _args.postId,
+      userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR COMMENTING THE POST
+export const useCommentPost = () => {
+  return useMutation((_args: { message: string, postId: string, userId: string }) => commentPost({
+      message: _args.message,
       postId: _args.postId,
       userId: _args.userId
     })

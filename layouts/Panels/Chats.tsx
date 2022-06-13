@@ -68,7 +68,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
       fetchNextPage()
     } 
     register('chatbox', { required: true })
-  }, [chatContainer, refetch, register, fetchNextPage, hasNextPage, inView])
+  }, [refetch, register, fetchNextPage, hasNextPage, inView])
 
   // useEffect for setting to default after changing the url route
   React.useEffect(() => {

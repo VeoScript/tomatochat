@@ -320,3 +320,18 @@ export const unlikePost = (_args: { postId: string, userId: string }) => {
     })
   })
 }
+
+// API-ROUTE FOR COMMENTING THE POST
+export const commentPost = (_args: { message: string, postId: string, userId: string }) => {
+  return fetch('/api/modules/create/comment', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      message: _args.message,
+      postId: _args.postId,
+      userId: _args.userId
+    })
+  })
+}
