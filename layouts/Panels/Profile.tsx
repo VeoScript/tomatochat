@@ -47,7 +47,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
               blurDataURL={profile.image}
               width={150}
               height={150}
-              className="flex w-full max-w-[2.5rem] rounded-full object-cover bg-tomato-light dark:bg-tomato-dark-secondary"
+              className="flex w-full max-w-[2.5rem] rounded-full object-cover bg-tomato-light dark:bg-tomato-dark-slight"
               layout="intrinsic"
               quality={100}
               alt="Profile"
@@ -220,6 +220,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
                     <CardPost
                       key={i}
                       profile={profile}
+                      user={user}
                       post={post}                      
                     />
                   ))}
