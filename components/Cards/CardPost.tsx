@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import PostProfile from '../../components/Images/PostProfile'
-import PhotoSwiper from '../PhotoSwiper'
+import ViewPost from '../Modals/Body/ViewPost'
 import LikeButton from '../Interactions/LikeButton'
 import moment from 'moment'
 import { RiChat1Fill, RiShareFill, RiBookmarkFill, RiMoreFill } from 'react-icons/ri'
@@ -59,9 +59,10 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
                 </span>
               </>
             )}
-            <PhotoSwiper
+            <ViewPost
               post={post}
-              user={user}  
+              user={user} 
+              commentDisplaySmall={false}
             />
           </div>
         )}
@@ -71,12 +72,11 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
               post={post}
               user={user}
             />
-            <button
-              type="button"
-              className="text-neutral-500 outline-none transition ease-in-out duration-200 transform hover:scale-90"
-            >
-              <RiChat1Fill className="w-6 h-6" />
-            </button>
+            <ViewPost
+              post={post}
+              user={user} 
+              commentDisplaySmall={true} 
+            />
             <button
               type="button"
               className="text-neutral-500 outline-none transition ease-in-out duration-200 transform hover:scale-90"
@@ -94,17 +94,30 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
           </div>
         </div>
         {post.likes.length > 0 && (
-          <div className="flex items-center space-x-1 select-none text-xs">
-            <span className="font-light text-neutral-400">Liked by</span>
-            <span className="font-bold">
-              {getLikers[0]}
-              {post.likes.length > 1 &&
-                <>
-                  <span className="inline font-light">&nbsp;and&nbsp;</span>
-                  <span>{post.likes.length -1} others</span>
-                </>
-              }
-            </span>
+          <div className="inline-flex items-center w-full space-x-2">
+            <div className="flex items-center space-x-1 select-none text-xs">
+              <span className="font-light text-neutral-400">Liked by</span>
+              <span className="font-bold">
+                {getLikers[0]}
+                {post.likes.length > 1 &&
+                  <>
+                    <span className="inline font-light">&nbsp;and&nbsp;</span>
+                    <span>{post.likes.length -1} others</span>
+                  </>
+                }
+              </span>
+            </div>
+            {post._count.comments > 0 && (
+              <>
+                <span className="text-neutral-500">&bull;</span>
+                <div className="flex items-center space-x-1 select-none text-xs">
+                  <span className="font-bold">{post._count.comments}</span>
+                  <span className="font-light text-neutral-400">
+                    {post._count.comments > 1 ? 'Comments' : 'Comment'}
+                  </span>
+                </div>
+              </>
+            )}
           </div>
         )}
       </div>

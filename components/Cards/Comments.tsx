@@ -1,6 +1,8 @@
 import React from 'react'
+import Link from 'next/link'
 import PostProfile from '../Images/PostProfile'
 import Spinner from '../../utils/Spinner'
+import moment from 'moment'
 import { useForm } from 'react-hook-form'
 import { useInView } from 'react-intersection-observer'
 import { useGetPostComments, useCommentPost, useGetTotalComments } from '../../lib/ReactQuery'
@@ -13,13 +15,14 @@ interface IProps {
   user: {
     id: string
   }
+  withImage: boolean
 }
 
 interface FormData {
   commentbox: string
 }
 
-const Comments: React.FC<IProps> = ({ post, user }) => {
+const Comments: React.FC<IProps> = ({ post, user, withImage }) => {
 
   const commentPost = useCommentPost()
   const { data: totalComments, isLoading: totalCommentsLoading } = useGetTotalComments(String(post.id))
@@ -28,6 +31,12 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
   const { ref, inView } = useInView()
 
   const { handleSubmit, register, reset, setValue, formState: { isSubmitting } } = useForm<FormData>()
+
+  const commentBoxContainer = document.getElementById('commentBoxContainer')
+
+  const scrollToTop = async (node: any) => {
+    await node === null ? undefined : node.scrollTop = 0
+  }
 
   React.useEffect(() => {
     if (inView && hasNextPage) {
@@ -60,6 +69,8 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
     commentbox !== null ?
     commentbox.innerHTML = '' : ''
     commentbox?.focus()
+
+    scrollToTop(commentBoxContainer)
   }
 
   const handleCtrlEnter = (e: any) => {
@@ -70,15 +81,18 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
   }
 
   return (
-    <div className="relative flex flex-col w-full space-y-5">
+    <div className="relative flex flex-col w-full space-y-3">
       <div className="flex flex-row items-center justify-between w-full">
         <h3 className="font-bold text-lg">Comments</h3>
         <h4 className="font-light text-sm">
           {totalCommentsLoading ? <Spinner width={20} height={20} color={'#F16506'} /> : `${totalComments} Comments`}
         </h4>
       </div>
-      <div className="flex flex-col w-full space-y-1">
-        <div className="flex flex-col w-full h-[23.5rem] overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-700 scrollbar-track-transparent">
+      <div className="flex flex-col w-full space-y-2">
+        <div
+          id="commentBoxContainer"
+          className={`flex flex-col w-full ${withImage === true ? 'h-[23.5rem]' : 'h-[15rem]'} overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-700 scrollbar-track-transparent`}
+        >
           {commentsLoading && (
             <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
               <Spinner width={30} height={30} color={'#F16506'} />
@@ -105,16 +119,23 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
               <h3 className="font-light text-sm text-neutral-400">There is no comments yet.</h3>
             </div>
           )}
-          <ul className="mr-3 space-y-1">
+          <ul className="mr-3 space-y-2">
             {comments?.pages.map((page: any, i: number) => (
               <React.Fragment key={i}>
                 {page.comments.map((comment: { index: number, id: string, message: string, createdAt: Date, user: { id: string, image: string, name: string } }) => (
-                  <li key={comment.index} className="flex flex-col p-3 rounded-md bg-tomato-dark-slight">
+                  <li key={comment.index} className="flex flex-col p-3 rounded-xl bg-tomato-dark-slight">
                     <div className="inline-flex items-start space-x-3">
-                      <PostProfile src={comment.user.image} />
+                      <Link href={`/profile/${comment.user.id}`}>
+                        <a><PostProfile src={comment.user.image} /></a>
+                      </Link>
                       <div className="flex flex-col space-y-1">
-                        <h3 className="font-bold text-base">{comment.user.name}</h3>
-                        <p className="font-light text-sm whitespace-pre-wrap">{comment.message}</p>
+                        <div className="inline-flex items-center space-x-2">
+                          <Link href={`/profile/${comment.user.id}`}>
+                            <a className="font-bold text-base">{comment.user.name}</a>
+                          </Link>
+                          <p className="font-light text-[10px] text-neutral-400 whitespace-pre-wrap">{moment(comment.createdAt).fromNow()}</p>
+                        </div>
+                        <p className="font-light text-sm text-neutral-200 whitespace-pre-wrap">{comment.message}</p>
                       </div>
                     </div>
                   </li>
@@ -122,7 +143,7 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
               </React.Fragment>
             ))}
           </ul>
-          <div className="inline-flex items-center justify-center w-full pb-3 text-xs text-tomato-orange">
+          <div className="inline-flex items-center justify-center w-full text-xs text-tomato-orange">
             <button
               ref={ref}
               onClick={() => fetchNextPage()}
@@ -139,7 +160,7 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
         <form onSubmit={handleSubmit(onSendComment)} className="flex flex-row items-start w-full px-5 py-3 space-x-3 rounded-md bg-zinc-100 dark:bg-tomato-dark-secondary border border-transparent dark:border-transparent focus-within:border-transparent dark:focus-within:border-tomato-orange">
           <div
             id="commentbox"
-            className="w-full h-full max-h-[15rem] mt-0.5 overflow-y-auto cursor-text whitespace-pre-wrap outline-none font-normal text-sm"
+            className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none font-normal text-sm"
             placeholder="(Ctrl+Enter) to submit your comment..."
             title="Shift+Enter to execute new line."
             contentEditable="true"

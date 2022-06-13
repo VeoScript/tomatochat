@@ -21,7 +21,7 @@ interface IProps {
   maxWidth: string
 }
 
-const DialogBox: React.FC<IProps> = ({
+const DialogBoxPostComment: React.FC<IProps> = ({
     children,
     button,
     title,
@@ -93,4 +93,4 @@ const DialogBox: React.FC<IProps> = ({
   )
 }
 
-export default DialogBox
+export default DialogBoxPostComment
