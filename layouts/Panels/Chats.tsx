@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Spinner from '../../utils/Spinner'
 import Profile from '../../components/Images/Profile'
@@ -32,6 +33,8 @@ const imageTypeRegex = /image\/(png|jpg|jpeg)/gm
 
 const Chats: React.FC<IProps> = ({ user, room }) => {
 
+  const router = useRouter()
+
   const { ref, inView } = useInView()
 
   const roomSlug = room.slug
@@ -54,20 +57,29 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
   const { handleSubmit: handleSubmitPhoto, formState: { isSubmitting: isSubmittingPhoto } } = useForm()
 
   const chatContainer = document.getElementById('chatContainer')
-  const chatMainContainer = document.getElementById('chatMainContainer')
 
   const scrollToBottom = async (node: any) => {
     await node === null ? undefined : node.scrollTop = node.scrollHeight
   }
 
+  // useEffect for inifinite scroll and register the chatbox chat input text to react-hook-form
   React.useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage()
-    }
-    scrollToBottom(chatMainContainer)
+    } 
     register('chatbox', { required: true })
-  }, [chatMainContainer, refetch, register, fetchNextPage, hasNextPage, inView])
+  }, [chatContainer, refetch, register, fetchNextPage, hasNextPage, inView])
 
+  // useEffect for setting to default after changing the url route
+  React.useEffect(() => {
+    const contentEditable = document.getElementById('contentEditable')
+    contentEditable !== null ?
+    contentEditable.innerHTML = '' : ''
+    contentEditable?.focus()
+    scrollToBottom(chatContainer)
+  },[chatContainer, router.asPath])
+
+  // useEffect for sending a photos in chatbox
   React.useEffect(() => {
     const images: any[] = []
     const fileReaders: FileReader[] = []
@@ -400,7 +412,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
               </div>
             </div>
             <div id="chatMainContainer" className="flex flex-col justify-end w-full h-full overflow-hidden">
-              <div id="chatContainer" className="flex flex-col-reverse w-full space-y-reverse space-y-3 p-3 overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
+              <div id="chatContainer" className="flex flex-col-reverse w-full space-y-reverse space-y-3 p-3 overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
                 {chatsLoading && (
                   <div className="flex flex-col items-center justify-center w-full h-screen space-y-2">
                     <Spinner width={40} height={40} color={'#F16506'} />

@@ -25,7 +25,7 @@ const NewsFeed: React.FC<IProps> = ({ user, profile }) => {
 
   return (
     <div className="inline-flex w-full max-w-full h-full overflow-hidden border-x border-zinc-300 dark:border-tomato-dark-secondary">
-      <div className="flex flex-col items-center justify-start w-full max-w-full h-full p-5 space-y-2 overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
+      <div className="flex flex-col items-center justify-start w-full max-w-full h-full p-4 space-y-2 overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
         <div className="inline-flex items-center justify-between w-full px-3 text-neutral-600 dark:text-neutral-300">
           <h3 className="font-black text-2xl">Newsfeed</h3>
           <button
@@ -81,6 +81,7 @@ const NewsFeed: React.FC<IProps> = ({ user, profile }) => {
                   <CardPost
                     key={i}
                     profile={profile}
+                    user={user}
                     post={post}                      
                   />
                 ))}

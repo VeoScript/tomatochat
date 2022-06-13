@@ -9,10 +9,11 @@ import { RiChat1Fill, RiShareFill, RiBookmarkFill, RiMoreFill } from 'react-icon
 
 interface IProps {
   profile: any
+  user: any
   post: any
 }
 
-const CardPost: React.FC<IProps> = ({ profile, post }) => {
+const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
 
   const { pathname } = useRouter()
 
@@ -65,7 +66,7 @@ const CardPost: React.FC<IProps> = ({ profile, post }) => {
           <div className="flex items-center space-x-2">
             <LikeButton
               post={post}
-              user={profile}
+              user={user}
             />
             <button
               type="button"
