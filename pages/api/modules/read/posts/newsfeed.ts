@@ -30,6 +30,11 @@ export default async function handler(req: NextApiRequest,  res: NextApiResponse
           }
         }
       },
+      _count: {
+        select: {
+          comments: true
+        }
+      },
       user: {
         select: {
           id: true,
