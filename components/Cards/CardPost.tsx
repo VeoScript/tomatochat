@@ -59,7 +59,10 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
                 </span>
               </>
             )}
-            <PhotoSwiper post={post} />
+            <PhotoSwiper
+              post={post}
+              user={user}  
+            />
           </div>
         )}
         <div className="inline-flex items-center justify-between w-full py-3">

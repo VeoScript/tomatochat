@@ -184,7 +184,7 @@ model Like {
 model Comment {
   id                              String                @id @default(cuid())
   index                           Int                   @unique @default(autoincrement())
-  mesesage                        String                @db.LongText
+  message                         String                @db.LongText
   createdAt                       DateTime              @default(now())
   updatedAt                       DateTime              @default(now())
   post                            Post                  @relation(fields: [postId], references: [id], onDelete: Cascade)
