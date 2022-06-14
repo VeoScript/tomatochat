@@ -164,7 +164,17 @@ const TextStoriesDisplay: React.FC<ViewTextStoriesProps> = ({ post, user, storie
       }
     >
       <div className="flex flex-row items-start justify-center w-full h-full space-x-3">
-        <Swiper className="flex flex-row items-center justify-center w-full h-full max-h-[30rem] rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
+        <Swiper className="relative flex flex-row items-center justify-center w-full h-full max-h-[30rem] rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
+          {stories.length > 1 && (
+            <>
+              <span className="absolute z-10 top-3 right-3 px-3 py-1 rounded-md select-none text-xs text-white bg-black bg-opacity-50">
+                {post.stories.length} Photos
+              </span>
+              <span className="absolute z-10 bottom-3 right-3 px-3 py-1 rounded-md select-none text-xs text-white bg-black bg-opacity-50">
+                Slide to see more...
+              </span>
+            </>
+          )}
           {stories.map((story: any, i: number) => (
             <SwiperSlide key={i}>
               <Image

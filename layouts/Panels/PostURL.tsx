@@ -19,8 +19,8 @@ interface IProps {
 
 const PostURL: React.FC<IProps> = ({ user, post }) => {
   return (
-    <div className={`inline-flex w-full max-w-full h-full overflow-hidden ${user && 'border-x border-zinc-300 dark:border-tomato-dark-secondary'}`}>
-      <div className="flex flex-col justify-start w-full max-w-full h-full p-5 space-y-3 overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
+    <div className={`inline-flex justify-center w-full max-w-full h-full overflow-hidden ${user && 'border-l border-zinc-300 dark:border-tomato-dark-secondary'}`}>
+      <div className="flex flex-col justify-start w-full max-w-5xl h-full p-5 space-y-3 overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
         <div className="flex flex-col items-start justify-center w-full mx-3 space-y-5">
           <div className="flex flex-row items-center justify-between w-full">
             <Link href={`/profile/${post.user.id}`}>
@@ -90,7 +90,17 @@ const PostURL: React.FC<IProps> = ({ user, post }) => {
         </div>
         <div className="flex flex-row items-start justify-center w-full h-full space-x-5">
           {post.stories.length > 0 && (
-            <Swiper className="inline-flex items-center justify-center w-full h-full rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
+            <Swiper className="relative inline-flex items-center justify-center w-full h-full rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
+              {post.stories.length > 1 && (
+              <>
+                <span className="absolute z-10 top-3 right-3 px-3 py-1 rounded-md select-none text-xs text-white bg-black bg-opacity-50">
+                  {post.stories.length} Photos
+                </span>
+                <span className="absolute z-10 bottom-3 right-3 px-3 py-1 rounded-md select-none text-xs text-white bg-black bg-opacity-50">
+                  Slide to see more...
+                </span>
+              </>
+            )}
               {post.stories.map((story: any, i: number) => (
                 <SwiperSlide key={i}>
                   <Image
