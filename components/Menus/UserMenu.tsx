@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { signOut } from 'next-auth/react'
-import { RiUser3Line, RiSettingsLine, RiLogoutCircleLine, RiSunFill, RiMoonFill } from 'react-icons/ri'
+import { RiUser3Line, RiSettingsLine, RiLogoutCircleLine, RiSunLine, RiMoonLine } from 'react-icons/ri'
 
 interface IProps {
   children: any
@@ -72,12 +72,12 @@ const UserMenu: React.FC<IProps> = ({ children, title, user }) => {
                     {theme === 'dark'
                       ? 
                         <React.Fragment>
-                          <RiSunFill className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
+                          <RiSunLine className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
                           <span>Light Mode</span>
                         </React.Fragment>
                       :
                         <React.Fragment>
-                          <RiMoonFill className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
+                          <RiMoonLine className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
                           <span>Dark Mode</span>
                         </React.Fragment>
                     }
