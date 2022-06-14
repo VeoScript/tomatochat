@@ -5,9 +5,10 @@ import CubeLoader from '../utils/CubeLoader'
 
 interface IProps {
   room?: any
+  post?: any
 }
 
-const LoadingPage: React.FC<IProps> = ({ room }) => {
+const LoadingPage: React.FC<IProps> = ({ room, post }) => {
   return (
     <React.Fragment>
       <Head>
@@ -19,6 +20,22 @@ const LoadingPage: React.FC<IProps> = ({ room }) => {
               description={room.description}
               image={room.photo}
               url={`https://tomatochat.vercel.app/${room.slug}`}
+            />
+          :
+            <SEO
+              title="TomatoChat (Login)"
+              description="The Aesthetic Messenger"
+              image="https://i.ibb.co/3yrC1WK/tomatochat.png"
+              url="https://tomatochat.vercel.app/"
+            />
+        }
+        {post
+          ? 
+            <SEO
+              title={`TomatoChat - ${post.user.name}'s Post`}
+              description={post.description}
+              image={post.stories[0].photo}
+              url={`https://tomatochat.vercel.app/post/${post.id}`}
             />
           :
             <SEO

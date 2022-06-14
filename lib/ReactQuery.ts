@@ -254,6 +254,26 @@ export function useGetUserPosts(userId: string) {
   )
 }
 
+// QUERY FOR THE SPECIFIC POST QUERY INFORMATION
+export function useGetUserPost(postId: string) {
+  return useQuery('get_user_post', 
+    async () => {
+      const get_user_post = fetch('/api/modules/read/posts/specificpost', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ postId })
+      })
+      return (await get_user_post).json()
+    },
+    {
+      enabled: !!postId,
+      refetchInterval: 1000
+    }
+  )
+}
+
 // QUERY FOR GETTING ALL POSTS DISPLAYING IN NEWSFEED PAGE
 export function useGetNewsFeedPosts() {
   return useInfiniteQuery('get_newsfeed_posts', 

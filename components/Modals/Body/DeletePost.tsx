@@ -1,5 +1,5 @@
 import React from 'react'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import DialogBox from '../DialogBox'
 import Spinner from '../../../utils/Spinner'
 import CustomToaster from '../../CustomToaster'
@@ -14,6 +14,8 @@ interface IProps {
 }
 
 const DeletePost: React.FC<IProps> = ({ post, setIsDropdown }) => {
+
+  const router = useRouter()
 
   const deletePost = useDeletePost()
 
@@ -54,6 +56,12 @@ const DeletePost: React.FC<IProps> = ({ post, setIsDropdown }) => {
             message="Deleted Successfully."
           />
         ))
+        
+        // if the page is in /post/postId it will automatically redirect to homepage(newsfeed)
+        if (router.asPath === `/post/${post.id}`) {
+          router.push('/')
+        } 
+
         closeModal()
       }
     })
