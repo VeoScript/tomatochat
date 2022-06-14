@@ -53,12 +53,12 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
             )}
             {searchDiscoverError && (
               <div className="flex flex-col items-center justify-center w-full h-full space-y-2 text-zinc-400">
-                <RiEmotionSadLine className="w-14 h-14" />
+                <RiEmotionSadLine className="w-14 h-14 text-tomato-orange text-opacity-50" />
                 <div className="inline-flex items-center justify-center w-full space-x-1 text-xs">
                   <h3 className="font-light">Failed to load, try to</h3>
                   <button
                     type="button"
-                    className="outline-none font-bold text-[#6b50d8] hover:underline"
+                    className="outline-none font-bold text-tomato-orange hover:underline"
                     onClick={() => refetch()}
                   >
                     Reload
