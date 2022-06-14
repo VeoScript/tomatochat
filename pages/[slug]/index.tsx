@@ -25,7 +25,7 @@ const RoomSlug: NextPage<IProps> = ({ params, room }) => {
 
   if (status === 'loading' || isLoading) {
     return (
-      <LoadingPage room={room} />
+      <LoadingPage />
     )
   }
 
@@ -41,7 +41,7 @@ const RoomSlug: NextPage<IProps> = ({ params, room }) => {
   if (status === 'unauthenticated') {
     Router.replace('/login')
     return (
-      <LoadingPage room={room} />
+      <LoadingPage />
     )
   }
 

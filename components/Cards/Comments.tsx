@@ -24,7 +24,7 @@ interface FormData {
   commentbox: string
 }
 
-const Comments: React.FC<IProps> = ({ post, user, withImage }) => {
+const Comments: React.FC<IProps> = ({ post, user }) => {
 
   const commentPost = useCommentPost()
   
@@ -168,7 +168,7 @@ const Comments: React.FC<IProps> = ({ post, user, withImage }) => {
                             </Link>
                             <p className="font-light text-[10px] text-neutral-400 whitespace-pre-wrap">{moment(comment.createdAt).fromNow()}</p>
                           </div>
-                          {user.id === comment.user.id && (
+                          {(user && user.id === comment.user.id) && (
                             <DeleteComment
                               user={user}
                               commentId={comment.id}
