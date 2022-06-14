@@ -4,6 +4,7 @@ import SearchPeople from '../components/Search/SearchPeople'
 import UserMenu from '../components/Menus/UserMenu'
 import Rooms from '../layouts/Panels/Rooms'
 import Profile from '../components/Images/Profile'
+import Spinner from '../utils/Spinner'
 import { Toaster } from 'react-hot-toast'
 import { RiNotification4Line } from 'react-icons/ri'
 
@@ -44,9 +45,13 @@ const MainLayout: React.FC<IProps> = ({ user, children }) => {
         )}
       </div>
       <div className="flex flex-row justify-center w-full max-w-[1401px] h-full overflow-hidden">
-        {user && (
-          <Rooms user={user} />
-        )}
+        {!user 
+          ? <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
+              <Spinner width={40} height={40} color={'#F16506'} />
+              <h3 className="font-light text-xs">Loading...</h3>
+            </div>
+          : <Rooms user={user} />
+        }
         {children}
       </div>
     </main>
