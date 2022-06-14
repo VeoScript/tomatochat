@@ -91,35 +91,37 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
           {totalCommentsLoading ? <Spinner width={20} height={20} color={'#F16506'} /> : `${totalComments} Comments`}
         </h4>
       </div>
-      <form onSubmit={handleSubmit(onSendComment)} className="flex flex-row items-start w-full mt-3 px-5 py-3 space-x-3 rounded-md bg-zinc-100 dark:bg-tomato-dark-secondary border border-transparent dark:border-transparent focus-within:border-transparent dark:focus-within:border-tomato-orange">
-        <div
-          id="commentbox"
-          className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none font-normal text-sm"
-          placeholder="(Ctrl+Enter) to submit your comment..."
-          title="Shift+Enter to execute new line."
-          contentEditable="true"
-          suppressContentEditableWarning
-          spellCheck={false}
-          onKeyPress={handleCtrlEnter}
-          onPaste={(e) => {
-            e.preventDefault()
-            var text = e.clipboardData.getData('text/plain')
-            document.execCommand('insertText', false, text)
-          }}
-          onInput={(e: any) => setValue('commentbox', e.currentTarget.textContent, { shouldValidate: true })}
-        />
-        {!isSubmitting && (
-          <button
-            type="submit"
-            className="outline-none text-sm text-tomato-orange"
-          >
-            Send
-          </button>
-        )}
-        {isSubmitting && (
-          <span className="text-sm text-tomato-orange cursor-wait select-none">Sending...</span>
-        )}
-      </form>
+      {user && (
+        <form onSubmit={handleSubmit(onSendComment)} className="flex flex-row items-start w-full mt-3 px-5 py-3 space-x-3 rounded-md bg-zinc-100 dark:bg-tomato-dark-secondary border border-transparent dark:border-transparent focus-within:border-transparent dark:focus-within:border-tomato-orange">
+          <div
+            id="commentbox"
+            className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none font-normal text-sm"
+            placeholder="(Ctrl+Enter) to submit your comment..."
+            title="Shift+Enter to execute new line."
+            contentEditable="true"
+            suppressContentEditableWarning
+            spellCheck={false}
+            onKeyPress={handleCtrlEnter}
+            onPaste={(e) => {
+              e.preventDefault()
+              var text = e.clipboardData.getData('text/plain')
+              document.execCommand('insertText', false, text)
+            }}
+            onInput={(e: any) => setValue('commentbox', e.currentTarget.textContent, { shouldValidate: true })}
+          />
+          {!isSubmitting && (
+            <button
+              type="submit"
+              className="outline-none text-sm text-tomato-orange"
+            >
+              Send
+            </button>
+          )}
+          {isSubmitting && (
+            <span className="text-sm text-tomato-orange cursor-wait select-none">Sending...</span>
+          )}
+        </form>
+      )}
       <div className="flex flex-col w-full space-y-2">
         <div
           id="commentBoxContainer"

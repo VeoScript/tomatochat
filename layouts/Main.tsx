@@ -1,9 +1,11 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import SearchPeople from '../components/Search/SearchPeople'
 import UserMenu from '../components/Menus/UserMenu'
 import Rooms from '../layouts/Panels/Rooms'
 import Profile from '../components/Images/Profile'
+import Spinner from '../utils/Spinner'
 import { Toaster } from 'react-hot-toast'
 import { RiNotification4Line } from 'react-icons/ri'
 
@@ -13,6 +15,9 @@ interface IProps {
 }
 
 const MainLayout: React.FC<IProps> = ({ user, children }) => {
+
+  const router = useRouter()
+
   return (
     <main className="font-poppins flex flex-col items-center w-full h-screen overflow-hidden text-[#333] dark:text-white bg-tomato-light-secondary dark:bg-tomato-dark">
       <Toaster
@@ -43,7 +48,7 @@ const MainLayout: React.FC<IProps> = ({ user, children }) => {
           </div>
         )}
       </div>
-      <div className="flex flex-row justify-center w-full max-w-[1401px] h-full overflow-hidden">
+      <div className="flex flex-row w-full max-w-[1401px] h-full overflow-hidden">
         {user && (
           <Rooms user={user} />
         )}
