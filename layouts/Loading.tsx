@@ -15,7 +15,7 @@ const LoadingPage = () => {
           url="https://tomatochat.vercel.app/"
         />
       </Head>
-      <main className="flex items-center justify-center w-full h-screen text-zinc-600 dark:text-white bg-tomato-light dark:bg-tomato-dark">
+      <main className="flex items-center justify-center w-full h-screen text-zinc-600 dark:text-white bg-tomato-light-secondary dark:bg-tomato-dark">
         <div className="flex flex-col items-center w-full space-y-2">
           <CubeLoader />
           <span className="flex font-poppins text-3xl">

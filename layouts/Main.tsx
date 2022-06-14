@@ -4,6 +4,7 @@ import SearchPeople from '../components/Search/SearchPeople'
 import UserMenu from '../components/Menus/UserMenu'
 import Rooms from '../layouts/Panels/Rooms'
 import Profile from '../components/Images/Profile'
+import TomatoChatLogo from '../utils/TomatoChatLogo'
 import { Toaster } from 'react-hot-toast'
 import { RiNotification4Line } from 'react-icons/ri'
 
@@ -21,7 +22,13 @@ const MainLayout: React.FC<IProps> = ({ user, children }) => {
       />
       <div className="inline-flex items-center justify-between w-full p-4 border-b border-zinc-300 dark:border-tomato-dark-secondary">
         <Link href="/">
-          <a className="font-rubikglitch text-2xl text-[#BD3207] lowercase">tomato<span className="text-tomato-orange">chat</span></a>
+          <a className="">
+            <TomatoChatLogo
+              width={30}
+              height={30}
+              fontSize="text-2xl"
+            />
+          </a>
         </Link>
         {user && (
           <div className="inline-flex items-center space-x-5">
