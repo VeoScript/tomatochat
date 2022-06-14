@@ -14,7 +14,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
       },
       room: {
         name: {
-          contains: req.body.searchTerm
+          startsWith: req.body.searchTerm
         }
       }
     },
