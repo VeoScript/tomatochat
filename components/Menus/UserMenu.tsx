@@ -51,7 +51,7 @@ const UserMenu: React.FC<IProps> = ({ children, title, user }) => {
                     <span>{ user.name }</span>
                   </a>
                 </Link>
-                <Link href="/">
+                <Link href="/bookmarks">
                   <a
                     className="inline-flex items-center space-x-2 p-3 font-normal text-xs text-left cursor-pointer transition ease-in-out duration-200 hover:bg-zinc-100 dark:hover:bg-[#464A4D]"
                     onClick={() => {

@@ -290,7 +290,7 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
       </div>
       <div className="inline-flex items-start justify-between w-full space-x-2">
         <div className="w-[25rem]">
-          <p className="font-light text-[12px]">
+          <p className="font-light text-[12px] text-neutral-400">
             Note: Be responsible with your post, any hateful or offensive posts will be automatically deleted.
           </p>
         </div>

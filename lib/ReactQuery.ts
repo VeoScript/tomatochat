@@ -328,6 +328,25 @@ export function useGetTotalComments(postId: string) {
   )
 }
 
+// QUERY FOR GETTING ALL OF USER BOOKMARKS
+export function useGetBookmarks(userId: string) {
+  return useInfiniteQuery('get_bookmarks', 
+    async ({ pageParam = '' }) => {
+      const get_bookmarks = fetch(`/api/modules/read/bookmarks?cursor=${ pageParam }`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId })
+      })
+      return (await get_bookmarks).json()
+    },
+    {
+      refetchInterval: 1000,
+      getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+    }
+  )
+}
 
 
 
