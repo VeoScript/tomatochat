@@ -33,6 +33,17 @@ export default async function handler(req: NextApiRequest,  res: NextApiResponse
           }
         }
       },
+      bookmarks: {
+        select: {
+          postId: true,
+          userId: true,
+          user: {
+            select: {
+              name: true
+            }
+          }
+        }
+      },
       _count: {
         select: {
           comments: true

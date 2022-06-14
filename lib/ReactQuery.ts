@@ -27,7 +27,9 @@ import {
   likePost,
   unlikePost,
   commentPost,
-  deleteCommentPost
+  deleteCommentPost,
+  addToBookmark,
+  deleteToBookmark
 } from './API'
 
 
@@ -583,6 +585,24 @@ export const useCommentPost = () => {
 export const useDeleteCommentPost = () => {
   return useMutation((_args: { commentId: string }) => deleteCommentPost({
       commentId: _args.commentId
+    })
+  )
+}
+
+// MUTATION FOR ADD POST TO USER BOOKMARKS
+export const useAddToBookmark = () => {
+  return useMutation((_args: { postId: string, userId: string }) => addToBookmark({
+      postId: _args.postId,
+      userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR ADD POST TO USER BOOKMARKS
+export const useDeleteToBookmark = () => {
+  return useMutation((_args: { postId: string, userId: string }) => deleteToBookmark({
+      postId: _args.postId,
+      userId: _args.userId
     })
   )
 }

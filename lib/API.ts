@@ -348,3 +348,31 @@ export const deleteCommentPost = (_args: { commentId: string }) => {
     })
   })
 }
+
+// API-ROUTE FOR ADD POST TO USER BOOKMARKS
+export const addToBookmark = (_args: { postId: string, userId: string }) => {
+  return fetch('/api/modules/create/bookmark', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      postId: _args.postId,
+      userId: _args.userId
+    })
+  })
+}
+
+// API-ROUTE FOR ADD POST TO USER BOOKMARKS
+export const deleteToBookmark = (_args: { postId: string, userId: string }) => {
+  return fetch('/api/modules/delete/bookmark', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      postId: _args.postId,
+      userId: _args.userId
+    })
+  })
+}
