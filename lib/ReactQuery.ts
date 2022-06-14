@@ -26,7 +26,8 @@ import {
   createStory,
   likePost,
   unlikePost,
-  commentPost
+  commentPost,
+  deleteCommentPost
 } from './API'
 
 
@@ -574,6 +575,14 @@ export const useCommentPost = () => {
       message: _args.message,
       postId: _args.postId,
       userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR DELETING THE COMMENT
+export const useDeleteCommentPost = () => {
+  return useMutation((_args: { commentId: string }) => deleteCommentPost({
+      commentId: _args.commentId
     })
   )
 }

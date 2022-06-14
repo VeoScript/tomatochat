@@ -5,7 +5,7 @@ import PostProfile from '../../components/Images/PostProfile'
 import ViewPost from '../Modals/Body/ViewPost'
 import LikeButton from '../Interactions/LikeButton'
 import moment from 'moment'
-import { RiChat1Fill, RiShareFill, RiBookmarkFill, RiMoreFill } from 'react-icons/ri'
+import { RiShareFill, RiBookmarkFill, RiMoreFill } from 'react-icons/ri'
 
 interface IProps {
   profile: any
@@ -61,7 +61,7 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
             )}
             <ViewPost
               post={post}
-              user={user} 
+              user={user}
               commentDisplaySmall={false}
             />
           </div>
@@ -74,7 +74,7 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
             />
             <ViewPost
               post={post}
-              user={user} 
+              user={user}
               commentDisplaySmall={true} 
             />
             <button
@@ -93,8 +93,8 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
             </button>
           </div>
         </div>
-        {post.likes.length > 0 && (
-          <div className="inline-flex items-center w-full space-x-2">
+        <div className="inline-flex items-center w-full space-x-2">
+          {post.likes.length > 0 && (
             <div className="flex items-center space-x-1 select-none text-xs">
               <span className="font-light text-neutral-400">Liked by</span>
               <span className="font-bold">
@@ -106,20 +106,20 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
                   </>
                 }
               </span>
+              <span className="text-neutral-500">&bull;</span>
             </div>
-            {post._count.comments > 0 && (
-              <>
-                <span className="text-neutral-500">&bull;</span>
-                <div className="flex items-center space-x-1 select-none text-xs">
-                  <span className="font-bold">{post._count.comments}</span>
-                  <span className="font-light text-neutral-400">
-                    {post._count.comments > 1 ? 'Comments' : 'Comment'}
-                  </span>
-                </div>
-              </>
-            )}
-          </div>
-        )}
+          )}
+          {post._count.comments > 0 && (
+            <>
+              <div className="flex items-center space-x-1 select-none text-xs">
+                <span className="font-bold">{post._count.comments}</span>
+                <span className="font-light text-neutral-400">
+                  {post._count.comments > 1 ? 'Comments' : 'Comment'}
+                </span>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   )

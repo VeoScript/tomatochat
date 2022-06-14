@@ -165,7 +165,7 @@ const TextStoriesDisplay: React.FC<ViewTextStoriesProps> = ({ post, user, storie
     >
       <div className="flex flex-row items-start justify-center w-full h-full space-x-3">
         <Swiper className="flex flex-row items-center justify-center w-full h-full max-h-[30rem] rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
-          {post.stories.map((story: any, i: number) => (
+          {stories.map((story: any, i: number) => (
             <SwiperSlide key={i}>
               <Image
                 key={story.image}
