@@ -12,6 +12,7 @@ import { RiEmotionSadLine } from 'react-icons/ri'
 interface IProps {
   post: {
     id: string
+    stories: any
   }
   user: {
     id: string
@@ -90,10 +91,39 @@ const Comments: React.FC<IProps> = ({ post, user, withImage }) => {
           {totalCommentsLoading ? <Spinner width={20} height={20} color={'#F16506'} /> : `${totalComments} Comments`}
         </h4>
       </div>
+      <form onSubmit={handleSubmit(onSendComment)} className="flex flex-row items-start w-full mt-3 px-5 py-3 space-x-3 rounded-md bg-zinc-100 dark:bg-tomato-dark-secondary border border-transparent dark:border-transparent focus-within:border-transparent dark:focus-within:border-tomato-orange">
+        <div
+          id="commentbox"
+          className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none font-normal text-sm"
+          placeholder="(Ctrl+Enter) to submit your comment..."
+          title="Shift+Enter to execute new line."
+          contentEditable="true"
+          suppressContentEditableWarning
+          spellCheck={false}
+          onKeyPress={handleCtrlEnter}
+          onPaste={(e) => {
+            e.preventDefault()
+            var text = e.clipboardData.getData('text/plain')
+            document.execCommand('insertText', false, text)
+          }}
+          onInput={(e: any) => setValue('commentbox', e.currentTarget.textContent, { shouldValidate: true })}
+        />
+        {!isSubmitting && (
+          <button
+            type="submit"
+            className="outline-none text-sm text-tomato-orange"
+          >
+            Send
+          </button>
+        )}
+        {isSubmitting && (
+          <span className="text-sm text-tomato-orange cursor-wait select-none">Sending...</span>
+        )}
+      </form>
       <div className="flex flex-col w-full space-y-2">
         <div
           id="commentBoxContainer"
-          className={`flex flex-col w-full ${withImage === true ? 'h-[23.5rem]' : 'h-[15rem]'} overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-700 scrollbar-track-transparent`}
+          className={`flex flex-col w-full ${post.stories.length > 0 ? 'h-[23.5rem]' : 'h-full max-h-[23.5rem] space-y-2'} overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-700 scrollbar-track-transparent`}
         >
           {commentsLoading && (
             <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
@@ -120,7 +150,7 @@ const Comments: React.FC<IProps> = ({ post, user, withImage }) => {
             <div className="flex flex-col items-center justify-center w-full h-full">
               <h3 className="font-light text-sm text-neutral-400">There is no comments yet.</h3>
             </div>
-          )}
+          )}  
           <ul className="mr-3 space-y-2">
             {comments?.pages.map((page: any, i: number) => (
               <React.Fragment key={i}>
@@ -167,35 +197,6 @@ const Comments: React.FC<IProps> = ({ post, user, withImage }) => {
             </button>
           </div>
         </div>
-        <form onSubmit={handleSubmit(onSendComment)} className="flex flex-row items-start w-full px-5 py-3 space-x-3 rounded-md bg-zinc-100 dark:bg-tomato-dark-secondary border border-transparent dark:border-transparent focus-within:border-transparent dark:focus-within:border-tomato-orange">
-          <div
-            id="commentbox"
-            className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none font-normal text-sm"
-            placeholder="(Ctrl+Enter) to submit your comment..."
-            title="Shift+Enter to execute new line."
-            contentEditable="true"
-            suppressContentEditableWarning
-            spellCheck={false}
-            onKeyPress={handleCtrlEnter}
-            onPaste={(e) => {
-              e.preventDefault()
-              var text = e.clipboardData.getData('text/plain')
-              document.execCommand('insertText', false, text)
-            }}
-            onInput={(e: any) => setValue('commentbox', e.currentTarget.textContent, { shouldValidate: true })}
-          />
-          {!isSubmitting && (
-            <button
-              type="submit"
-              className="outline-none text-sm text-tomato-orange"
-            >
-              Send
-            </button>
-          )}
-          {isSubmitting && (
-            <span className="text-sm text-tomato-orange cursor-wait select-none">Sending...</span>
-          )}
-        </form>  
       </div>
     </div>
   )

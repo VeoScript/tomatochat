@@ -23,13 +23,6 @@ const RoomSlug: NextPage<IProps> = ({ params, room }) => {
 
   const { data: user, isLoading, isError } = useGetUser(email as string)
 
-  if (status === 'unauthenticated') {
-    Router.replace('/login')
-    return (
-      <LoadingPage room={room} />
-    )
-  }
-
   if (status === 'loading' || isLoading) {
     return (
       <LoadingPage room={room} />
@@ -42,6 +35,13 @@ const RoomSlug: NextPage<IProps> = ({ params, room }) => {
         errorType={'Error'}
         errorMessage={'Failed to fetch some data. Try to reload the page.'}
       />
+    )
+  }
+
+  if (status === 'unauthenticated') {
+    Router.replace('/login')
+    return (
+      <LoadingPage room={room} />
     )
   }
 
