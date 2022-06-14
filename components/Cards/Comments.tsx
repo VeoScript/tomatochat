@@ -85,7 +85,7 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
 
   return (
     <div className="relative flex flex-col w-full space-y-3">
-      <div className="flex flex-row items-center justify-between w-full">
+      <div className="flex flex-row items-center justify-between w-full px-2">
         <h3 className="font-bold text-lg">Comments</h3>
         <h4 className="font-light text-sm">
           {totalCommentsLoading ? <Spinner width={20} height={20} color={'#F16506'} /> : `${totalComments} Comments`}
