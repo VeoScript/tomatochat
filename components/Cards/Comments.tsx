@@ -1,11 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
 import PostProfile from '../Images/PostProfile'
+import DeleteComment from '../Modals/Body/DeleteComment'
 import Spinner from '../../utils/Spinner'
 import moment from 'moment'
 import { useForm } from 'react-hook-form'
 import { useInView } from 'react-intersection-observer'
-import { useGetPostComments, useCommentPost, useGetTotalComments } from '../../lib/ReactQuery'
+import { useGetPostComments, useGetTotalComments, useCommentPost } from '../../lib/ReactQuery'
 import { RiEmotionSadLine } from 'react-icons/ri'
 
 interface IProps {
@@ -25,6 +26,7 @@ interface FormData {
 const Comments: React.FC<IProps> = ({ post, user, withImage }) => {
 
   const commentPost = useCommentPost()
+  
   const { data: totalComments, isLoading: totalCommentsLoading } = useGetTotalComments(String(post.id))
   const { data: comments, isLoading: commentsLoading, isError: commentsError, refetch, isFetchingNextPage, fetchNextPage, hasNextPage } = useGetPostComments(String(post.id))
 
@@ -123,17 +125,25 @@ const Comments: React.FC<IProps> = ({ post, user, withImage }) => {
             {comments?.pages.map((page: any, i: number) => (
               <React.Fragment key={i}>
                 {page.comments.map((comment: { index: number, id: string, message: string, createdAt: Date, user: { id: string, image: string, name: string } }) => (
-                  <li key={comment.index} className="flex flex-col p-3 rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
-                    <div className="inline-flex items-start space-x-3">
+                  <li key={comment.index} className="flex flex-col w-full p-3 rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
+                    <div className="inline-flex items-start w-full space-x-3">
                       <Link href={`/profile/${comment.user.id}`}>
                         <a><PostProfile src={comment.user.image} /></a>
                       </Link>
-                      <div className="flex flex-col space-y-1">
-                        <div className="inline-flex items-center space-x-2">
-                          <Link href={`/profile/${comment.user.id}`}>
-                            <a className="font-bold text-base">{comment.user.name}</a>
-                          </Link>
-                          <p className="font-light text-[10px] text-neutral-400 whitespace-pre-wrap">{moment(comment.createdAt).fromNow()}</p>
+                      <div className="flex flex-col w-full space-y-1">
+                        <div className="flex flex-row items-center justify-between w-full">
+                          <div className="inline-flex items-center space-x-2">
+                            <Link href={`/profile/${comment.user.id}`}>
+                              <a className="font-bold text-base">{comment.user.name}</a>
+                            </Link>
+                            <p className="font-light text-[10px] text-neutral-400 whitespace-pre-wrap">{moment(comment.createdAt).fromNow()}</p>
+                          </div>
+                          {user.id === comment.user.id && (
+                            <DeleteComment
+                              user={user}
+                              commentId={comment.id}
+                            />
+                          )}
                         </div>
                         <p className="font-light text-sm text-neutral-600 dark:text-neutral-200 whitespace-pre-wrap">{comment.message}</p>
                       </div>

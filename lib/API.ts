@@ -335,3 +335,16 @@ export const commentPost = (_args: { message: string, postId: string, userId: st
     })
   })
 }
+
+// API-ROUTE FOR DELETING THE COMMENT
+export const deleteCommentPost = (_args: { commentId: string }) => {
+  return fetch('/api/modules/delete/comment', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      commentId: _args.commentId
+    })
+  })
+}
