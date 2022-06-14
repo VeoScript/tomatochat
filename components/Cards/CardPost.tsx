@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import PostProfile from '../../components/Images/PostProfile'
+import PostMenu from '../Menus/PostMenu'
 import ViewPost from '../Modals/Body/ViewPost'
 import LikeButton from '../Interactions/LikeButton'
 import BookmarkButton from '../Interactions/BookmarkButton'
@@ -39,12 +40,17 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
             </p>
           </div>
         </div>
-        <button
-          type="button"
-          className="text-zinc-300 outline-none transition ease-in-out duration-200 transform hover:scale-90"
-        >
-          <RiMoreFill className="w-6 h-6" />
-        </button>
+        <div className="relative flex">
+          <PostMenu
+            title="More"
+            user={user}
+            post={post}          
+          >
+            <span className="text-zinc-300 outline-none transition ease-in-out duration-200 transform hover:scale-90">
+              <RiMoreFill className="w-6 h-6" />
+            </span>
+          </PostMenu>
+        </div>
       </div>
       <div className="flex flex-col w-full space-y-2">
         <p className={`${post.stories.length == 0 ? 'text-xl' : 'text-base'} ml-1 mb-3 whitespace-pre-wrap`}>{post.description}</p>

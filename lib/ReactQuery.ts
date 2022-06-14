@@ -29,7 +29,8 @@ import {
   commentPost,
   deleteCommentPost,
   addToBookmark,
-  deleteToBookmark
+  deleteToBookmark,
+  deletePost
 } from './API'
 
 
@@ -540,6 +541,14 @@ export const useCreatePost = () => {
       description: _args.description,
       postId: _args.postId,
       userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR DELETE A POST
+export const useDeletePost = () => {
+  return useMutation((_args: { postId: string }) => deletePost({
+      postId: _args.postId
     })
   )
 }

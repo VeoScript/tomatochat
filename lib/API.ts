@@ -279,6 +279,19 @@ export const createPost = (_args: any) => {
   })
 }
 
+// API-ROUTE FOR DELETING A POST
+export const deletePost = (_args: any) => {
+  return fetch('/api/modules/delete/post', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      postId: _args.postId
+    })
+  })
+}
+
 // API-ROUTE FOR CREATING NEW STORY (MULTIPLE POST IMAGES)
 export const createStory = (_args: any) => {
   return fetch('/api/modules/create/story', {
