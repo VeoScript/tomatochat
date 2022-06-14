@@ -229,6 +229,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
               <button
                 ref={ref}
                 onClick={() => fetchNextPage()}
+                className="inline-flex items-center justify-center w-full"
                 disabled={!hasNextPage || isFetchingNextPage}
               >
                 {isFetchingNextPage

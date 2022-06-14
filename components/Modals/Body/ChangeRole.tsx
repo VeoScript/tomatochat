@@ -97,9 +97,9 @@ const ChangeRole: React.FC<IProps> = ({ room, role, memberUserId, loggedInUserId
       )}
       {(getJoinedRoom.role === 'ADMIN' && getAdmins.length > 1) && (
         <form onSubmit={handleSubmit(onChangeRole)} className="flex flex-col items-center justify-center w-full space-y-2 text-sm">
-          <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
+          <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-tomato-light bg-white dark:bg-tomato-dark-secondary border border-zinc-300 dark:border-transparent focus-within:border-tomato-orange dark:focus-within:border-tomato-orange">
             <select
-              className="w-full outline-none bg-white dark:bg-[#201A2C] text-sm cursor-pointer"
+              className="w-full outline-none bg-white dark:bg-tomato-dark-secondary text-sm cursor-pointer"
               {...register('role', { required: true })}
             >
               <option value="" className="hidden">Select Role</option>
@@ -112,13 +112,13 @@ const ChangeRole: React.FC<IProps> = ({ room, role, memberUserId, loggedInUserId
             {!isSubmitting && (
               <button
                 type="submit"
-                className="outline-none w-full p-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                className="outline-none w-full p-2 rounded-md text-sm text-white bg-tomato-orange transition ease-in-out duration-200 hover:bg-opacity-80"
               >
                 Save
               </button>
             )}
             {isSubmitting && (
-              <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm text-white bg-purple-800 bg-opacity-80">
+              <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm text-white bg-tomato-orange bg-opacity-80">
                 <Spinner
                   width={20}
                   height={20}
@@ -132,9 +132,9 @@ const ChangeRole: React.FC<IProps> = ({ room, role, memberUserId, loggedInUserId
       )}
       {getJoinedRoom.role === 'USER' && (
         <form onSubmit={handleSubmit(onChangeRole)} className="flex flex-col items-center justify-center w-full space-y-2 text-sm">
-          <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-400 bg-white dark:bg-[#201A2C] border border-zinc-300 dark:border-transparent focus-within:border-purple-600 dark:focus-within:border-purple-600">
+          <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-tomato-light bg-white dark:bg-tomato-dark-secondary border border-zinc-300 dark:border-transparent focus-within:border-tomato-orange dark:focus-within:border-tomato-orange">
             <select
-              className="w-full outline-none bg-white dark:bg-[#201A2C] text-sm cursor-pointer"
+              className="w-full outline-none bg-white dark:bg-tomato-dark-secondary text-sm cursor-pointer"
               {...register('role', { required: true })}
             >
               <option value="" className="hidden">Select Role</option>
@@ -147,13 +147,13 @@ const ChangeRole: React.FC<IProps> = ({ room, role, memberUserId, loggedInUserId
             {!isSubmitting && (
               <button
                 type="submit"
-                className="outline-none w-full p-2 rounded-md text-sm text-white bg-purple-800 transition ease-in-out duration-200 hover:bg-opacity-80"
+                className="outline-none w-full p-2 rounded-md text-sm text-white bg-tomato-orange transition ease-in-out duration-200 hover:bg-opacity-80"
               >
                 Save
               </button>
             )}
             {isSubmitting && (
-              <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm text-white bg-purple-800 bg-opacity-80">
+              <div className="inline-flex items-center justify-center w-full space-x-2 p-2 cursor-wait rounded-md text-sm text-white bg-tomato-orange bg-opacity-80">
                 <Spinner
                   width={20}
                   height={20}
