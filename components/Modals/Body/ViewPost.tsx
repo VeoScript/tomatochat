@@ -151,20 +151,20 @@ const TextStoriesDisplay: React.FC<ViewTextStoriesProps> = ({ post, user, storie
       postDate={post.createdAt}
       profile={post.user.image}
       maxWidth="max-w-5xl"
-      className="w-full outline-none"
+      className="w-full outline-none transition ease-in-out duration-200 transform hover:scale-90"
       isLink={true}
       linkValue={post.user.id}
       isOpen={isOpen}
       openModal={openModal}
       closeModal={closeModal}
       button={
-        <span className="text-neutral-500 outline-none transition ease-in-out duration-200 transform hover:scale-90">
+        <span className="text-neutral-400">
           <RiChat1Fill className="w-6 h-6" />
         </span>
       }
     >
       <div className="flex flex-row items-start justify-center w-full h-full space-x-3">
-        <Swiper className="flex flex-col w-full h-full max-h-[30rem] rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
+        <Swiper className="flex flex-row items-center justify-center w-full h-full max-h-[30rem] rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
           {post.stories.map((story: any, i: number) => (
             <SwiperSlide key={i}>
               <Image
@@ -172,7 +172,7 @@ const TextStoriesDisplay: React.FC<ViewTextStoriesProps> = ({ post, user, storie
                 src={story.image}
                 blurDataURL={story.image}
                 placeholder="blur"
-                className="flex object-cover rounded-md"
+                className="bg-contain bg-center"
                 layout="responsive"
                 width="100%"
                 height="100%"
@@ -213,14 +213,14 @@ const TextDisplay: React.FC<ViewTextProps> = ({ post, user }) => {
       postDate={post.createdAt}
       profile={post.user.image}
       maxWidth="max-w-xl"
-      className="w-full outline-none"
+      className="w-full outline-none transition ease-in-out duration-200 transform hover:scale-90"
       isLink={true}
       linkValue={post.user.id}
       isOpen={isOpen}
       openModal={openModal}
       closeModal={closeModal}
       button={
-        <span className="text-neutral-500 outline-none transition ease-in-out duration-200 transform hover:scale-90">
+        <span className="text-neutral-400">
           <RiChat1Fill className="w-6 h-6" />
         </span>
       }

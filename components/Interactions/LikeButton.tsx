@@ -57,9 +57,9 @@ const LikeButton: React.FC<IProps> = ({ user, post }) => {
       setLike(!like)
     }}>
       {like ? (
-          <RiHeart3Fill className="w-6 h-6 text-red-600 focus:text-neutral-500" />
+          <RiHeart3Fill className="w-6 h-6 text-red-600 hover:text-red-600 focus:text-neutral-400" />
         ) : (
-          <RiHeart3Fill className="w-6 h-6 text-neutral-500 focus:text-red-600" />
+          <RiHeart3Fill className="w-6 h-6 text-neutral-400 hover:text-red-600 focus:text-red-600" />
         )
       }
     </button>

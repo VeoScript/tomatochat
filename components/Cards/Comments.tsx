@@ -123,7 +123,7 @@ const Comments: React.FC<IProps> = ({ post, user, withImage }) => {
             {comments?.pages.map((page: any, i: number) => (
               <React.Fragment key={i}>
                 {page.comments.map((comment: { index: number, id: string, message: string, createdAt: Date, user: { id: string, image: string, name: string } }) => (
-                  <li key={comment.index} className="flex flex-col p-3 rounded-xl bg-tomato-dark-slight">
+                  <li key={comment.index} className="flex flex-col p-3 rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
                     <div className="inline-flex items-start space-x-3">
                       <Link href={`/profile/${comment.user.id}`}>
                         <a><PostProfile src={comment.user.image} /></a>
@@ -135,7 +135,7 @@ const Comments: React.FC<IProps> = ({ post, user, withImage }) => {
                           </Link>
                           <p className="font-light text-[10px] text-neutral-400 whitespace-pre-wrap">{moment(comment.createdAt).fromNow()}</p>
                         </div>
-                        <p className="font-light text-sm text-neutral-200 whitespace-pre-wrap">{comment.message}</p>
+                        <p className="font-light text-sm text-neutral-600 dark:text-neutral-200 whitespace-pre-wrap">{comment.message}</p>
                       </div>
                     </div>
                   </li>

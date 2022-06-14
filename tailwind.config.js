@@ -13,7 +13,7 @@ module.exports = {
     extend: {
       colors: {
         'tomato-light': '#FFFFFF',
-        'tomato-light-secondary': '#F0F2F5',
+        'tomato-light-secondary': '#E6E9F0',
         'tomato-dark': '#222526',
         'tomato-dark-slight': '#272B2C',
         'tomato-dark-secondary': '#33383B',

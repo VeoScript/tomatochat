@@ -79,7 +79,7 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
             />
             <button
               type="button"
-              className="text-neutral-500 outline-none transition ease-in-out duration-200 transform hover:scale-90"
+              className="text-neutral-400 outline-none transition ease-in-out duration-200 transform hover:scale-90"
             >
               <RiShareFill className="w-6 h-6" />
             </button>
@@ -87,7 +87,7 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
           <div className="flex items-center space-x-3">
             <button
               type="button"
-              className="text-neutral-500 outline-none transition ease-in-out duration-200 transform hover:scale-90"
+              className="text-neutral-400 outline-none transition ease-in-out duration-200 transform hover:scale-90"
             >
               <RiBookmarkFill className="w-6 h-6" />
             </button>
