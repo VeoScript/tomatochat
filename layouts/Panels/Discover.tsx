@@ -27,6 +27,10 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
       fetchNextPage()
     }
   }, [fetchNextPage, hasNextPage, inView])
+
+  const searchResults = !searchTerm ? searchDiscover : searchDiscover?.filter((room: any) => 
+    room.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+  )
   
   return (
     <div className="flex flex-col w-full h-full overflow-hidden border-x border-zinc-300 dark:border-tomato-dark-secondary">
@@ -68,7 +72,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
             )}
             {!searchDiscoverLoading && (
               <React.Fragment>
-                {searchDiscover.map((room: { photo: string, name: string, slug: string, description: string, privacy: string, joinedroom: any }, i: number) => {
+                {searchResults.map((room: { photo: string, name: string, slug: string, description: string, privacy: string, joinedroom: any }, i: number) => {
                       
                   // get all rooms
                   const checkRoom = room.joinedroom.map((join: any) => {
