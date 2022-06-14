@@ -19,6 +19,7 @@ import { useForm } from 'react-hook-form'
 import { useInView } from 'react-intersection-observer'
 import { useGetJoinedRoom, useGetChats, useSendChatMutation, useSendChatImageMutation, useLastChatMutation, useSeenChatMutation } from '../../lib/ReactQuery'
 import { RiMoreFill, RiSendPlane2Line, RiSpyFill, RiEmotionSadLine, RiCheckDoubleLine, RiCloseFill } from 'react-icons/ri'
+import LoadingPage from '../Loading'
 
 interface IProps {
   user: any

@@ -1,10 +1,9 @@
 import type { GetStaticPaths, GetStaticProps, GetStaticPropsContext, NextPage } from 'next'
 import React from 'react'
 import Head from 'next/head'
-import Router from 'next/router'
+import SEO from '../../components/SEO'
 import MainLayout from '../../layouts/Main'
 import PostURL from '../../layouts/Panels/PostURL'
-import LoadingPage from '../../layouts/Loading'
 import ErrorPage from '../../layouts/Error'
 import { useSession } from 'next-auth/react'
 import { useGetUser, useGetProfile, useGetUserPost } from '../../lib/ReactQuery'
@@ -13,27 +12,24 @@ import prisma from '../../lib/Prisma'
 interface IProps {
   post: {
     id: string,
-    userId: string
+    description: string
+    stories: any
+    userId: string,
+    user: any
   }
 }
 
 const PostID: NextPage<IProps> = ({ post }) => {
 
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
 
   const email = session ? session.user?.email : ''
   const userId = post.userId
   const postId = post.id
 
-  const { data: user, isLoading: userLoading, isError: userError } = useGetUser(email as string)
-  const { data: profile, isLoading: profileLoading, isError: profileError } = useGetProfile(userId)
-  const { data: specificPost, isLoading: specificPostLoading, isError: specificPostError } = useGetUserPost(postId)
-
-  if (status === 'loading' || userLoading || profileLoading || specificPostLoading) {
-    return (
-      <LoadingPage post={specificPost} />
-    )
-  }
+  const { data: user, isError: userError } = useGetUser(email as string)
+  const { data: profile, isError: profileError } = useGetProfile(userId)
+  const { data: specificPost, isError: specificPostError } = useGetUserPost(postId)
 
   if (userError || profileError || specificPostError) {
     return (
@@ -44,20 +40,24 @@ const PostID: NextPage<IProps> = ({ post }) => {
     )
   }
 
-  if (status === 'unauthenticated') {
-    Router.replace('/login')
-  }
-
   return (
     <React.Fragment>
       <Head>
-        <title>Post of { profile.name }</title>
+        <title>{ profile ? `Post of ${profile?.name}` : 'Loading...' }</title>
+        <SEO
+          title={`TomatoChat - ${post.user.name}'s Post`}
+          description={post.description}
+          image={post.stories.length > 0 ? post.stories[0].image : null}
+          url={`${process.env.VERCEL_BASE_URL}post/${post.id}`}
+        />
       </Head>
       <MainLayout user={user}>
-        <PostURL
-          user={user}
-          post={specificPost}
-        />
+        {specificPost && (
+          <PostURL
+            user={user}
+            post={specificPost}
+          />
+        )}
       </MainLayout>
     </React.Fragment>
   )
@@ -71,6 +71,50 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
     },
     select: {
       id: true,
+      index: true,
+      description: true,
+      createdAt: true,
+      stories: {
+        select: {
+          id: true,
+          image: true,
+          postId: true
+        }
+      },
+      likes: {
+        select: {
+          postId: true,
+          userId: true,
+          user: {
+            select: {
+              name: true
+            }
+          }
+        }
+      },
+      bookmarks: {
+        select: {
+          postId: true,
+          userId: true,
+          user: {
+            select: {
+              name: true
+            }
+          }
+        }
+      },
+      _count: {
+        select: {
+          comments: true
+        }
+      },
+      user: {
+        select: {
+          id: true,
+          image: true,
+          name: true
+        }
+      }
     }
   })
   if (!post) {

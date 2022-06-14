@@ -23,26 +23,30 @@ const MainLayout: React.FC<IProps> = ({ user, children }) => {
         <Link href="/">
           <a className="font-rubikglitch text-2xl text-[#BD3207] lowercase">tomato<span className="text-tomato-orange">chat</span></a>
         </Link>
-        <div className="inline-flex items-center space-x-5">
-          <SearchPeople />
-          <button 
-            type="button"
-            className="outline-none"
-          >
-            <RiNotification4Line className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-          </button>
-          <UserMenu
-            title={user.name}
-            user={user}
-          >
-            <div className="flex">
-              <Profile src={user.image} />
-            </div>
-          </UserMenu>
-        </div>
+        {user && (
+          <div className="inline-flex items-center space-x-5">
+            <SearchPeople />
+            <button 
+              type="button"
+              className="outline-none"
+            >
+              <RiNotification4Line className="w-5 h-5 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
+            </button>
+            <UserMenu
+              title={user.name}
+              user={user}
+            >
+              <div className="flex">
+                <Profile src={user.image} />
+              </div>
+            </UserMenu>
+          </div>
+        )}
       </div>
       <div className="flex flex-row justify-center w-full max-w-[1401px] h-full overflow-hidden">
-        <Rooms user={user} />
+        {user && (
+          <Rooms user={user} />
+        )}
         {children}
       </div>
     </main>

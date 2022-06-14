@@ -8,7 +8,7 @@ import LikeButton from '../../components/Interactions/LikeButton'
 import ShareMenu from '../../components/Menus/ShareMenu'
 import PostMenu from '../../components/Menus/PostMenu'
 import moment from 'moment'
-import { RiMoreFill, RiShareFill } from 'react-icons/ri'
+import { RiHeart3Fill, RiMoreFill, RiShareFill } from 'react-icons/ri'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 
@@ -19,7 +19,7 @@ interface IProps {
 
 const PostURL: React.FC<IProps> = ({ user, post }) => {
   return (
-    <div className="inline-flex w-full max-w-full h-full overflow-hidden border-x border-zinc-300 dark:border-tomato-dark-secondary">
+    <div className={`inline-flex w-full max-w-full h-full overflow-hidden ${user && 'border-x border-zinc-300 dark:border-tomato-dark-secondary'}`}>
       <div className="flex flex-col justify-start w-full max-w-full h-full p-5 space-y-3 overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
         <div className="flex flex-col items-start justify-center w-full mx-3 space-y-5">
           <div className="flex flex-row items-center justify-between w-full">
@@ -36,41 +36,50 @@ const PostURL: React.FC<IProps> = ({ user, post }) => {
             </Link>
             <div className="flex items-center px-3 space-x-2">
               <div className="flex items-center space-x-2">
-                <LikeButton
+                {user
+                  ? <LikeButton
+                      post={post}
+                      user={user}
+                    />
+                  : <RiHeart3Fill className="w-6 h-6 text-neutral-400" />
+                }
+                <span className="font-light text-zinc-600 dark:text-zinc-300">{post.likes.length}</span>
+              </div>
+              {user && (
+                <BookmarkButton
                   post={post}
                   user={user}
                 />
-                <span className="font-light text-zinc-600 dark:text-zinc-300">{post.likes.length}</span>
-              </div>
-              <BookmarkButton
-                post={post}
-                user={user}
-              />
-              <div className="relative flex mt-1">
-                <ShareMenu
-                  title="Share"
-                  user={user}
-                  post={post}              
-                >
-                  <button
-                    type="button"
-                    className="text-neutral-400 outline-none transition ease-in-out duration-200 transform hover:scale-90"
+              )}
+              {user && (
+                <div className="relative flex mt-1">
+                  <ShareMenu
+                    title="Share"
+                    user={user}
+                    post={post}              
                   >
-                    <RiShareFill className="w-6 h-6" />
-                  </button>
-                </ShareMenu>
-              </div>
-              <div className="relative flex">
-                <PostMenu
-                  title="More"
-                  user={user}
-                  post={post}          
-                >
-                  <span className="text-neutral-400 outline-none transition ease-in-out duration-200 transform hover:scale-90">
-                    <RiMoreFill className="w-6 h-6" />
-                  </span>
-                </PostMenu>
-              </div>
+                    <button
+                      type="button"
+                      className="text-neutral-400 outline-none transition ease-in-out duration-200 transform hover:scale-90"
+                    >
+                      <RiShareFill className="w-6 h-6" />
+                    </button>
+                  </ShareMenu>
+                </div>
+              )}
+              {user && (
+                <div className="relative flex">
+                  <PostMenu
+                    title="More"
+                    user={user}
+                    post={post}          
+                  >
+                    <span className="text-neutral-400 outline-none transition ease-in-out duration-200 transform hover:scale-90">
+                      <RiMoreFill className="w-6 h-6" />
+                    </span>
+                  </PostMenu>
+                </div>
+              )}
             </div>
           </div>
           {post.description && (
@@ -90,7 +99,7 @@ const PostURL: React.FC<IProps> = ({ user, post }) => {
                     blurDataURL={story.image}
                     placeholder="blur"
                     className="bg-contain bg-center"
-                    layout="responsive"
+                    layout="fill"
                     width="100%"
                     height="100%"
                     quality={100}
