@@ -4,8 +4,9 @@ import { useRouter } from 'next/router'
 import PostProfile from '../../components/Images/PostProfile'
 import ViewPost from '../Modals/Body/ViewPost'
 import LikeButton from '../Interactions/LikeButton'
+import BookmarkButton from '../Interactions/BookmarkButton'
 import moment from 'moment'
-import { RiShareFill, RiBookmarkFill, RiMoreFill } from 'react-icons/ri'
+import { RiShareFill, RiMoreFill } from 'react-icons/ri'
 
 interface IProps {
   profile: any
@@ -85,12 +86,10 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
             </button>
           </div>
           <div className="flex items-center space-x-3">
-            <button
-              type="button"
-              className="text-neutral-400 outline-none transition ease-in-out duration-200 transform hover:scale-90"
-            >
-              <RiBookmarkFill className="w-6 h-6" />
-            </button>
+            <BookmarkButton
+              post={post}
+              user={user}
+            />
           </div>
         </div>
         <div className="inline-flex items-center w-full space-x-2">
