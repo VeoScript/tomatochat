@@ -57,9 +57,9 @@ const BookmarkButton: React.FC<IProps> = ({ user, post }) => {
       setBookmark(!bookmark)
     }}>
       {bookmark ? (
-          <RiBookmarkFill className="w-6 h-6 text-blue-600 hover:text-blue-600 focus:text-neutral-400" />
+          <RiBookmarkFill className="w-6 h-6 text-blue-500 hover:text-blue-500 focus:text-neutral-400" />
         ) : (
-          <RiBookmarkFill className="w-6 h-6 text-neutral-400 hover:text-blue-600 focus:text-blue-600" />
+          <RiBookmarkFill className="w-6 h-6 text-neutral-400 hover:text-blue-500 focus:text-blue-500" />
         )
       }
     </button>

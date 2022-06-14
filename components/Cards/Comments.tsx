@@ -86,13 +86,13 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
   return (
     <div className="relative flex flex-col w-full space-y-3">
       <div className="flex flex-row items-center justify-between w-full px-2">
-        <h3 className="font-bold text-lg">Comments</h3>
-        <h4 className="font-light text-sm">
+        <h3 className="font-bold text-lg text-neutral-500">Comments</h3>
+        <h4 className="font-light text-sm text-neutral-400">
           {totalCommentsLoading ? <Spinner width={20} height={20} color={'#F16506'} /> : `${totalComments} Comments`}
         </h4>
       </div>
       {user && (
-        <form onSubmit={handleSubmit(onSendComment)} className="flex flex-row items-start w-full mt-3 px-5 py-3 space-x-3 rounded-md bg-zinc-100 dark:bg-tomato-dark-secondary border border-transparent dark:border-transparent focus-within:border-transparent dark:focus-within:border-tomato-orange">
+        <form onSubmit={handleSubmit(onSendComment)} className="flex flex-row items-start w-full mt-3 px-5 py-3 space-x-3 rounded-md bg-white dark:bg-tomato-dark-secondary border border-transparent dark:border-transparent focus-within:border-transparent dark:focus-within:border-tomato-orange">
           <div
             id="commentbox"
             className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none font-normal text-sm"
@@ -157,7 +157,7 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
             {comments?.pages.map((page: any, i: number) => (
               <React.Fragment key={i}>
                 {page.comments.map((comment: { index: number, id: string, message: string, createdAt: Date, user: { id: string, image: string, name: string } }) => (
-                  <li key={comment.index} className="flex flex-col w-full p-3 rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
+                  <li key={comment.index} className="flex flex-col w-full p-3 rounded-xl bg-tomato-light dark:bg-tomato-dark-slight">
                     <div className="inline-flex items-start w-full space-x-3">
                       <Link href={`/profile/${comment.user.id}`}>
                         <a><PostProfile src={comment.user.image} /></a>

@@ -90,7 +90,7 @@ const PostURL: React.FC<IProps> = ({ user, post }) => {
         </div>
         <div className="flex flex-row items-start justify-center w-full h-full space-x-5">
           {post.stories.length > 0 && (
-            <Swiper className="relative inline-flex items-center justify-center w-full h-full rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
+            <Swiper className="relative inline-flex items-center justify-center w-full h-full rounded-xl bg-tomato-light dark:bg-tomato-dark-slight">
               {post.stories.length > 1 && (
               <>
                 <span className="absolute z-10 top-3 right-3 px-3 py-1 rounded-md select-none text-xs text-white bg-black bg-opacity-50">
@@ -120,7 +120,7 @@ const PostURL: React.FC<IProps> = ({ user, post }) => {
               ))}
             </Swiper>
           )}
-          <div className={`flex flex-col w-full h-full ${post.stories.length > 0 ? 'max-w-sm' : 'justify-end max-w-full px-3'}`}>
+          <div className={`flex flex-col w-full h-full ${post.stories.length > 0 ? 'max-w-sm' : 'justify-end max-w-full mt-3 px-3'}`}>
             <Comments
               post={post}
               user={user}

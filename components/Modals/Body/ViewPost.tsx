@@ -106,7 +106,7 @@ const PhotoDisplay: React.FC<ViewStoryProps> = ({ post, user, story }) => {
       }
     >
       <div className="flex flex-row items-start justify-center w-full h-full space-x-3">
-        <div className="flex flex-col w-full h-full max-h-[30rem] rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
+        <div className="flex flex-col w-full h-full max-h-[30rem] rounded-xl bg-tomato-light dark:bg-tomato-dark-slight">
           <Image
             key={story.image}
             src={story.image}
@@ -164,7 +164,7 @@ const TextStoriesDisplay: React.FC<ViewTextStoriesProps> = ({ post, user, storie
       }
     >
       <div className="flex flex-row items-start justify-center w-full h-full space-x-3">
-        <Swiper className="relative flex flex-row items-center justify-center w-full h-full max-h-[30rem] rounded-xl bg-zinc-100 dark:bg-tomato-dark-slight">
+        <Swiper className="relative flex flex-row items-center justify-center w-full h-full max-h-[30rem] rounded-xl bg-tomato-light dark:bg-tomato-dark-slight">
           {stories.length > 1 && (
             <>
               <span className="absolute z-10 top-3 right-3 px-3 py-1 rounded-md select-none text-xs text-white bg-black bg-opacity-50">

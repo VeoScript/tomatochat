@@ -85,7 +85,7 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
               user={user}
               commentDisplaySmall={true} 
             />
-            <div className="relative flex mt-1">
+            <div className="relative flex mt-1.5">
               <ShareMenu
                 title="Share"
                 user={user}
