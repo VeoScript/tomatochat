@@ -1,3 +1,11 @@
+<p align="center">
+  <img width= '400' src=".github/tomatochat_long.png">
+</p>
+
+<h3 align="center">
+  Start your convo, with fun and aesthetic conversations.
+</h3>
+
 ## TomatoChat
 
 TomatoChat - Aesthetic social media with messenger featuring minimal designs. <br />
