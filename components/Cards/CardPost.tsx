@@ -91,12 +91,9 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
                 user={user}
                 post={post}              
               >
-                <button
-                  type="button"
-                  className="text-neutral-400 outline-none transition ease-in-out duration-200 transform hover:scale-90"
-                >
+                <span className="text-neutral-400 outline-none transition ease-in-out duration-200 transform hover:scale-90">
                   <RiShareFill className="w-6 h-6" />
-                </button>
+                </span>
               </ShareMenu>
             </div>
           </div>

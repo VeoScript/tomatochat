@@ -1,6 +1,5 @@
 import React from 'react'
 import CardPost from '../../components/Cards/CardPost'
-import CreatePost from '../../components/CreatePost'
 import Spinner from '../../utils/Spinner'
 import { useGetBookmarks } from '../../lib/ReactQuery'
 import { useInView } from 'react-intersection-observer'

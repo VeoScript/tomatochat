@@ -14,6 +14,14 @@
   border-radius: 50px;
 }
 
+.unfollow_button:hover span {
+  display: none;
+}
+
+.unfollow_button:hover::before {
+  content: "Unfollow";
+}
+
 [contenteditable][placeholder]:empty:before {
   content: attr(placeholder);
   color: #999999;

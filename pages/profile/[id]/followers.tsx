@@ -2,19 +2,19 @@ import type { GetStaticPaths, GetStaticProps, GetStaticPropsContext, NextPage } 
 import React from 'react'
 import Head from 'next/head'
 import Router from 'next/router'
-import MainLayout from '../../layouts/Main'
-import Profile from '../../layouts/Panels/Profile'
-import LoadingPage from '../../layouts/Loading'
-import ErrorPage from '../../layouts/Error'
+import MainLayout from '../../../layouts/Main'
+import Profile from '../../../layouts/Panels/Profile'
+import LoadingPage from '../../../layouts/Loading'
+import ErrorPage from '../../../layouts/Error'
 import { useSession } from 'next-auth/react'
-import { useGetUser, useGetProfile } from '../../lib/ReactQuery'
-import prisma from '../../lib/Prisma'
+import { useGetUser, useGetProfile } from '../../../lib/ReactQuery'
+import prisma from '../../../lib/Prisma'
 
 interface IProps {
   params: any
 }
 
-const UserID: NextPage<IProps> = ({ params }) => {
+const FollowersPage: NextPage<IProps> = ({ params }) => {
 
   const { data: session, status } = useSession()
 
@@ -102,4 +102,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export default UserID
+export default FollowersPage

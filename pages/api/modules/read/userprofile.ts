@@ -12,7 +12,9 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
       coverImage: true,
       name: true,
       email: true,
-      username: true
+      username: true,
+      followers: true,
+      following: true
     }
   })
   res.status(200).json(userprofile)

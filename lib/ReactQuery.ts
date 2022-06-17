@@ -30,7 +30,9 @@ import {
   deleteCommentPost,
   addToBookmark,
   deleteToBookmark,
-  deletePost
+  deletePost,
+  followUser,
+  unfollowUser
 } from './API'
 
 
@@ -348,6 +350,46 @@ export function useGetBookmarks(userId: string) {
   )
 }
 
+// QUERY FOR GETTING ALL OF USER FOLLOWERS
+export function useGetFollowers(profileId: string) {
+  return useInfiniteQuery('followers', 
+    async ({ pageParam = '' }) => {
+      const followers = fetch(`/api/modules/read/followers?cursor=${ pageParam }`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ profileId })
+      })
+      return (await followers).json()
+    },
+    {
+      refetchInterval: 1000,
+      getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+    }
+  )
+}
+
+// QUERY FOR GETTING ALL OF USER FOLLOWING
+export function useGetFollowing(profileId: string) {
+  return useInfiniteQuery('following', 
+    async ({ pageParam = '' }) => {
+      const following = fetch(`/api/modules/read/following?cursor=${ pageParam }`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ profileId })
+      })
+      return (await following).json()
+    },
+    {
+      refetchInterval: 1000,
+      getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+    }
+  )
+}
+
 
 
 // ------------- REACT-QUERY (MUTATIONS) ------------- //
@@ -650,6 +692,24 @@ export const useAddToBookmark = () => {
 export const useDeleteToBookmark = () => {
   return useMutation((_args: { postId: string, userId: string }) => deleteToBookmark({
       postId: _args.postId,
+      userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR FOLLOW FUNCTION
+export const useFollowUser = () => {
+  return useMutation((_args: { profileId: string, userId: string }) => followUser({
+      profileId: _args.profileId,
+      userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR UNFOLLOW FUNCTION
+export const useUnfollowUser = () => {
+  return useMutation((_args: { profileId: string, userId: string }) => unfollowUser({
+      profileId: _args.profileId,
       userId: _args.userId
     })
   )
