@@ -102,7 +102,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                             <div className="block w-full max-w-xs space-y-1">
                               <span className="inline-flex items-center space-x-2">
                                 <h3 className="font-light text-sm">{ room.name }</h3>
-                                {room.privacy === 'Private' && <RiLockFill className="w-3 h-3 text-purple-500" />}
+                                {room.privacy === 'Private' && <RiLockFill className="w-3 h-3 text-tomato-orange" />}
                               </span>
                               <h3 className="font-light text-xs text-zinc-500 line-clamp-5">{ room.description }</h3>
                             </div>

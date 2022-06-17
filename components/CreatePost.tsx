@@ -119,7 +119,7 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
         }
       })
     }
-  }, [imageFiles])
+  }, [imageFiles, register])
 
   const onSubmitPost = async (formData: FormData) => {
     try {

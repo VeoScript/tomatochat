@@ -389,3 +389,31 @@ export const deleteToBookmark = (_args: { postId: string, userId: string }) => {
     })
   })
 }
+
+// API-ROUTE FOR FOLLOW FUNCTION
+export const followUser = (_args: { profileId: string, userId: string }) => {
+  return fetch('/api/modules/create/follow', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      profileId: _args.profileId,
+      userId: _args.userId
+    })
+  })
+}
+
+// API-ROUTE FOR UNFOLLOW FUNCTION
+export const unfollowUser = (_args: { profileId: string, userId: string }) => {
+  return fetch('/api/modules/delete/unfollow', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      profileId: _args.profileId,
+      userId: _args.userId
+    })
+  })
+}
