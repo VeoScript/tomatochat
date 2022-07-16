@@ -54,7 +54,7 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
         </div>
       </div>
       <div className="flex flex-col w-full space-y-2">
-        <p className={`${post.stories.length == 0 ? 'text-xl' : 'text-base'} ml-1 mb-3 whitespace-pre-wrap`}>{post.description}</p>
+        <p className={`${post.stories.length == 0 ? 'text-xl' : 'text-base'} ml-1 mb-3 break-all whitespace-pre-wrap`}>{post.description}</p>
         {post.stories.length > 0 && (
           <div className="relative flex w-full">
             {post.stories.length > 1 && (
