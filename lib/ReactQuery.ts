@@ -8,6 +8,7 @@ import {
 import {
   changeProfile,
   changeCover,
+  changeBio,
   createRoom,
   updateRoom,
   deleteRoom,
@@ -32,7 +33,11 @@ import {
   deleteToBookmark,
   deletePost,
   followUser,
-  unfollowUser
+  unfollowUser,
+  changeSocMed,
+  changeAccount,
+  addHobbies,
+  deleteHobby
 } from './API'
 
 
@@ -394,6 +399,16 @@ export function useGetFollowing(profileId: string) {
 
 // ------------- REACT-QUERY (MUTATIONS) ------------- //
 
+// MUTATION FOR UPDATING THE USER ACCOUNT
+export const useChangeUserAccountMutation = () => {
+  return useMutation((_args: any) => changeAccount({
+      userId: _args.userId,
+      name: _args.name,
+      username: _args.username
+    })
+  )
+}
+
 // MUTATION FOR UPDATING NEW PROFILE PHOTO
 export const useChangeProfileMutation = () => {
   return useMutation((_args: any) => changeProfile({
@@ -408,6 +423,46 @@ export const useChangeCoverMutation = () => {
   return useMutation((_args: any) => changeCover({
       photo: _args.photo,
       userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR UPDATING THE USER BIO
+export const useChangeBioMutation = () => {
+  return useMutation((_args: any) => changeBio({
+      bio: _args.bio,
+      userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR ADDING HOBBIES
+export const useAddUserHobbiesMutation = () => {
+  return useMutation((_args: any) => addHobbies({
+      hobbyName: _args.hobbyName,
+      userId: _args.userId
+    })
+  )
+}
+
+// MUTATION FOR DELETING HOBBIES
+export const useDeleteUserHobbiesMutation = () => {
+  return useMutation((_args: any) => deleteHobby({
+      hobbyId: _args.hobbyId
+    })
+  )
+}
+
+// MUTATION FOR UPDATING USER SOCIAL MEDIA LINKS
+export const useChangeSocMedMutation = () => {
+  return useMutation((_args: any) => changeSocMed({
+      userId: _args.userId,
+      facebook: _args.facebook,
+      instagram: _args.instagram,
+      twitter: _args.twitter,
+      tiktok: _args.tiktok,
+      linkedin: _args.linkedin,
+      youtube: _args.youtube
     })
   )
 }

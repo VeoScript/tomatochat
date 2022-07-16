@@ -95,7 +95,7 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
         <form onSubmit={handleSubmit(onSendComment)} className="flex flex-row items-start w-full mt-3 px-5 py-3 space-x-3 rounded-md bg-white dark:bg-tomato-dark-secondary border border-transparent dark:border-transparent focus-within:border-transparent dark:focus-within:border-tomato-orange">
           <div
             id="commentbox"
-            className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre-wrap outline-none font-normal text-sm"
+            className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre outline-none font-normal text-sm"
             placeholder="(Ctrl+Enter) to submit your comment..."
             title="Shift+Enter to execute new line."
             contentEditable="true"

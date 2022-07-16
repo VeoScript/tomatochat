@@ -29,6 +29,7 @@ const ProfileFollowing: React.FC<IProps> = ({ user, profile }) => {
   return (
     <div className="relative flex flex-row items-start w-full max-w-full mt-[9rem] mb-[1rem] space-x-3">
       <ProfileInfoCard
+        user={user}
         profile={profile}
       />
       <div className="inline-flex w-full max-w-full h-full overflow-hidden">
@@ -84,7 +85,7 @@ const ProfileFollowing: React.FC<IProps> = ({ user, profile }) => {
                     return (
                       <div
                         key={followerUser.follower.id}
-                        className="flex flex-row items-center justify-between w-full p-3 rounded-xl bg-tomato-dark-slight"
+                        className="flex flex-row items-center justify-between w-full p-3 rounded-xl bg-white dark:bg-tomato-dark-slight"
                       >
                         <div className="inline-flex items-start space-x-2">
                           <Link href={`/profile/${followerUser.follower.id}`}>

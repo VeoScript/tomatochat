@@ -220,7 +220,7 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
           blurDataURL={profile.image}
           width={58}
           height={58}
-          className="rounded-full object-cover bg-white dark:bg-[#201A2C]"
+          className="rounded-full object-cover bg-white dark:bg-[#161818]"
           layout="intrinsic"
           quality={100}
           alt="Profile"
@@ -228,7 +228,7 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
         <div className="flex flex-row items-start w-full px-5 py-3 rounded-3xl bg-zinc-100 dark:bg-tomato-dark-secondary border border-transparent dark:border-transparent focus-within:border-transparent dark:focus-within:border-tomato-orange">
           <div
             id="postcaption"
-            className="w-full h-full max-h-[15rem] mt-0.5 overflow-y-auto cursor-text whitespace-pre-wrap outline-none font-normal text-sm"
+            className="w-full h-full max-h-[15rem] mt-0.5 overflow-y-auto cursor-text whitespace-pre outline-none font-normal text-sm"
             placeholder="Share your thoughts here in tomatochat..."
             title="Shift+Enter to execute new line."
             contentEditable="true"
@@ -277,7 +277,7 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
                     blurDataURL={image}
                     width={300}
                     height={300}
-                    className="rounded-md object-cover bg-white dark:bg-[#201A2C]"
+                    className="rounded-md object-cover bg-white dark:bg-[#161818]"
                     layout="intrinsic"
                     quality={100}
                     alt="Post Images"
