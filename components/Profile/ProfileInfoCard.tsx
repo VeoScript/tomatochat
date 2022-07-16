@@ -52,7 +52,7 @@ const ProfileInfoCard: React.FC<IProps> = ({ user, profile }) => {
     <div className="sticky top-2 flex flex-col w-full max-w-xs p-5 space-y-3 rounded-md bg-white dark:bg-tomato-dark-slight">
       <div className="flex flex-col">
         <div className="inline-flex items-center justify-between w-full">
-          <h2 className="font-bold text-lg text-zinc-700 dark:text-tomato-orange">
+          <h2 className="font-bold text-lg text-zinc-700 dark:text-neutral-500">
             {!isEditIntro ? 'Intro' : 'Update Intro'}
           </h2>
           {(!isEditIntro && user.id === profile.id) && (
@@ -112,22 +112,35 @@ const ProfileInfoCard: React.FC<IProps> = ({ user, profile }) => {
           </div>
         )}
       </div>
-      <div className="flex flex-col">
-        <h2 className="font-bold text-lg text-zinc-700 dark:text-tomato-orange">Hobbies</h2>
-        <div className="flex space-x-1">
-          <span className="px-2 py-1 rounded-full text-xs text-white cursor-default bg-tomato-orange">Pianist</span>
-          <span className="px-2 py-1 rounded-full text-xs text-white cursor-default bg-tomato-orange">Coder</span>
+      {profile.hobbies.length > 0 && (
+        <div className="flex flex-col">
+          <h2 className="font-bold text-lg text-zinc-700 dark:text-neutral-500">Hobbies</h2>
+          <div className="inline w-full">
+            {profile.hobbies.map((hobby: { id: string, name: string }) => (
+              <p
+                key={hobby.id}
+                className="inline-flex items-center justify-center mx-0.5 my-0.5 px-3 py-1 rounded-full text-xs text-center text-white cursor-default bg-tomato-orange"
+              >
+                <span>{hobby.name}</span>
+              </p>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
       <div className="flex flex-col space-y-2">
         <div className="inline-flex items-center justify-between w-full">
-          <h2 className="font-bold text-lg text-zinc-700 dark:text-tomato-orange">Social Links</h2>
+          <h2 className="font-bold text-lg text-zinc-700 dark:text-neutral-500">Social Links</h2>
           <div className="flex">
             {user.id === profile.id && (
               <UpdateSocialMediaLinks profile={profile} />
             )}
           </div>
         </div>
+        {(!profile.facebook) && (
+          <p className="font-normal text-sm text-zinc-600 dark:text-neutral-500">
+            No social media links.
+          </p>
+        )}
         {profile.facebook && (
           <Link href={`https://www.facebook.com/${profile.facebook}`}>
             <a className="flex items-center space-x-2 hover:text-zinc-400 dark:hover:text-tomato-orange" target="_blank">

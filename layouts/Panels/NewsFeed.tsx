@@ -65,13 +65,15 @@ const NewsFeed: React.FC<IProps> = ({ user, profile }) => {
         )}
         {!(newsfeedLoading && newsfeedError) && (
           <React.Fragment>
-            {newsfeedPosts && newsfeedPosts.pages[0].newsfeed.length === 0 && (
-              <div className="inline-flex items-center justify-center w-full">
+            {newsfeedPosts && newsfeedPosts.pages[0].newsfeed.length == 0 && (
+              <div className="inline-flex items-center justify-center w-full h-full py-10">
                 <div className="flex flex-col items-start w-full max-w-md space-y-3">
                   <h1 className="font-black text-4xl text-zinc-800 dark:text-zinc-100">
-                    {profile.name} has no posts yet.
+                    Welcome to TomatoChat
                   </h1>
-                  <h3 className="text-lg text-zinc-500">When they do, their posts will show up here.</h3>
+                  <h3 className="text-lg text-zinc-500">
+                    There is no posts available in tomatochat
+                  </h3>
                 </div>
               </div>
             )}
