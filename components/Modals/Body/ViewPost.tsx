@@ -1,4 +1,5 @@
 import { Fragment, useState } from 'react'
+import Router from 'next/router'
 import Image from 'next/image'
 import DialogBox from '../DialogBox'
 import Comments from '../../Cards/Comments'
@@ -69,10 +70,12 @@ const PhotoDisplay: React.FC<ViewStoryProps> = ({ post, user, story }) => {
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
+    Router.push('/')
     setIsOpen(false)
   }
 
   function openModal() {
+    Router.push(`?post=${post.id}`, `/post/${post.id}`, { shallow: true })
     setIsOpen(true)
   }
 
@@ -138,10 +141,12 @@ const TextStoriesDisplay: React.FC<ViewTextStoriesProps> = ({ post, user, storie
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
+    Router.push('/')
     setIsOpen(false)
   }
 
   function openModal() {
+    Router.push(`?post=${post.id}`, `/post/${post.id}`, { shallow: true })
     setIsOpen(true)
   }
 
@@ -210,10 +215,12 @@ const TextDisplay: React.FC<ViewTextProps> = ({ post, user }) => {
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
+    Router.push('/')
     setIsOpen(false)
   }
 
   function openModal() {
+    Router.push(`?post=${post.id}`, `/post/${post.id}`, { shallow: true })
     setIsOpen(true)
   }
 
