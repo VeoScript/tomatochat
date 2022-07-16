@@ -236,7 +236,7 @@ const TextDisplay: React.FC<ViewTextProps> = ({ post, user }) => {
       }
     >
       <div className="flex flex-col items-start justify-center w-full h-full space-y-5">
-        <h3 className="text-xl whitespace-nowrap">{post.description}</h3>
+        <p className="text-xl break-all whitespace-pre-wrap">{post.description}</p>
         <div className="flex w-full max-w-full">
           <Comments
             post={post}

@@ -19,9 +19,9 @@ interface IProps {
 
 const PostURL: React.FC<IProps> = ({ user, post }) => {
   return (
-    <div className={`inline-flex justify-center w-full max-w-full h-full overflow-hidden ${user && 'border-l border-zinc-300 dark:border-tomato-dark-secondary'}`}>
-      <div className="flex flex-col justify-start w-full max-w-5xl h-full p-5 space-y-3 overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
-        <div className="flex flex-col items-start justify-center w-full mx-3 space-y-5">
+    <div className={`inline-flex justify-center w-full max-w-full h-full overflow-hidden ${user && 'border-x border-zinc-300 dark:border-tomato-dark-secondary'}`}>
+      <div className="flex flex-col justify-start w-full max-w-5xl p-5 space-y-3 overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
+        <div className="flex flex-col items-start justify-center w-full px-3 space-y-5">
           <div className="flex flex-row items-center justify-between w-full">
             <Link href={`/profile/${post.user.id}`}>
               <a className="inline-flex items-center space-x-2 outline-none">
@@ -83,8 +83,8 @@ const PostURL: React.FC<IProps> = ({ user, post }) => {
             </div>
           </div>
           {post.description && (
-            <div className="flex w-full mx-3">
-              <p className={`${post.stories.length > 0 ? 'font-normal text-sm' : 'font-bold text-xl'} whitespace-pre-wrap`}>{ post.description }</p>
+            <div className={`${post.stories.length > 0 ? 'flex w-full px-3' : 'flex flex-row items-center w-full px-3 py-5'}`}>
+              <p className={`${post.stories.length > 0 ? 'font-normal text-sm' : 'font-bold text-3xl'} break-all whitespace-pre-wrap`}>{ post.description }</p>
             </div>
           )}
         </div>
@@ -120,7 +120,7 @@ const PostURL: React.FC<IProps> = ({ user, post }) => {
               ))}
             </Swiper>
           )}
-          <div className={`flex flex-col w-full h-full ${post.stories.length > 0 ? 'max-w-sm' : 'justify-end max-w-full mt-3 px-3'}`}>
+          <div className={`flex flex-col w-full h-full ${post.stories.length > 0 ? 'max-w-sm' : 'justify-start max-w-full mt-3 px-3'}`}>
             <Comments
               post={post}
               user={user}

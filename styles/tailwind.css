@@ -2,18 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-::-webkit-scrollbar {
-  width: 0px;
-}
-::-webkit-scrollbar-track {
-  border: 7px solid none;
-  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.5);
-}
-::-webkit-scrollbar-thumb {
-  background-color: #1F1836;
-  border-radius: 50px;
-}
-
 .unfollow_button:hover span {
   display: none;
 }

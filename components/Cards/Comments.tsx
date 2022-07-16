@@ -76,8 +76,15 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
     scrollToTop(commentBoxContainer)
   }
 
-  const handleCtrlEnter = (e: any) => {
-    if (e.ctrlKey) {
+  // const handleCtrlEnter = (e: any) => {
+  //   if (e.ctrlKey) {
+  //     e.preventDefault()
+  //     handleSubmit(onSendComment)()
+  //   }
+  // }
+
+  const handleLineBreak = (e: any) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSubmit(onSendComment)()
     }
@@ -92,16 +99,16 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
         </h4>
       </div>
       {user && (
-        <form onSubmit={handleSubmit(onSendComment)} className="flex flex-row items-start w-full mt-3 px-5 py-3 space-x-3 rounded-md bg-white dark:bg-tomato-dark-secondary border border-transparent dark:border-transparent focus-within:border-transparent dark:focus-within:border-tomato-orange">
+        <form onSubmit={handleSubmit(onSendComment)} className="flex flex-row items-start w-full mt-3 px-5 py-3 space-x-3 rounded-md bg-tomato-light dark:bg-tomato-dark-secondary border border-transparent dark:border-transparent focus-within:border-transparent dark:focus-within:border-tomato-orange">
           <div
             id="commentbox"
             className="w-full h-full max-h-[15rem] overflow-y-auto cursor-text whitespace-pre outline-none font-normal text-sm"
-            placeholder="(Ctrl+Enter) to submit your comment..."
+            placeholder="Your comment here..."
             title="Shift+Enter to execute new line."
             contentEditable="true"
             suppressContentEditableWarning
             spellCheck={false}
-            onKeyPress={handleCtrlEnter}
+            onKeyPress={handleLineBreak}
             onPaste={(e) => {
               e.preventDefault()
               var text = e.clipboardData.getData('text/plain')
@@ -177,7 +184,7 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
                             />
                           )}
                         </div>
-                        <p className="font-light text-sm text-neutral-600 dark:text-neutral-200 whitespace-pre-wrap">{comment.message}</p>
+                        <p className="font-light text-sm text-neutral-600 dark:text-neutral-200 break-all whitespace-pre-wrap">{comment.message}</p>
                       </div>
                     </div>
                   </li>

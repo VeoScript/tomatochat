@@ -105,6 +105,12 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                                 {room.privacy === 'Private' && <RiLockFill className="w-3 h-3 text-tomato-orange" />}
                               </span>
                               <h3 className="font-light text-xs text-zinc-500 line-clamp-5">{ room.description }</h3>
+                              <span className="flex items-center mt-1 space-x-3">
+                                <p className="font-bold text-[11px] text-zinc-500">
+                                  {room.joinedroom.length}&nbsp;
+                                  {room.joinedroom.length === 1 ? 'Participant' : 'Participants'}
+                                </p>
+                              </span>
                             </div>
                             <div className="inline-flex justify-end w-full max-w-xs space-x-3">
                               <button
@@ -175,9 +181,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
 
                       // check if the room is already joined by the user
                       const existRoom = checkRoom.some((joinUser: any) => joinUser.userId === user.id)
-
-                      console.log(room.joinedroom.length)
-
+                      
                       return (
                         <React.Fragment key={i}>
                           {!existRoom && (
@@ -193,7 +197,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                                 }
                               </div>
                               <div className="inline-flex items-center justify-between w-full">
-                                <div className="block w-full max-w-xs">
+                                <div className="block w-full max-w-xs space-y-1">
                                   <span className="inline-flex items-center space-x-2">
                                     <h3 className="font-light text-sm">{ room.name }</h3>
                                     {room.privacy === 'Private' && <RiLockFill className="w-3 h-3 text-tomato-orange" />}

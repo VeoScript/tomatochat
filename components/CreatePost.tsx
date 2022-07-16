@@ -212,6 +212,13 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
     }
   }
 
+  const handleLineBreak = (e: any) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSubmit(onSubmitPost)()
+    }
+  }
+
   return (
     <div className="flex flex-col w-full space-y-2 p-5 rounded-md bg-white dark:bg-tomato-dark-slight">
       <div className="flex items-start space-x-2">
@@ -239,6 +246,7 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
               var text = e.clipboardData.getData('text/plain')
               document.execCommand('insertText', false, text)
             }}
+            onKeyPress={handleLineBreak}
             onInput={(e: any) => setValue('postcaption', e.currentTarget.textContent, { shouldValidate: true })}
           />
           <PostUpload
