@@ -1,5 +1,25 @@
 // ------------- API-ROUTE ------------- //
 
+// API-ROUTE FOR UPDATING USER ACCOUNT
+export const changeAccount = async (_args: any) => {
+  const res = await fetch('/api/modules/update/profile/account', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId: _args.userId,
+      name: _args.name,
+      username: _args.username
+    })
+  })
+
+  if (!res.ok) {
+    const json = await res.json()
+    throw String(json.message)
+  }
+}
+
 // API-ROUTE FOR UPDATING NEW PROFILE PHOTO
 export const changeProfile = async (_args: any) => {
   const res = await fetch('/api/modules/update/upload/profile', {
@@ -38,6 +58,85 @@ export const changeCover = async (_args: any) => {
   }
 }
 
+// API-ROUTE FOR UPDATING USER BIO
+export const changeBio = async (_args: any) => {
+  const res = await fetch('/api/modules/update/profile/intro', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      bio: _args.bio,
+      userId: _args.userId
+    })
+  })
+
+  if (!res.ok) {
+    const json = await res.json()
+    throw String(json.message)
+  }
+}
+
+// API-ROUTE FOR ADDING USER HOBBIES
+export const addHobbies = async (_args: any) => {
+  const res = await fetch('/api/modules/create/hobby', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      hobbyName: _args.hobbyName,
+      userId: _args.userId
+    })
+  })
+
+  if (!res.ok) {
+    const json = await res.json()
+    throw String(json.message)
+  }
+}
+
+// API-ROUTE FOR ADDING USER HOBBIES
+export const deleteHobby = async (_args: any) => {
+  const res = await fetch('/api/modules/delete/hobby', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      hobbyId: _args.hobbyId
+    })
+  })
+
+  if (!res.ok) {
+    const json = await res.json()
+    throw String(json.message)
+  }
+}
+
+// API-ROUTE FOR UPDATING USER SOCIAL MEDIA LINKS
+export const changeSocMed = async (_args: any) => {
+  const res = await fetch('/api/modules/update/profile/socmed', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId: _args.userId,
+      facebook: _args.facebook,
+      instagram: _args.instagram,
+      twitter: _args.twitter,
+      tiktok: _args.tiktok,
+      linkedin: _args.linkedin,
+      youtube: _args.youtube
+    })
+  })
+
+  if (!res.ok) {
+    const json = await res.json()
+    throw String(json.message)
+  }
+}
 
 // API-ROUTE FOR CREATING A NEW ROOM
 export const createRoom = async (_args: any) => {

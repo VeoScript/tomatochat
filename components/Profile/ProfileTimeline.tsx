@@ -27,6 +27,7 @@ const ProfileTimeline: React.FC<IProps> = ({ user, profile }) => {
   return (
     <div className="relative flex flex-row items-start w-full max-w-full mt-[9rem] mb-[1rem] space-x-3">
       <ProfileInfoCard
+        user={user}
         profile={profile}
       />
       <div className="flex flex-col w-full max-w-full overflow-hidden space-y-3">

@@ -14,8 +14,26 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
       email: true,
       username: true,
       followers: true,
-      following: true
-    }
+      following: true,
+      bio: true,
+      facebook: true,
+      instagram: true,
+      linkedin: true,
+      twitter: true,
+      tiktok: true,
+      youtube: true,
+      hobbies: {
+        select: {
+          id: true,
+          name: true
+        }
+      },
+      accounts: {
+        select: {
+          provider: true
+        }
+      }
+    },
   })
   res.status(200).json(userprofile)
 }
