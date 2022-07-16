@@ -4,6 +4,7 @@ import ProfileHeader from '../../components/Profile/ProfileHeader'
 import ProfileTimeline from '../../components/Profile/ProfileTimeline'
 import ProfileFollowers from '../../components/Profile/ProfileFollowers'
 import ProfileFollowing from '../../components/Profile/ProfileFollowing'
+import ProfileSettings from '../../components/Profile/ProfileSettings'
 
 interface IProps {
   user: any
@@ -34,6 +35,12 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
       )}
       {pathname === '/profile/[id]/following' && (
         <ProfileFollowing
+          user={user}
+          profile={profile}
+        />
+      )}
+      {pathname === '/profile/[id]/settings' && (
+        <ProfileSettings
           user={user}
           profile={profile}
         />

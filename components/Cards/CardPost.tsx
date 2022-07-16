@@ -85,7 +85,7 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
               user={user}
               commentDisplaySmall={true} 
             />
-            <div className="relative flex mt-1.5">
+            <div className="relative flex">
               <ShareMenu
                 title="Share"
                 user={user}
@@ -117,8 +117,10 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
                   </>
                 }
               </span>
-              <span className="text-neutral-500">&bull;</span>
             </div>
+          )}
+          {(post.likes.length > 0 && post._count.comments > 0) && (
+            <span className="text-neutral-500">&bull;</span>
           )}
           {post._count.comments > 0 && (
             <>

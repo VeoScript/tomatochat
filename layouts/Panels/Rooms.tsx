@@ -37,7 +37,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
   }, [fetchNextPage, hasNextPage, inView])
 
   return (
-    <div className="flex flex-col w-full max-w-sm h-full overflow-hidden">
+    <div className="flex flex-col w-full max-w-sm h-full overflow-hidden border-l border-zinc-300 dark:border-tomato-dark-secondary">
       <div className="flex flex-col w-full p-5 space-y-5">
         <div className="inline-flex items-center justify-between w-full">
           <h3 className="font-bold">Inbox</h3>
