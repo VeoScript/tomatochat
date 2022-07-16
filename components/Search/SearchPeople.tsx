@@ -78,7 +78,7 @@ const SearchPeople = () => {
                       }}
                     >
                       <RoomImage src={ user.image } />
-                      <div className="flex flex-col space-y-2">
+                      <div className="flex flex-col">
                         <span className="font-normal">{ user.name }</span>
                         {user.username && (
                           <span>@{ user.username }</span>

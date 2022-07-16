@@ -29,25 +29,6 @@ const ProfileSettings: React.FC<IProps> = ({ user, profile }) => {
 
   const [addedHobbies, setAddedHobbies] = React.useState<any>([{ name: '' }])
 
-  // let finalHobbies
-  let staticHobbies: any
-  let profileHobbies: any
-
-  for (var i = 0; i < hobbies.length; i++) {
-    staticHobbies = hobbies[i]
-    for (var j = 0; j < profile.hobbies.length; j++) {
-      profileHobbies = profile.hobbies[j]
-      console.log(hobbies.map((hobby: { name: string }) => hobby.name !== profileHobbies.name))
-    }
-  }
-
-  // const staticHobbies = hobbies.find((hobby: { name: string }) => hobby.name)
-
-  // // const initialHobbies = profile.hobbies.find((hobby: { name: string }) => hobby.name)
-
-  // console.log(staticHobbies)
-  // console.log(initialHobbies)
-
   const {
     handleSubmit: handleSubmitAccountSetting,
     register: registerAccountSetting,
@@ -93,15 +74,30 @@ const ProfileSettings: React.FC<IProps> = ({ user, profile }) => {
   }
 
   const onAddHobby = async () => {
-    await addUserHobbiesMutation.mutateAsync({
-      hobbyName: String(addedHobbies[0].name),
-      userId: user.id
-    },
-    {
-      onError: (error) => {
-        console.error(error)
-      }
-    })
+    const seletedHobby = String(addedHobbies[0].name)
+
+    const checkExistingHobbies = profile.hobbies.some((hobby: { name: string }) => hobby.name === seletedHobby)
+
+    if (checkExistingHobbies) {
+      toast.custom((trigger) => (
+        <CustomToaster
+          toast={toast}
+          trigger={trigger}
+          type={'Info'}
+          message={'This hobby is already selected.'}
+        />
+      ))
+    } else {
+      await addUserHobbiesMutation.mutateAsync({
+        hobbyName: seletedHobby,
+        userId: user.id
+      },
+      {
+        onError: (error) => {
+          console.error(error)
+        }
+      })
+    }
   }
 
   return (
@@ -223,11 +219,11 @@ const ProfileSettings: React.FC<IProps> = ({ user, profile }) => {
                 )}
               </span>
             </div>
-            <div className="grid grid-cols-5 items-start gap-2">
+            <div className="inline w-full">
               {profile.hobbies.map((hobby: { id: string, name: string }) => (
                 <p
                   key={hobby.id}
-                  className="inline-flex items-center justify-between w-full px-3 py-1 rounded-full text-xs text-center text-white cursor-default bg-tomato-orange"
+                  className="inline-flex items-center justify-between mx-0.5 my-0.5 px-3 py-1 space-x-1 rounded-full text-xs text-center text-white cursor-default bg-tomato-orange"
                 >
                   <span>{hobby.name}</span>
                   <button
