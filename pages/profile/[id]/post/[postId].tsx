@@ -1,13 +1,14 @@
 import type { GetStaticPaths, GetStaticProps, GetStaticPropsContext, NextPage } from 'next'
 import React from 'react'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
-import SEO from '../../components/SEO'
-import MainLayout from '../../layouts/Main'
-import PostURL from '../../layouts/Panels/PostURL'
-import ErrorPage from '../../layouts/Error'
+import SEO from '../../../../components/SEO'
+import MainLayout from '../../../../layouts/Main'
+import PostURL from '../../../../layouts/Panels/PostURL'
+import ErrorPage from '../../../../layouts/Error'
 import { useSession } from 'next-auth/react'
-import { useGetUser, useGetProfile, useGetUserPost } from '../../lib/ReactQuery'
-import prisma from '../../lib/Prisma'
+import { useGetUser, useGetProfile, useGetUserPost } from '../../../../lib/ReactQuery'
+import prisma from '../../../../lib/Prisma'
 
 interface IProps {
   post: {
@@ -21,6 +22,8 @@ interface IProps {
 
 const PostID: NextPage<IProps> = ({ post }) => {
 
+  // const router = useRouter()
+
   const { data: session } = useSession()
 
   const email = session ? session.user?.email : ''
@@ -29,7 +32,7 @@ const PostID: NextPage<IProps> = ({ post }) => {
 
   const { data: user, isError: userError } = useGetUser(email as string)
   const { data: profile, isError: profileError } = useGetProfile(userId)
-  const { data: specificPost, isError: specificPostError } = useGetUserPost(postId)
+  const { data: specificPost, isError: specificPostError } = useGetUserPost(String(postId))
 
   if (userError || profileError || specificPostError) {
     return (
@@ -67,7 +70,7 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
   const { params } = ctx
   const post = await prisma.post.findFirst({
     where: {
-      id: String(params?.id)
+      id: String(params?.postId)
     },
     select: {
       id: true,
@@ -135,13 +138,19 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await prisma.post.findMany({
     select: {
-      id: true
+      id: true,
+      user: {
+        select: {
+          id: true
+        }
+      }
     }
   })
   return {
-    paths: posts.map((post: { id: string }) => ({
+    paths: posts.map((post: { id: string, user: { id: string } }) => ({
       params: {
-        id: post.id
+        id: post.user.id,
+        postId: post.id
       }
     })),
     fallback: 'blocking'

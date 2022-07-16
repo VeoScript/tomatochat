@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import Image from 'next/image'
 import DialogBox from '../DialogBox'
 import Comments from '../../Cards/Comments'
@@ -30,7 +30,10 @@ interface ViewTextProps {
   user: any
 }
 
-const ViewPost: React.FC<IProps> = ({ post, user, commentDisplaySmall }) => {  
+const ViewPost: React.FC<IProps> = ({ post, user, commentDisplaySmall }) => {
+
+  
+
   return (
     <Fragment>
       {commentDisplaySmall === true && (
@@ -70,12 +73,13 @@ const PhotoDisplay: React.FC<ViewStoryProps> = ({ post, user, story }) => {
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
-    Router.push('/')
     setIsOpen(false)
+    if (Router.pathname === '/') Router.push(`/`, undefined, { shallow: true })
+    if (Router.pathname === '/profile/[id]') return Router.push(`/profile/${post.user.id}`, undefined, { shallow: true })
   }
 
   function openModal() {
-    Router.push(`?post=${post.id}`, `/post/${post.id}`, { shallow: true })
+    Router.push(`?post=${post.id}`, `/profile/${post.user.id}/?post=${post.id}`, { shallow: true })
     setIsOpen(true)
   }
 
@@ -141,12 +145,13 @@ const TextStoriesDisplay: React.FC<ViewTextStoriesProps> = ({ post, user, storie
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
-    Router.push('/')
     setIsOpen(false)
+    if (Router.pathname === '/') Router.push(`/`, undefined, { shallow: true })
+    if (Router.pathname === '/profile/[id]') return Router.push(`/profile/${post.user.id}`, undefined, { shallow: true })
   }
 
   function openModal() {
-    Router.push(`?post=${post.id}`, `/post/${post.id}`, { shallow: true })
+    Router.push(`?post=${post.id}`, `/profile/${post.user.id}/?post=${post.id}`, { shallow: true })
     setIsOpen(true)
   }
 
@@ -212,15 +217,17 @@ const TextStoriesDisplay: React.FC<ViewTextStoriesProps> = ({ post, user, storie
 
 // for card post comment button trigger (post description only)
 const TextDisplay: React.FC<ViewTextProps> = ({ post, user }) => {
+  const router = useRouter()
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
-    Router.push('/')
     setIsOpen(false)
+    if (Router.pathname === '/') Router.push(`/`, undefined, { shallow: true })
+    if (Router.pathname === '/profile/[id]') return Router.push(`/profile/${post.user.id}`, undefined, { shallow: true })
   }
 
   function openModal() {
-    Router.push(`?post=${post.id}`, `/post/${post.id}`, { shallow: true })
+    Router.push(`?post=${post.id}`, `/profile/${post.user.id}/?post=${post.id}`, { shallow: true })
     setIsOpen(true)
   }
 
