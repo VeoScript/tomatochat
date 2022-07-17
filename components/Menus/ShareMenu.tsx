@@ -54,7 +54,7 @@ const ShareMenu: React.FC<IProps> = ({ children, title, user, post }) => {
               setIsDropdown(false)
             }} 
           />
-          <div className={`absolute ${router.asPath === `/post/${post.id}` ? 'right-0 top-0' : 'left-0 bottom-0'} z-20 w-48`}>
+          <div className={`absolute ${router.pathname === '/profile/[id]/post/[postId]' ? 'right-0 top-0' : 'left-0 bottom-0'} z-20 w-48`}>
             <div className="flex w-full overflow-hidden shadow-sm rounded-md ring-1 ring-zinc-300 dark:ring-[#464A4D] bg-white dark:bg-tomato-dark-secondary focus:outline-none">
               <div className="flex flex-col w-full divide-y divide-zinc-300 dark:divide-[#464A4D]">
                 <button
