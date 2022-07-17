@@ -47,7 +47,7 @@ const SearchPeople = () => {
               setSearchTerm('')
             }} 
           />
-          <div className="absolute top-16 z-20 w-[20rem]">
+          <div className="absolute top-10 z-20 w-[20rem]">
             <div className="flex w-full h-full max-h-[20rem] -ml-[1.2rem] overflow-y-auto rounded-md shadow-lg bg-white dark:bg-tomato-dark-secondary focus:outline-none">
               <div className="flex flex-col w-full divide-y divide-zinc-100 dark:divide-[#464A4D]">
                 <div className="w-full p-3">

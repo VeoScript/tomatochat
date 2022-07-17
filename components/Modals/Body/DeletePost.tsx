@@ -57,8 +57,8 @@ const DeletePost: React.FC<IProps> = ({ post, setIsDropdown }) => {
           />
         ))
         
-        // if the page is in /post/postId it will automatically redirect to homepage(newsfeed)
-        if (router.asPath === `/post/${post.id}`) {
+        // if the page is in /profile/id/post/postId it will automatically redirect to homepage(newsfeed)
+        if (router.pathname === '/profile/[id]/post/[postId]') {
           router.push('/')
         } 
 

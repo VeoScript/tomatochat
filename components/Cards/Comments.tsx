@@ -1,4 +1,5 @@
 import React from 'react'
+import Router from 'next/router'
 import Link from 'next/link'
 import PostProfile from '../Images/PostProfile'
 import DeleteComment from '../Modals/Body/DeleteComment'
@@ -18,13 +19,14 @@ interface IProps {
     id: string
   }
   withImage: boolean
+  closeModal?: any
 }
 
 interface FormData {
   commentbox: string
 }
 
-const Comments: React.FC<IProps> = ({ post, user }) => {
+const Comments: React.FC<IProps> = ({ post, user, closeModal }) => {
 
   const commentPost = useCommentPost()
   
@@ -166,15 +168,29 @@ const Comments: React.FC<IProps> = ({ post, user }) => {
                 {page.comments.map((comment: { index: number, id: string, message: string, createdAt: Date, user: { id: string, image: string, name: string } }) => (
                   <li key={comment.index} className="flex flex-col w-full p-3 rounded-xl bg-tomato-light dark:bg-tomato-dark-slight">
                     <div className="inline-flex items-start w-full space-x-3">
-                      <Link href={`/profile/${comment.user.id}`}>
-                        <a><PostProfile src={comment.user.image} /></a>
-                      </Link>
+                      <button
+                        type="button"
+                        className="outline-none"
+                        onClick={() => {
+                          Router.push(`/profile/${comment.user.id}`)
+                          closeModal()
+                        }}
+                      >
+                        <PostProfile src={comment.user.image} />
+                      </button>
                       <div className="flex flex-col w-full space-y-1">
                         <div className="flex flex-row items-center justify-between w-full">
                           <div className="inline-flex items-center space-x-2">
-                            <Link href={`/profile/${comment.user.id}`}>
-                              <a className="font-bold text-base">{comment.user.name}</a>
-                            </Link>
+                            <button
+                              type="button"
+                              className="outline-none font-bold text-base"
+                              onClick={() => {
+                                Router.push(`/profile/${comment.user.id}`)
+                                closeModal()
+                              }}
+                            >
+                              {comment.user.name}
+                            </button>
                             <p className="font-light text-[10px] text-neutral-400 whitespace-pre-wrap">{moment(comment.createdAt).fromNow()}</p>
                           </div>
                           {(user && user.id === comment.user.id) && (

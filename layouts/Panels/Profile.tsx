@@ -14,9 +14,20 @@ interface IProps {
 const Profile: React.FC<IProps> = ({ user, profile }) => {
 
   const { pathname } = useRouter()
+
+  React.useEffect(() => {
+    window.scroll({
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth'
+    })
+  }, [])
   
   return (
-    <div className="flex flex-col items-center w-full max-w-full h-full px-5 border-x border-zinc-300 dark:border-tomato-dark-secondary overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
+    <div
+      id="profileContainer"
+      className="flex flex-col items-center w-full max-w-full h-full px-5 border-x border-zinc-300 dark:border-tomato-dark-secondary overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent"
+    >
       <ProfileHeader
         user={user}
         profile={profile}

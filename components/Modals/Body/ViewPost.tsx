@@ -1,11 +1,12 @@
-import { Fragment, useState } from 'react'
-import Router, { useRouter } from 'next/router'
+import React, { Fragment, useState } from 'react'
+import Router from 'next/router'
 import Image from 'next/image'
 import DialogBox from '../DialogBox'
 import Comments from '../../Cards/Comments'
 import { RiChat1Fill } from 'react-icons/ri'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
+import Link from 'next/link'
 
 interface IProps {
   post: any
@@ -31,9 +32,6 @@ interface ViewTextProps {
 }
 
 const ViewPost: React.FC<IProps> = ({ post, user, commentDisplaySmall }) => {
-
-  
-
   return (
     <Fragment>
       {commentDisplaySmall === true && (
@@ -79,7 +77,8 @@ const PhotoDisplay: React.FC<ViewStoryProps> = ({ post, user, story }) => {
   }
 
   function openModal() {
-    Router.push(`?post=${post.id}`, `/profile/${post.user.id}/?post=${post.id}`, { shallow: true })
+    if (Router.pathname === '/') Router.push(`?post=${post.id}`, `/profile/${post.user.id}/post/${post.id}`, { shallow: true })
+    if (Router.pathname === '/profile/[id]') Router.push(`?post=${post.id}`, `/profile/${post.user.id}/?post=${post.id}`, { shallow: true })
     setIsOpen(true)
   }
 
@@ -133,6 +132,7 @@ const PhotoDisplay: React.FC<ViewStoryProps> = ({ post, user, story }) => {
             post={post}
             user={user}
             withImage={true}
+            closeModal={closeModal}
           />
         </div>
       </div>
@@ -151,7 +151,8 @@ const TextStoriesDisplay: React.FC<ViewTextStoriesProps> = ({ post, user, storie
   }
 
   function openModal() {
-    Router.push(`?post=${post.id}`, `/profile/${post.user.id}/?post=${post.id}`, { shallow: true })
+    if (Router.pathname === '/') Router.push(`?post=${post.id}`, `/profile/${post.user.id}/post/${post.id}`, { shallow: true })
+    if (Router.pathname === '/profile/[id]') Router.push(`?post=${post.id}`, `/profile/${post.user.id}/?post=${post.id}`, { shallow: true })
     setIsOpen(true)
   }
 
@@ -208,6 +209,7 @@ const TextStoriesDisplay: React.FC<ViewTextStoriesProps> = ({ post, user, storie
             post={post}
             user={user}
             withImage={true}
+            closeModal={closeModal}
           />
         </div>
       </div>
@@ -217,17 +219,17 @@ const TextStoriesDisplay: React.FC<ViewTextStoriesProps> = ({ post, user, storie
 
 // for card post comment button trigger (post description only)
 const TextDisplay: React.FC<ViewTextProps> = ({ post, user }) => {
-  const router = useRouter()
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
     setIsOpen(false)
     if (Router.pathname === '/') Router.push(`/`, undefined, { shallow: true })
-    if (Router.pathname === '/profile/[id]') return Router.push(`/profile/${post.user.id}`, undefined, { shallow: true })
+    if (Router.pathname === '/profile/[id]') Router.push(`/profile/${post.user.id}`, undefined, { shallow: true })
   }
 
   function openModal() {
-    Router.push(`?post=${post.id}`, `/profile/${post.user.id}/?post=${post.id}`, { shallow: true })
+    if (Router.pathname === '/') Router.push(`?post=${post.id}`, `/profile/${post.user.id}/post/${post.id}`, { shallow: true })
+    if (Router.pathname === '/profile/[id]') Router.push(`?post=${post.id}`, `/profile/${post.user.id}/?post=${post.id}`, { shallow: true })
     setIsOpen(true)
   }
 
@@ -256,6 +258,7 @@ const TextDisplay: React.FC<ViewTextProps> = ({ post, user }) => {
             post={post}
             user={user}
             withImage={false}
+            closeModal={closeModal}
           />
         </div>
       </div>
