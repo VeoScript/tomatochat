@@ -18,7 +18,7 @@ const MainLayout: React.FC<IProps> = ({ user, children }) => {
     <main className="inline-flex justify-center w-full h-screen overflow-hidden bg-neutral-100 dark:bg-tomato-dark-slight">
       <div className="font-poppins flex flex-col items-center w-full max-w-[1401px] h-full text-[#333] dark:text-white bg-tomato-light-secondary dark:bg-tomato-dark">
         <Toaster
-          position="top-right"
+          position="bottom-left"
           reverseOrder={true}
         />
         <div className="inline-flex items-center justify-between w-full p-4 border-x border-b border-zinc-300 dark:border-tomato-dark-secondary">

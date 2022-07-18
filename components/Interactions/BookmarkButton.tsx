@@ -1,4 +1,7 @@
+import error from 'next/error'
 import React from 'react'
+import toast from 'react-hot-toast'
+import CustomToaster from '../CustomToaster'
 import { RiBookmarkFill } from 'react-icons/ri'
 import { useAddToBookmark, useDeleteToBookmark } from '../../lib/ReactQuery'
 
@@ -37,6 +40,18 @@ const BookmarkButton: React.FC<IProps> = ({ user, post }) => {
     await addToBookmark.mutateAsync({
       userId,
       postId
+    },
+    {
+      onSuccess: () => {
+        toast.custom((trigger) => (
+          <CustomToaster
+            toast={toast}
+            trigger={trigger}
+            type={'Success'}
+            message={'Saved to bookmarks successfully.'}
+          />
+        ))
+      }
     })
   }
 
@@ -45,6 +60,18 @@ const BookmarkButton: React.FC<IProps> = ({ user, post }) => {
     await deleteToBookmark.mutateAsync({
       userId,
       postId
+    },
+    {
+      onSuccess: () => {
+        toast.custom((trigger) => (
+          <CustomToaster
+            toast={toast}
+            trigger={trigger}
+            type={'Info'}
+            message={'Removed to your bookmarks successfully.'}
+          />
+        ))
+      }
     })
   }
 
@@ -57,9 +84,9 @@ const BookmarkButton: React.FC<IProps> = ({ user, post }) => {
       setBookmark(!bookmark)
     }}>
       {bookmark ? (
-          <RiBookmarkFill className="w-6 h-6 text-blue-500 hover:text-blue-500 focus:text-neutral-400" />
+          <RiBookmarkFill className="w-6 h-6 text-blue-500 focus:text-neutral-400" />
         ) : (
-          <RiBookmarkFill className="w-6 h-6 text-neutral-400 hover:text-blue-500 focus:text-blue-500" />
+          <RiBookmarkFill className="w-6 h-6 text-neutral-400 focus:text-blue-500" />
         )
       }
     </button>

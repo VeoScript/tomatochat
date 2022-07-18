@@ -79,7 +79,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
           <div className="flex flex-col w-full px-2 space-y-2">
             {searchInboxLoading && (
               <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-                <Spinner width={40}  height={40} color={'#F16506'} />
+                <Spinner width={40} height={40} color={'#F16506'} />
                 <h3 className="font-light text-xs">Loading...</h3>
               </div>
             )}
@@ -105,9 +105,9 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                     <button
                       key={joined_room.index}
                       type="button"
-                      className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526] dark:focus:bg-gradient-to-r dark:focus:from-[#33383B] dark:focus:to-[#222526]`}
+                      className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/room/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526] dark:focus:bg-gradient-to-r dark:focus:from-[#33383B] dark:focus:to-[#222526]`}
                       onClick={() => {
-                        Router.replace(`/${joined_room.room.slug}`)
+                        Router.replace(`/room/${joined_room.room.slug}`)
                         seenChat.mutate({
                           joinedRoomId: joined_room.id
                         })
@@ -210,9 +210,9 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                         <button
                           key={joined_room.index}
                           type="button"
-                          className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526] dark:focus:bg-gradient-to-r dark:focus:from-[#33383B] dark:focus:to-[#222526]`}
+                          className={`inline-flex items-start justify-between text-left w-full rounded-xl p-3 space-x-3 ${asPath === `/room/${joined_room.room.slug}` && 'bg-white dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]'} hover:bg-white focus:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526] dark:focus:bg-gradient-to-r dark:focus:from-[#33383B] dark:focus:to-[#222526]`}
                           onClick={() => {
-                            Router.push(`/${joined_room.room.slug}`)
+                            Router.push(`/room/${joined_room.room.slug}`)
                             seenChat.mutate({
                               joinedRoomId: joined_room.id
                             })

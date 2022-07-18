@@ -13,7 +13,7 @@ const CustomToaster: React.FC<IProps> = ({ toast, trigger, type, message }) => {
     <div
       className={`${
         trigger.visible ? 'animate-enter' : 'animate-leave'
-      } max-w-md w-full bg-white dark:bg-[#161818] shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-zinc-300 dark:ring-black dark:ring-opacity-5`}
+      } max-w-xs w-full bg-white dark:bg-[#161818] shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-zinc-300 dark:ring-black dark:ring-opacity-5`}
     >
       <div className="flex-1 w-0 p-4">
         <div className="flex items-start">
