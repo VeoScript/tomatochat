@@ -186,6 +186,7 @@ const Comments: React.FC<IProps> = ({ post, user, closeModal }) => {
                               className="outline-none font-bold text-base"
                               onClick={() => {
                                 Router.push(`/profile/${comment.user.id}`)
+                                window.scrollTo(0, 0)
                                 closeModal()
                               }}
                             >

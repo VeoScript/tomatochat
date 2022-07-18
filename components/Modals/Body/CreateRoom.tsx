@@ -184,7 +184,7 @@ const CreateRoom: React.FC<IProps> = ({ user }) => {
             lastSentUserName: String(user.name)
           })
           closeModal()
-          Router.push(`/${uuidSlug}`)
+          Router.push(`/room/${uuidSlug}`)
         }
       })
 

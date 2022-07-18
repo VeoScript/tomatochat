@@ -191,7 +191,7 @@ const RoomSettings: React.FC<IProps> = ({ room, user }) => {
             lastSentUserName: String(user.name)
           })
           closeModal()
-          Router.push(`/${room.slug}`)
+          Router.push(`/room/${room.slug}`)
         }
       })
 
