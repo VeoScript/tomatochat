@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
 import { RiUserLine, RiLink, RiMailLine, RiFacebookCircleFill, RiCloseLine } from 'react-icons/ri'
 
-import { hobbies } from '../../static/hobbies'
+import { hobbies } from '../../mock/hobbies'
 
 interface IProps {
   user: any
