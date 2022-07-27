@@ -71,6 +71,7 @@ export function useGetProfile(userId: string) {
       return (await profile).json()
     },
     {
+      enabled: !!userId,
       refetchInterval: 1000
     }
   )
@@ -309,6 +310,7 @@ export function useGetPostComments(postId: string) {
       return (await get_post_comments).json()
     },
     {
+      enabled: !!postId,
       refetchInterval: 1000,
       getNextPageParam: (lastPage) => lastPage.nextId ?? false,
     }

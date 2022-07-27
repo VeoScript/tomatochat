@@ -37,9 +37,9 @@ const ProfileSettings: React.FC<IProps> = ({ user, profile }) => {
     }
   } = useForm<AccountSettingFormData>({
     defaultValues: {
-      name: profile.name,
-      username: profile.username,
-      email: profile.email
+      name: user.name,
+      username: user.username,
+      email: user.email
     }
   })
 

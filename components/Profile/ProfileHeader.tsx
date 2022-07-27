@@ -50,7 +50,9 @@ const ProfileHeader: React.FC<IProps> = ({ user, profile }) => {
         </div>
         <div className="flex flex-row items-start justify-between w-full mr-10 mt-[4rem]">
           <div className="flex flex-col ml-3 space-y-2">
-            <h3 className="font-bold text-2xl tracking-tight">{profile.name}</h3>
+            <Link href={`/profile/${profile.id}`}>
+              <a className="font-bold text-2xl tracking-tight">{profile.name}</a>
+            </Link>
             <div className="flex flex-col">
               <h3 className="inline-flex items-center space-x-1 font-normal text-sm tracking-tight text-zinc-500 dark:text-zinc-400">
                 <RiUserHeartLine />
