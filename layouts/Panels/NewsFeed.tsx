@@ -1,6 +1,7 @@
 import React from 'react'
 import CardPost from '../../components/Cards/CardPost'
 import CreatePost from '../../components/CreatePost'
+import PostCardSkeleton from '../../components/SkeletonLoader/PostCardSkeleton'
 import Spinner from '../../utils/Spinner'
 import { useGetNewsFeedPosts } from '../../lib/ReactQuery'
 import { useInView } from 'react-intersection-observer'
@@ -41,12 +42,13 @@ const NewsFeed: React.FC<IProps> = ({ user, profile }) => {
           profile={profile}
         />
         {newsfeedLoading && (
-          <div className="flex flex-row items-center justify-center w-full py-5">
-            <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-              <Spinner width={40} height={40} color={'#F16506'} />
-              <h3 className="font-light text-sm">Loading...</h3>
-            </div>
-          </div>
+          <PostCardSkeleton />
+          // <div className="flex flex-row items-center justify-center w-full py-5">
+          //   <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
+          //     <Spinner width={40} height={40} color={'#F16506'} />
+          //     <h3 className="font-light text-sm">Loading...</h3>
+          //   </div>
+          // </div>
         )}
         {newsfeedError && (
           <div className="flex flex-col items-center justify-center w-full h-screen space-y-2 text-zinc-400">
@@ -90,14 +92,15 @@ const NewsFeed: React.FC<IProps> = ({ user, profile }) => {
               </React.Fragment>
             ))}
             <button
+              className="flex flex-col items-center justify-center w-full space-y-2"
               ref={ref}
               onClick={() => fetchNextPage()}
               disabled={!hasNextPage || isFetchingNextPage}
             >
               {isFetchingNextPage
-                ? <Spinner width={40} height={40} color={'#F16506'} />
+                ? <PostCardSkeleton />
                 : hasNextPage
-                ? 'Fetching new posts...'
+                ? ''
                 : ''}
             </button>
           </React.Fragment>
