@@ -2,6 +2,7 @@ import React from 'react'
 import CreatePost from '../CreatePost'
 import CardPost from '../Cards/CardPost'
 import Spinner from '../../utils/Spinner'
+import PostCardSkeleton from '../SkeletonLoader/PostCardSkeleton'
 import ProfileInfoCard from './ProfileInfoCard'
 import { useGetUserPosts } from '../../lib/ReactQuery'
 import { useInView } from 'react-intersection-observer'
@@ -38,12 +39,13 @@ const ProfileTimeline: React.FC<IProps> = ({ user, profile }) => {
           />
         )}
         {postLoading && (
-          <div className="flex flex-row items-center justify-center w-full py-5">
-            <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-              <Spinner width={40} height={40} color={'#F16506'} />
-              <h3 className="font-light text-sm">Loading...</h3>
-            </div>
-          </div>
+          <PostCardSkeleton />
+          // <div className="flex flex-row items-center justify-center w-full py-5">
+          //   <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
+          //     <Spinner width={40} height={40} color={'#F16506'} />
+          //     <h3 className="font-light text-sm">Loading...</h3>
+          //   </div>
+          // </div>
         )}
         {postError && (
           <div className="flex flex-col items-center justify-center w-full py-5 space-y-2">
@@ -87,13 +89,13 @@ const ProfileTimeline: React.FC<IProps> = ({ user, profile }) => {
             <button
               ref={ref}
               onClick={() => fetchNextPage()}
-              className="inline-flex items-center justify-center w-full"
+              className="flex flex-col items-center justify-center w-full space-y-2"
               disabled={!hasNextPage || isFetchingNextPage}
             >
               {isFetchingNextPage
-                ? <Spinner width={40} height={40} color={'#F16506'} />
+                ? <PostCardSkeleton />
                 : hasNextPage
-                ? 'Fetching new posts...'
+                ? ''
                 : ''}
             </button>
           </React.Fragment>
