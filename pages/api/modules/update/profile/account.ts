@@ -9,7 +9,8 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
       },
       data: {
         name: req.body.name,
-        username: req.body.username
+        username: req.body.username,
+        location: req.body.location
       }
     })
     res.status(200).json(updateUserAccount)

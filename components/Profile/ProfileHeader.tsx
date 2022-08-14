@@ -68,10 +68,12 @@ const ProfileHeader: React.FC<IProps> = ({ user, profile }) => {
                   </a>
                 </Link>
               </h3>
-              <h3 className="inline-flex items-center space-x-1 font-normal text-sm tracking-tight text-zinc-500 dark:text-zinc-400">
-                <RiMapPin2Line />
-                <span>Philippines</span>
-              </h3>
+              {profile.location && (
+                <h3 className="inline-flex items-center space-x-1 font-normal text-sm tracking-tight text-zinc-500 dark:text-zinc-400">
+                  <RiMapPin2Line />
+                  <span>{profile.location}</span>
+                </h3>
+              )}
             </div>
           </div>
           <div className="flex flex-col mt-5 mr-10">

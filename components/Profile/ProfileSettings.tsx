@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast'
 import { useChangeUserAccountMutation, useAddUserHobbiesMutation, useDeleteUserHobbiesMutation } from '../../lib/ReactQuery'
 import { useForm } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
-import { RiUserLine, RiLink, RiMailLine, RiFacebookCircleFill, RiCloseLine } from 'react-icons/ri'
+import { RiUserLine, RiMapPinLine, RiLink, RiMailLine, RiFacebookCircleFill, RiCloseLine } from 'react-icons/ri'
 
 import { hobbies } from '../../mock/hobbies'
 
@@ -17,6 +17,7 @@ interface IProps {
 
 interface AccountSettingFormData {
   name: string
+  location: string
   username: string
   email: string
 }
@@ -38,6 +39,7 @@ const ProfileSettings: React.FC<IProps> = ({ user, profile }) => {
   } = useForm<AccountSettingFormData>({
     defaultValues: {
       name: user.name,
+      location: user.location,
       username: user.username,
       email: user.email
     }
@@ -54,6 +56,7 @@ const ProfileSettings: React.FC<IProps> = ({ user, profile }) => {
     await changeUserAccountMutation.mutateAsync({
       userId: user.id,
       name: formData.name,
+      location: formData.location,
       username: formData.username
     },
     {
@@ -121,6 +124,19 @@ const ProfileSettings: React.FC<IProps> = ({ user, profile }) => {
                   {...registerAccountSetting('name', { required: true })}
                 />
                 <RiUserLine className="w-4 h-4 fill-current text-zinc-400" />
+              </span>
+            </div>
+            <div className="flex flex-col w-full space-y-2">
+              <label htmlFor="name" className="font-light text-xs text-neutral-400 ml-1">Location</label>
+              <span className="inline-flex items-center w-full px-3 py-2 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-100 bg-tomato-light dark:bg-tomato-dark-secondary border border-transparent focus-within:border-tomato-orange">
+                <input
+                  id="name"
+                  type="text"
+                  className="w-full outline-none bg-transparent text-sm"
+                  placeholder="Change your location"
+                  {...registerAccountSetting('location')}
+                />
+                <RiMapPinLine className="w-4 h-4 fill-current text-zinc-400" />
               </span>
             </div>
             <div className="flex flex-col w-full space-y-2">

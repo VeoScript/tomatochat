@@ -13,6 +13,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
       name: true,
       email: true,
       username: true,
+      location: true,
       followers: true,
       following: true,
       bio: true,
