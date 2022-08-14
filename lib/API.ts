@@ -10,7 +10,8 @@ export const changeAccount = async (_args: any) => {
     body: JSON.stringify({
       userId: _args.userId,
       name: _args.name,
-      username: _args.username
+      username: _args.username,
+      location: _args.location
     })
   })
 
