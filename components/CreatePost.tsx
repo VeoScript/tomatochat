@@ -221,17 +221,20 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
 
   return (
     <div className="flex flex-col w-full space-y-2 p-5 rounded-md bg-white dark:bg-tomato-dark-slight">
-      <div className="flex items-start space-x-2">
-        <Image
-          src={profile.image}
-          blurDataURL={profile.image}
-          width={58}
-          height={58}
-          className="rounded-full object-cover bg-white dark:bg-[#161818]"
-          layout="intrinsic"
-          quality={100}
-          alt="Profile"
-        />
+      <div className="flex flex-col lg:flex-row items-start w-full space-x-0 lg:space-x-2 space-y-3 lg:space-y-0">
+        <div className="flex flex-row items-center space-x-2">
+          <Image
+            src={profile.image}
+            blurDataURL={profile.image}
+            width={58}
+            height={58}
+            className="flex w-full h-full rounded-full object-cover bg-white dark:bg-[#161818]"
+            layout="intrinsic"
+            quality={100}
+            alt="Profile"
+          />
+          <h3 className="flex lg:hidden font-bold text-lg">{ user.name }</h3>
+        </div>
         <div className="flex flex-row items-start w-full px-5 py-3 rounded-3xl bg-zinc-100 dark:bg-tomato-dark-secondary border border-transparent dark:border-transparent focus-within:border-transparent dark:focus-within:border-tomato-orange">
           <div
             id="postcaption"

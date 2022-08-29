@@ -11,7 +11,7 @@ const PostProfile: React.FC<IProps> = ({ src }) => {
       src={src}
       width={50}
       height={50}
-      className="rounded-full object-cover bg-white dark:bg-[#161818]"
+      className="flex w-full h-full rounded-full object-cover bg-white dark:bg-[#161818]"
       layout="intrinsic"
       quality={100}
       alt="Profile"

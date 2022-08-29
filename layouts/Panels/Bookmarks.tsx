@@ -1,9 +1,10 @@
 import React from 'react'
+import AdsSuggestions from './AdsSuggestions'
 import CardPost from '../../components/Cards/CardPost'
 import Spinner from '../../utils/Spinner'
 import { useGetBookmarks } from '../../lib/ReactQuery'
 import { useInView } from 'react-intersection-observer'
-import { RiAlarmWarningFill, RiEmotionSadLine } from 'react-icons/ri'
+import { RiEmotionSadLine } from 'react-icons/ri'
 
 interface IProps {
   user: any
@@ -89,12 +90,7 @@ const BookmarksPanel: React.FC<IProps> = ({ user, profile }) => {
           </React.Fragment>
         )}
       </div>
-      <div className="flex flex-col w-full max-w-xs h-full overflow-y-auto border-l border-zinc-300 dark:border-tomato-dark-secondary">
-        <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-          <RiAlarmWarningFill className="w-10 h-10 text-tomato-orange" />
-          <h3 className="font-bold">Under Maintenance</h3>
-        </div>
-      </div>
+      <AdsSuggestions />
     </div>
   )
 }

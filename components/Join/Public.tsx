@@ -63,10 +63,10 @@ const Public: React.FC<IProps> = ({ user, slug, name, description }) => {
 
   return (
     <div className="flex flex-row items-center justify-center w-full h-full p-10 space-x-36">
-      <div className="flex flex-col items-start w-full max-w-sm space-y-2">
+      <div className="flex flex-col items-center lg:items-start w-full max-w-full lg:max-w-sm space-y-2">
         <h3 className="text-sm text-zinc-400 dark:text-white">Welcome to public server of</h3>
-        <div className="flex flex-col w-full">
-          <h1 className="font-rubikglitch text-6xl text-zinc-800 dark:text-white uppercase">{ name }</h1>
+        <div className="flex flex-col items-center lg:items-start w-full">
+          <h1 className="font-rubikglitch text-center text-6xl text-zinc-800 dark:text-white uppercase">{ name }</h1>
           <h3 className="text-sm text-zinc-600 dark:text-zinc-400">{ description }</h3>
           <form onSubmit={handleSubmit(onJoinPublic)} className="flex flex-col w-full space-y-3 mt-5">
             {(isSubmitting || isSubmitSuccessful) && (
@@ -87,7 +87,7 @@ const Public: React.FC<IProps> = ({ user, slug, name, description }) => {
           </form>
         </div>
       </div>
-      <RiEarthLine className="w-[20rem] h-[20rem] text-zinc-300 dark:text-tomato-orange dark:text-opacity-20" />
+      <RiEarthLine className="hidden lg:flex w-[20rem] h-[20rem] text-zinc-300 dark:text-tomato-orange dark:text-opacity-20" />
     </div>
   )
 }
