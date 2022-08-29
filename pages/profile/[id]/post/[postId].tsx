@@ -42,9 +42,7 @@ const PostID: NextPage<IProps> = ({ post }) => {
       />
     )
   }
-
-  console.log(post.stories[0].image)
-
+  
   return (
     <React.Fragment>
       <Head>

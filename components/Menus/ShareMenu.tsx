@@ -16,19 +16,19 @@ const ShareMenu: React.FC<IProps> = ({ children, title, user, post }) => {
   const [isDropdown, setIsDropdown] = React.useState(false)
 
   const shareOnFB = () => {
-    var url = `https://www.facebook.com/sharer/sharer.php?u=${process.env.VERCEL_BASE_URL}post/${post.id}&t=You share ${post.user.name}'s post - ${post.description}`
+    var url = `https://www.facebook.com/sharer/sharer.php?u=${process.env.VERCEL_BASE_URL}/profile/${user.id}/post/${post.id}&t=You share ${post.user.name}'s post - ${post.description}`
     window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=900')
     return false
   }
 
   const shareOnTwitter = () => {
-    var url = `https://twitter.com/intent/tweet?url=${process.env.VERCEL_BASE_URL}post/${post.id}&text=You share ${post.user.name}'s post - ${post.description}`
+    var url = `https://twitter.com/intent/tweet?url=${process.env.VERCEL_BASE_URL}/profile/${user.id}/post/${post.id}&text=You share ${post.user.name}'s post - ${post.description}`
     window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=900')
     return false
   }
 
   const shareOnLinkedIn = () => {
-    var url = `https://www.linkedin.com/sharing/share-offsite/?url=${process.env.VERCEL_BASE_URL}post/${post.id}`
+    var url = `https://www.linkedin.com/sharing/share-offsite/?url=${process.env.VERCEL_BASE_URL}/profile/${user.id}/post/${post.id}`
     window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=900')
     return false
   }
