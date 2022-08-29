@@ -12,7 +12,7 @@ const SEO: React.FC<IProps> = ({ title, description, image, url }) => {
     <React.Fragment>
       <meta name="description" content={description} />
       <meta name="og:title" content={`${title}`} />
-      <meta name="og:image" content={`${image}`} />
+      <meta name="og:image:url" content={`${image}`} />
       <meta name="og:description" content={description} />
       <meta name="og:url" content={url} />
       <meta name="og:type" content="website" />
