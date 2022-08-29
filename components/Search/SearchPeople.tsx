@@ -27,7 +27,7 @@ const SearchPeople = () => {
 
   return (
     <React.Fragment>
-      <span className="inline-flex items-center w-[20rem] px-3 py-2 z-20 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-100 bg-tomato-light dark:bg-tomato-dark-secondary border border-transparent focus-within:border-tomato-orange">
+      <span className="inline-flex items-center w-full md:w-[20rem] px-3 py-2 z-20 space-x-2 rounded-lg text-zinc-800 dark:text-zinc-100 bg-tomato-light dark:bg-tomato-dark-secondary border border-transparent focus-within:border-tomato-orange">
         <input
           type="text"
           className="w-full outline-none bg-transparent text-sm"
@@ -47,8 +47,8 @@ const SearchPeople = () => {
               setSearchTerm('')
             }} 
           />
-          <div className="absolute top-10 z-20 w-[20rem]">
-            <div className="flex w-full h-full max-h-[20rem] -ml-[1.2rem] overflow-y-auto rounded-md shadow-lg bg-white dark:bg-tomato-dark-secondary focus:outline-none">
+          <div className="absolute top-10 z-20 w-full md:w-[20rem]">
+            <div className="flex w-full h-full max-h-[20rem] overflow-y-auto rounded-md shadow-lg bg-white dark:bg-tomato-dark-secondary focus:outline-none">
               <div className="flex flex-col w-full divide-y divide-zinc-100 dark:divide-[#464A4D]">
                 <div className="w-full p-3">
                   <h3 className="font-light text-xs">Search results</h3>

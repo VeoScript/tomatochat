@@ -53,7 +53,7 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
   const checkUserMembers = getRoles.find((member: any) => member.role === 'USER')
 
   return (
-    <div className="flex flex-col w-full max-w-sm h-full">
+    <div className="hidden lg:flex flex-col w-full max-w-sm h-full">
       <div className="inline-flex items-center justify-between w-full p-5">
         <h3 className="font-bold">Participants</h3>
       </div>

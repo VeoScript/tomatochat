@@ -9,9 +9,9 @@ const Profile: React.FC<IProps> = ({ src }) => {
   return (
     <Image
       src={src}
-      width={25}
-      height={25}
-      className="flex max-w-[2.5rem] h-full max-h-[3rem] rounded-full object-cover bg-white dark:bg-[#161818]"
+      width={30}
+      height={30}
+      className="flex w-full max-w-[2.5rem] h-full max-h-[3rem] rounded-full object-cover bg-white dark:bg-[#161818]"
       layout="intrinsic"
       quality={100}
       alt="Profile"
