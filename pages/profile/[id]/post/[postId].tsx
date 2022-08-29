@@ -43,15 +43,17 @@ const PostID: NextPage<IProps> = ({ post }) => {
     )
   }
 
+  console.log(post.stories[0].image)
+
   return (
     <React.Fragment>
       <Head>
         <title>{ profile ? `Post of ${profile?.name}` : 'Loading...' }</title>
         <SEO
-          title={`TomatoChat - ${post.user.name}'s Post`}
+          title={`Post of ${post.user.name}' in TomatoChat.`}
           description={post.description}
           image={post.stories.length > 0 ? post.stories[0].image : null}
-          url={`${process.env.VERCEL_BASE_URL}post/${post.id}`}
+          url={`${process.env.VERCEL_BASE_URL}/profile/${post.userId}post/${post.id}`}
         />
       </Head>
       <MainLayout user={user}>
