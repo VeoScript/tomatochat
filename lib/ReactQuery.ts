@@ -45,7 +45,7 @@ import {
 
 // QUERY FOR GETTING THE LOGGED IN USER DETAILS (FIND-FIRST)
 export function useGetUser(email: string) {
-  return useQuery('user', 
+  return useQuery(['user', email], 
     async () => {
       const user = fetch(`/api/auth/user/${email}`)
       return (await user).json()
@@ -59,7 +59,7 @@ export function useGetUser(email: string) {
 
 // QUERY FOR GETTING THE PROFILE DETAILS OF SPECIFIC USER (FIND-FIRST)
 export function useGetProfile(userId: string) {
-  return useQuery('userprofile', 
+  return useQuery(['userprofile', userId], 
     async () => {
       const profile = fetch(`/api/modules/read/userprofile`, {
         method: 'POST',
@@ -79,7 +79,7 @@ export function useGetProfile(userId: string) {
 
 // QUERY FOR GETTING THE RESULTS OF SEARCH PEOPLE
 export function useGetSearchPeople(searchTerm: string) {
-  return useQuery('searchpeople', 
+  return useQuery(['searchpeople', searchTerm], 
     async () => {
       const search = fetch(`/api/modules/read/search/people`, {
         method: 'POST',
@@ -98,7 +98,7 @@ export function useGetSearchPeople(searchTerm: string) {
 
 // QUERY FOR GETTING THE RESULTS OF SEARCH DISCOVER ROOM
 export function useGetSearchDiscover(searchTerm: string) {
-  return useQuery('searchdiscover', 
+  return useQuery(['searchdiscover', searchTerm], 
     async () => {
       const search = fetch(`/api/modules/read/search/discover`, {
         method: 'POST',
@@ -117,7 +117,7 @@ export function useGetSearchDiscover(searchTerm: string) {
 
 // QUERY FOR GETTING THE RESULTS OF SEARCH INBOX ROOM
 export function useGetSearchInbox(searchTerm: string, userId: string) {
-  return useQuery('searchinbox', 
+  return useQuery(['searchinbox', searchTerm, userId], 
     async () => {
       const search = fetch(`/api/modules/read/search/inbox`, {
         method: 'POST',
@@ -150,12 +150,13 @@ export function useGetRooms() {
 
 // QUERY FOR GETTING THE SPECIFIC ROOM BY ROOM SLUG (FIND-FIRST)
 export function useGetRoom(roomSlug: string) {
-  return useQuery('room', 
+  return useQuery(['room', roomSlug], 
     async () => {
       const room = fetch(`/api/modules/read/rooms/${ roomSlug }`)
       return (await room).json()
     },
     {
+      enabled: !!roomSlug,
       refetchInterval: 1000
     }
   )
@@ -163,7 +164,7 @@ export function useGetRoom(roomSlug: string) {
 
 // QUERY FOR GETTING ALL OF JOINED ROOMS BY THE USER (FIND-MANY)
 export function useGetJoinedRooms(userId: string) {
-  return useInfiniteQuery('joined_rooms', 
+  return useInfiniteQuery(['joined_rooms', userId], 
     async ({ pageParam = '' }) => {
       const joined_rooms = fetch(`/api/modules/read/joined-rooms?cursor=${ pageParam }`, {
         method: 'POST',
@@ -184,7 +185,7 @@ export function useGetJoinedRooms(userId: string) {
 
 // QUERY FOR GETTING THE SPECIFIC JOINED ROOM BY THE USER (FIND-FIRST)
 export function useGetJoinedRoom(roomSlug: string) {
-  return useQuery('joined_room', 
+  return useQuery(['joined_room', roomSlug], 
     async () => {
       const joined_room = fetch(`/api/modules/read/joined-rooms/${ roomSlug }`)
       return (await joined_room).json()
@@ -199,7 +200,7 @@ export function useGetJoinedRoom(roomSlug: string) {
 
 // QUERY FOR GETTING ALL MEMBERS OF SPECIFIC JOINED ROOM BY THE USER (FIND-FIRST)
 export function useGetMembers(roomSlug: string) {
-  return useQuery('members', 
+  return useQuery(['members', roomSlug], 
     async () => {
       const members = fetch('/api/modules/read/members', {
         method: 'POST',
@@ -219,7 +220,7 @@ export function useGetMembers(roomSlug: string) {
 
 // QUERY FOR GETTING ALL OF THE CHATS BY SPECIFIC ROOMS (FIND-MANY / USE_INFINITE_QUERY)
 export function useGetChats(roomSlug: string) {
-  return useInfiniteQuery('chats', 
+  return useInfiniteQuery(['chats', roomSlug], 
     async ({ pageParam = '' }) => {
       const chats = fetch(`/api/modules/read/chats?cursor=${ pageParam }`, {
         method: 'POST',
@@ -231,6 +232,7 @@ export function useGetChats(roomSlug: string) {
       return (await chats).json()
     },
     {
+      enabled: !!roomSlug,
       refetchInterval: 1000,
       select: chats => ({
         pages: [...chats.pages],
@@ -243,7 +245,7 @@ export function useGetChats(roomSlug: string) {
 
 // QUERY FOR GETTING ALL POSTS OF SPECIFIC USER (FIND-FIRST)
 export function useGetUserPosts(userId: string) {
-  return useInfiniteQuery('get_user_posts', 
+  return useInfiniteQuery(['get_user_posts', userId], 
     async ({ pageParam = '' }) => {
       const get_user_posts = fetch(`/api/modules/read/posts?cursor=${ pageParam }`, {
         method: 'POST',
@@ -264,7 +266,7 @@ export function useGetUserPosts(userId: string) {
 
 // QUERY FOR THE SPECIFIC POST QUERY INFORMATION
 export function useGetUserPost(postId: string) {
-  return useQuery('get_user_post', 
+  return useQuery(['get_user_post', postId], 
     async () => {
       const get_user_post = fetch('/api/modules/read/posts/specificpost', {
         method: 'POST',
@@ -298,7 +300,7 @@ export function useGetNewsFeedPosts() {
 
 // QUERY FOR GETTING ALL COMMENTS IN POST
 export function useGetPostComments(postId: string) {
-  return useInfiniteQuery('get_post_comments', 
+  return useInfiniteQuery(['get_post_comments', postId], 
     async ({ pageParam = '' }) => {
       const get_post_comments = fetch(`/api/modules/read/comments?cursor=${ pageParam }`, {
         method: 'POST',
@@ -319,7 +321,7 @@ export function useGetPostComments(postId: string) {
 
 // QUERY FOR COUNTING ALL COMMENTS IN SPECIFIC POST
 export function useGetTotalComments(postId: string) {
-  return useQuery('total_comments', 
+  return useQuery(['total_comments', postId], 
     async () => {
       const total_comments = fetch('/api/modules/read/comments/count', {
         method: 'POST',
@@ -351,6 +353,7 @@ export function useGetBookmarks(userId: string) {
       return (await get_bookmarks).json()
     },
     {
+      enabled: !!userId,
       refetchInterval: 1000,
       getNextPageParam: (lastPage) => lastPage.nextId ?? false,
     }
@@ -359,7 +362,7 @@ export function useGetBookmarks(userId: string) {
 
 // QUERY FOR GETTING ALL OF USER FOLLOWERS
 export function useGetFollowers(profileId: string) {
-  return useInfiniteQuery('followers', 
+  return useInfiniteQuery(['followers', profileId], 
     async ({ pageParam = '' }) => {
       const followers = fetch(`/api/modules/read/followers?cursor=${ pageParam }`, {
         method: 'POST',
@@ -371,6 +374,7 @@ export function useGetFollowers(profileId: string) {
       return (await followers).json()
     },
     {
+      enabled: !!profileId,
       refetchInterval: 1000,
       getNextPageParam: (lastPage) => lastPage.nextId ?? false,
     }
@@ -391,6 +395,7 @@ export function useGetFollowing(profileId: string) {
       return (await following).json()
     },
     {
+      enabled: !!profileId,
       refetchInterval: 1000,
       getNextPageParam: (lastPage) => lastPage.nextId ?? false,
     }
