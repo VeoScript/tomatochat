@@ -2,15 +2,17 @@ import React from 'react'
 import Spinner from '../../utils/Spinner'
 import MemberMenu from '../../components/Menus/MemberMenu'
 import MemberImage from '../../components/Images/MemberImage'
+import NavBarProfileMenu from '../../components/NavBar/NavBarProfileMenu'
 import { useGetMembers } from '../../lib/ReactQuery'
 import { RiCheckboxBlankCircleFill, RiMore2Fill, RiEmotionSadLine } from 'react-icons/ri'
 
 interface IProps {
+  user: any
   userId: string
   roomSlug: string
 }
 
-const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
+const Members: React.FC<IProps> = ({ user, userId, roomSlug }) => {
 
   const { data: members, isLoading: getMembersLoading, isError: getMembersError, refetch } = useGetMembers(roomSlug)
 
@@ -54,6 +56,7 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
 
   return (
     <div className="hidden lg:flex flex-col w-full max-w-sm h-full">
+      <NavBarProfileMenu user={user} />
       <div className="inline-flex items-center justify-between w-full p-5">
         <h3 className="font-bold">Participants</h3>
       </div>
@@ -66,7 +69,7 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
             return (
               <React.Fragment key={i}>
                 {member.role === 'ADMIN' && (
-                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526]">
+                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 back-shadow select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526]">
                     <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                       <MemberImage src={member.user.image} />
                     </div>
@@ -104,7 +107,7 @@ const Members: React.FC<IProps> = ({ userId, roomSlug }) => {
             return (
               <React.Fragment key={i}>
                 {member.role === 'USER' && (
-                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526]">
+                  <div className="inline-flex w-full rounded-xl p-3 space-x-1 back-shadow select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526]">
                     <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                       <MemberImage src={member.user.image} />
                     </div>

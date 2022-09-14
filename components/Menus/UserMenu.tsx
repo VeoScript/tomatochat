@@ -37,7 +37,7 @@ const UserMenu: React.FC<IProps> = ({ children, title, user }) => {
               setIsDropdown(false)
             }} 
           />
-          <div className="absolute top-12 right-0 z-30 w-48">
+          <div className="absolute top-12 -left-5 z-30 w-48">
             <div className="flex w-full overflow-hidden shadow-sm rounded-md ring-1 ring-zinc-300 dark:ring-[#464A4D] bg-white dark:bg-tomato-dark-secondary focus:outline-none">
               <div className="flex flex-col w-full divide-y divide-zinc-300 dark:divide-[#464A4D]">
                 <Link href={`/profile/${user.id}`}>

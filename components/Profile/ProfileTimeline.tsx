@@ -1,7 +1,6 @@
 import React from 'react'
 import CreatePost from '../CreatePost'
 import CardPost from '../Cards/CardPost'
-import Spinner from '../../utils/Spinner'
 import PostCardSkeleton from '../SkeletonLoader/PostCardSkeleton'
 import ProfileInfoCard from './ProfileInfoCard'
 import { useGetUserPosts } from '../../lib/ReactQuery'
@@ -40,12 +39,6 @@ const ProfileTimeline: React.FC<IProps> = ({ user, profile }) => {
         )}
         {postLoading && (
           <PostCardSkeleton />
-          // <div className="flex flex-row items-center justify-center w-full py-5">
-          //   <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-          //     <Spinner width={40} height={40} color={'#F16506'} />
-          //     <h3 className="font-light text-sm">Loading...</h3>
-          //   </div>
-          // </div>
         )}
         {postError && (
           <div className="flex flex-col items-center justify-center w-full py-5 space-y-2">

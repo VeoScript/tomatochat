@@ -3,7 +3,7 @@ import Link from 'next/link'
 import RoomSettings from '../Modals/Body/RoomSettings'
 import Leave from '../Modals/Body/Leave'
 import DeleteRoom from '../Modals/Body/DeleteRoom'
-import { RiSettingsLine, RiFeedbackLine } from 'react-icons/ri'
+import { RiFeedbackLine } from 'react-icons/ri'
 
 interface IProps {
   children: any
@@ -43,13 +43,13 @@ const ChatSettingMenu: React.FC<IProps> = ({ children, role, title, room, user, 
       {isDropdown && (
         <React.Fragment>
           <button 
-            className={`${isDropdown ? 'z-10 block fixed inset-0 w-full h-full cursor-default focus:outline-none' : 'hidden'}`}
+            className={`${isDropdown ? 'z-40 block fixed inset-0 w-full h-screen cursor-default focus:outline-none' : 'hidden'}`}
             type="button"
             onClick={() => {
               setIsDropdown(false)
             }} 
           />
-          <div className="absolute origin-top-right right-0 z-20 w-48">
+          <div className="absolute origin-top-right right-0 z-50 w-48">
             <div className="flex w-full overflow-hidden shadow-sm rounded-md ring-1 ring-zinc-300 dark:ring-[#464A4D] bg-white dark:bg-tomato-dark-secondary focus:outline-none">
               <div className="flex flex-col w-full divide-y divide-zinc-300 dark:divide-[#464A4D]">
                 {role === 'ADMIN' && (

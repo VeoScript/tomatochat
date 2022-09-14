@@ -90,7 +90,7 @@ const BookmarksPanel: React.FC<IProps> = ({ user, profile }) => {
           </React.Fragment>
         )}
       </div>
-      <AdsSuggestions />
+      <AdsSuggestions user={user} />
     </div>
   )
 }

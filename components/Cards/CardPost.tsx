@@ -28,7 +28,7 @@ const CardPost: React.FC<IProps> = ({ profile, user, post }) => {
   })
 
   return (
-    <div className="flex flex-col w-full p-5 space-y-5 rounded-md bg-white dark:bg-tomato-dark-slight">
+    <div className="flex flex-col w-full p-5 space-y-5 rounded-md shadow-lg to-tomato-dark-secondary/50 bg-white dark:bg-tomato-dark-slight">
       <div className="flex flex-row items-start justify-between w-full">
         <div className="flex items-start space-x-2">
           <PostProfile src={(pathname === '/' || pathname === '/bookmarks') ? post.user.image : profile.image} />
