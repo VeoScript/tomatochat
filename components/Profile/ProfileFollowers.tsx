@@ -85,7 +85,7 @@ const ProfileFollowers: React.FC<IProps> = ({ user, profile }) => {
                     return (
                       <div
                         key={followerUser.following.id}
-                        className="flex flex-row items-center justify-between w-full p-3 rounded-xl bg-white dark:bg-tomato-dark-slight"
+                        className="flex flex-row items-center justify-between w-full p-3 rounded-xl back-shadow bg-white dark:bg-tomato-dark-slight"
                       >
                         <div className="inline-flex items-start space-x-2">
                           <Link href={`/profile/${followerUser.following.id}`}>

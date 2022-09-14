@@ -33,8 +33,8 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
   )
   
   return (
-    <div className="flex flex-col w-full h-full overflow-hidden border-x border-zinc-300 dark:border-tomato-dark-secondary">
-      <div className="flex flex-col md:flex-row items-center justify-center md:justify-between w-full space-y-3 md:space-y-0 px-6 py-3 border-b border-zinc-300 dark:border-tomato-dark-secondary bg-transparent dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]">
+    <div className="flex flex-col w-full h-full px-3 overflow-hidden">
+      <div className="flex flex-col md:flex-row items-center justify-center md:justify-between w-full space-y-3 md:space-y-0 px-6 py-3 rounded-b-xl back-shadow bg-transparent dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]">
         <div className="flex flex-col items-center md:items-start w-full space-y-1 select-none">
           <h3 className="font-medium">Discover</h3>
           <p className="font-light text-xs">Join to start a conversation to everyone.</p>
@@ -45,7 +45,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
           setIsDisplay={setIsDisplay}        
         />
       </div>
-      <div className="flex flex-col w-full h-full p-3 space-y-2 overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-700 scrollbar-track-transparent">
+      <div className="flex flex-col w-full h-full py-3 space-y-2 overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-700 scrollbar-track-transparent">
         {/* Search Result Display */}
         {isDisplay && (
           <React.Fragment>

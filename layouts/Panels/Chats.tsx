@@ -19,6 +19,7 @@ import { useForm } from 'react-hook-form'
 import { useInView } from 'react-intersection-observer'
 import { useGetJoinedRoom, useGetChats, useSendChatMutation, useSendChatImageMutation, useLastChatMutation, useSeenChatMutation } from '../../lib/ReactQuery'
 import { RiMoreFill, RiSendPlane2Line, RiSpyFill, RiEmotionSadLine, RiCheckDoubleLine, RiCloseFill } from 'react-icons/ri'
+import FuckingMenu from '../../components/Menus/FuckingMenu'
 
 interface IProps {
   user: any
@@ -383,7 +384,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
       {matchJoinedUser && (
         <div className="inline-flex w-full">
           <div className="flex flex-col w-full max-w-full h-full border-x border-zinc-300 dark:border-tomato-dark-secondary">
-            <div className="relative flex items-center w-full px-3">
+            <div className="relative flex items-center w-full px-2">
               <div className="inline-flex items-center justify-between w-full p-3 border-b border-zinc-300 dark:border-tomato-dark-secondary rounded-b-xl back-shadow bg-tomato-light-secondary dark:bg-tomato-dark backdrop-blur-xl dark:backdrop-blur-sm bg-opacity-80">
                 <span className="inline-flex items-start w-full max-w-lg rounded-xl select-none">
                   <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
@@ -515,7 +516,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                     <div className="flex">
                                       <Profile src={chat.user.image} />
                                     </div>
-                                    <div className="z-10 bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap bg-white dark:bg-tomato-dark-secondary">
+                                    <div className="bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap bg-white dark:bg-tomato-dark-secondary">
                                       <ViewImage
                                         imageURL={chat.message}
                                       />
@@ -593,7 +594,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                           <button
                             title="Remove"
                             type="button"
-                            className="absolute top-1 right-1 z-10 p-1 rounded-full bg-black bg-opacity-80 hover:bg-opacity-50"
+                            className="absolute top-1 right-1 z-auto p-1 rounded-full bg-black bg-opacity-80 hover:bg-opacity-50"
                             onClick={() => {
                               // for deleting specific photo
                               let previewImages = chatImages.map((photo: any) => photo).indexOf(image)

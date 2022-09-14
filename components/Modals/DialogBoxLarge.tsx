@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import { Dialog } from '@headlessui/react'
 import { RiCloseLine } from 'react-icons/ri'
 

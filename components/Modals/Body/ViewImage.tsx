@@ -1,7 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
 import DialogBoxLarge from '../DialogBoxLarge'
-import Spinner from '../../../utils/Spinner'
 
 interface IProps {
   imageURL: string
