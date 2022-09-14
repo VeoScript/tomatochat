@@ -16,7 +16,7 @@ const Profile: React.FC<IProps> = ({ user, profile }) => {
   const { pathname } = useRouter()
   
   return (
-    <div className="flex flex-col items-center w-full max-w-full h-full px-5 border-x border-zinc-300 dark:border-tomato-dark-secondary overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
+    <div className="flex flex-col items-center w-full max-w-full h-full px-5 overflow-x-hidden overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
       <ProfileHeader
         user={user}
         profile={profile}

@@ -3,6 +3,7 @@ import AdsSuggestions from './AdsSuggestions'
 import CardPost from '../../components/Cards/CardPost'
 import CreatePost from '../../components/CreatePost'
 import PostCardSkeleton from '../../components/SkeletonLoader/PostCardSkeleton'
+import NavBarSearch from '../../components/NavBar/NavBarSearch'
 import { useGetNewsFeedPosts } from '../../lib/ReactQuery'
 import { useInView } from 'react-intersection-observer'
 import {RiEmotionSadLine, RiFilter2Fill } from 'react-icons/ri'
@@ -25,30 +26,15 @@ const NewsFeed: React.FC<IProps> = ({ user, profile }) => {
   }, [fetchNextPage, hasNextPage, inView])
 
   return (
-    <div className="inline-flex w-full max-w-full h-full overflow-hidden border-x border-zinc-300 dark:border-tomato-dark-secondary">
-      <div className="flex flex-col items-center justify-start w-full max-w-full h-full p-4 space-y-2 overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
-        <div className="inline-flex items-center justify-between w-full mb-2 px-3 text-neutral-600 dark:text-neutral-300">
-          <h3 className="font-black text-2xl">Newsfeed</h3>
-          <button
-            title="Filter"
-            type="button"
-            className="outline-none"
-          >
-            <RiFilter2Fill className="w-6 h-6" />
-          </button>
-        </div>
+    <div className="inline-flex w-full max-w-full h-full overflow-hidden">
+      <div className="flex flex-col items-center justify-start w-full max-w-full h-full px-0 md:px-4 space-y-2 overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
+        <NavBarSearch />
         <CreatePost
           user={user}
           profile={profile}
         />
         {newsfeedLoading && (
           <PostCardSkeleton />
-          // <div className="flex flex-row items-center justify-center w-full py-5">
-          //   <div className="flex flex-col items-center justify-center w-full h-full space-y-2">
-          //     <Spinner width={40} height={40} color={'#F16506'} />
-          //     <h3 className="font-light text-sm">Loading...</h3>
-          //   </div>
-          // </div>
         )}
         {newsfeedError && (
           <div className="flex flex-col items-center justify-center w-full h-screen space-y-2 text-zinc-400">
@@ -106,7 +92,7 @@ const NewsFeed: React.FC<IProps> = ({ user, profile }) => {
           </React.Fragment>
         )}
       </div>
-      <AdsSuggestions />
+      <AdsSuggestions user={user} />
     </div>
   )
 }

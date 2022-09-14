@@ -49,7 +49,7 @@ const ProfileInfoCard: React.FC<IProps> = ({ user, profile }) => {
   }
 
   return (
-    <div className="sticky top-2 flex flex-col w-full max-w-xs p-5 space-y-3 rounded-md bg-white dark:bg-tomato-dark-slight">
+    <div className="sticky top-2 flex flex-col w-full max-w-xs p-5 space-y-3 rounded-md back-shadow bg-white dark:bg-tomato-dark-slight">
       <div className="flex flex-col">
         <div className="inline-flex items-center justify-between w-full">
           <h2 className="font-bold text-lg text-zinc-700 dark:text-neutral-500">

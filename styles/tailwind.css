@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .back-shadow {
+    @apply shadow-md to-tomato-dark-secondary/50 bg-tomato-light-secondary dark:bg-tomato-dark
+  }
+}
+
 .unfollow_button:hover span {
   display: none;
 }

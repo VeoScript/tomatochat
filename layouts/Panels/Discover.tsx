@@ -45,7 +45,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
           setIsDisplay={setIsDisplay}        
         />
       </div>
-      <div className="flex flex-col w-full h-full p-3 overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-700 scrollbar-track-transparent">
+      <div className="flex flex-col w-full h-full p-3 space-y-2 overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-700 scrollbar-track-transparent">
         {/* Search Result Display */}
         {isDisplay && (
           <React.Fragment>
@@ -88,7 +88,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                     <React.Fragment key={i}>
                       {!existRoom && (
                         <div
-                          className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526]"
+                          className="inline-flex w-full rounded-xl p-3 space-x-1 select-none back-shadow hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526]"
                         >
                           <div className="flex items-start w-full max-w-[4rem] h-full max-h-[3.5rem]">
                             {room.photo
@@ -186,7 +186,7 @@ const DiscoverPanel: React.FC<IProps> = ({ user }) => {
                         <React.Fragment key={i}>
                           {!existRoom && (
                             <div
-                              className="inline-flex w-full rounded-xl p-3 space-x-1 select-none hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526]"
+                              className="inline-flex w-full rounded-xl p-3 space-x-1 select-none back-shadow hover:bg-white dark:hover:bg-gradient-to-r dark:hover:from-[#33383B] dark:hover:to-[#222526]"
                             >
                               <div className="flex items-start w-full max-w-[4rem] h-full max-h-[3.5rem]">
                                 {room.photo

@@ -343,8 +343,8 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
   return (
     <React.Fragment>
       {!matchJoinedUser && (
-        <div className="flex flex-col w-full max-w-full h-full border-x border-zinc-300 dark:border-tomato-dark-secondary">
-          <div className="inline-flex items-center justify-between w-full p-3 border-b border-zinc-300 dark:border-tomato-dark-secondary bg-transparent dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]">
+        <div className="flex flex-col w-full max-w-full h-full px-3 border-x border-zinc-300 dark:border-tomato-dark-secondary">
+          <div className="inline-flex items-center justify-between w-full p-3 border-b border-zinc-300 dark:border-tomato-dark-secondary rounded-b-xl back-shadow bg-tomato-light-secondary dark:bg-tomato-dark backdrop-blur-xl dark:backdrop-blur-sm bg-opacity-80">
             <span className="inline-flex items-start w-full max-w-lg rounded-xl select-none">
               <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                 {getRoom.photo
@@ -383,32 +383,34 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
       {matchJoinedUser && (
         <div className="inline-flex w-full">
           <div className="flex flex-col w-full max-w-full h-full border-x border-zinc-300 dark:border-tomato-dark-secondary">
-            <div className="inline-flex items-center justify-between w-full p-3 border-b border-zinc-300 dark:border-tomato-dark-secondary bg-transparent dark:bg-gradient-to-r dark:from-[#33383B] dark:to-[#222526]">
-              <span className="inline-flex items-start w-full max-w-lg rounded-xl select-none">
-                <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
-                  {getRoom.photo
-                    ? <RoomImage src={getRoom.photo} />
-                    : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#161818]">
-                        <RiSpyFill className="w-5 h-5 text-tomato-orange" />
-                      </div>
-                  }
+            <div className="relative flex items-center w-full px-3">
+              <div className="inline-flex items-center justify-between w-full p-3 border-b border-zinc-300 dark:border-tomato-dark-secondary rounded-b-xl back-shadow bg-tomato-light-secondary dark:bg-tomato-dark backdrop-blur-xl dark:backdrop-blur-sm bg-opacity-80">
+                <span className="inline-flex items-start w-full max-w-lg rounded-xl select-none">
+                  <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
+                    {getRoom.photo
+                      ? <RoomImage src={getRoom.photo} />
+                      : <div className="p-4 w-50 h-50 rounded-xl object-cover bg-zinc-200 dark:bg-[#161818]">
+                          <RiSpyFill className="w-5 h-5 text-tomato-orange" />
+                        </div>
+                    }
+                  </div>
+                  <div className="block">
+                    <h3 className="font-bold text-base">{ getRoom.name }</h3>
+                    <h3 className="font-normal text-[13px] text-zinc-500">{ getRoom.description }</h3>
+                  </div>
+                </span>
+                <div className="relative">
+                  <ChatSettingMenu
+                    title="More"
+                    room={getRoom}
+                    getJoinedUser={getJoinedUser}
+                    role={getRole.userRole}
+                    user={user}
+                    userId={userId}
+                  >
+                    <RiMoreFill className="w-6 h-6 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
+                  </ChatSettingMenu>
                 </div>
-                <div className="block">
-                  <h3 className="font-bold text-base">{ getRoom.name }</h3>
-                  <h3 className="font-normal text-[13px] text-zinc-500">{ getRoom.description }</h3>
-                </div>
-              </span>
-              <div className="relative">
-                <ChatSettingMenu
-                  title="More"
-                  room={getRoom}
-                  getJoinedUser={getJoinedUser}
-                  role={getRole.userRole}
-                  user={user}
-                  userId={userId}
-                >
-                  <RiMoreFill className="w-6 h-6 text-zinc-400 transition ease-in-out duration-200 transform hover:scale-90" />
-                </ChatSettingMenu>
               </div>
             </div>
             <div id="chatMainContainer" className="flex flex-col justify-end w-full h-full overflow-hidden">
@@ -513,7 +515,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                                     <div className="flex">
                                       <Profile src={chat.user.image} />
                                     </div>
-                                    <div className="bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap bg-white dark:bg-tomato-dark-secondary">
+                                    <div className="z-10 bubble-receiver flex flex-col w-full max-w-[15rem] space-y-1 p-3 font-normal text-xs rounded-xl whitespace-pre-wrap bg-white dark:bg-tomato-dark-secondary">
                                       <ViewImage
                                         imageURL={chat.message}
                                       />
@@ -697,6 +699,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
             </div>
           </div>
           <Members
+            user={user}
             userId={userId}
             roomSlug={roomSlug}
           />
