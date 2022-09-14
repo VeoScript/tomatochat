@@ -19,7 +19,6 @@ import { useForm } from 'react-hook-form'
 import { useInView } from 'react-intersection-observer'
 import { useGetJoinedRoom, useGetChats, useSendChatMutation, useSendChatImageMutation, useLastChatMutation, useSeenChatMutation } from '../../lib/ReactQuery'
 import { RiMoreFill, RiSendPlane2Line, RiSpyFill, RiEmotionSadLine, RiCheckDoubleLine, RiCloseFill } from 'react-icons/ri'
-import FuckingMenu from '../../components/Menus/FuckingMenu'
 
 interface IProps {
   user: any
@@ -384,8 +383,8 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
       {matchJoinedUser && (
         <div className="inline-flex w-full">
           <div className="flex flex-col w-full max-w-full h-full border-x border-zinc-300 dark:border-tomato-dark-secondary">
-            <div className="relative flex items-center w-full px-2">
-              <div className="inline-flex items-center justify-between w-full p-3 border-b border-zinc-300 dark:border-tomato-dark-secondary rounded-b-xl back-shadow bg-tomato-light-secondary dark:bg-tomato-dark backdrop-blur-xl dark:backdrop-blur-sm bg-opacity-80">
+            <div className="relative z-20 flex items-center w-full px-2">
+              <div className="flex flex-row items-center justify-between w-full p-3 border-b border-zinc-300 dark:border-tomato-dark-secondary rounded-b-xl back-shadow bg-tomato-light-secondary dark:bg-tomato-dark backdrop-blur-xl dark:backdrop-blur-sm bg-opacity-80">
                 <span className="inline-flex items-start w-full max-w-lg rounded-xl select-none">
                   <div className="flex w-full max-w-[4rem] h-full max-h-[3.5rem]">
                     {getRoom.photo
