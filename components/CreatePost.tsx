@@ -220,7 +220,7 @@ const CreatePost: React.FC<IProps> = ({ user, profile }) => {
   }
 
   return (
-    <div className="flex flex-col w-full space-y-2 p-5 rounded-md bg-white dark:bg-tomato-dark-slight">
+    <div className="flex flex-col w-full space-y-2 p-5 rounded-xl back-shadow bg-white dark:bg-tomato-dark-slight">
       <div className="flex flex-col lg:flex-row items-start w-full space-x-0 lg:space-x-2 space-y-3 lg:space-y-0">
         <div className="flex flex-row items-center space-x-2">
           <Image

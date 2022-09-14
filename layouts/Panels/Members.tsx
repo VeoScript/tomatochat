@@ -60,7 +60,7 @@ const Members: React.FC<IProps> = ({ user, userId, roomSlug }) => {
       <div className="inline-flex items-center justify-between w-full p-5">
         <h3 className="font-bold">Participants</h3>
       </div>
-      <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-slate-800 scrollbar-track-transparent">
+      <div className="inline-flex w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
         <div className="flex flex-col w-full px-2 space-y-2">
           {checkAdminMembers !== undefined && <h3 className="font-semibold text-xs text-zinc-500 px-3 uppercase">Admins</h3> }
           {members.map((member: { id: string, index: string, role: string, user: any }, i: number) => {
