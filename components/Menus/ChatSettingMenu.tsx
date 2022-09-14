@@ -43,7 +43,7 @@ const ChatSettingMenu: React.FC<IProps> = ({ children, role, title, room, user, 
       {isDropdown && (
         <React.Fragment>
           <button 
-            className={`${isDropdown ? 'z-10 block bg-black fixed inset-0 w-full h-screen cursor-default focus:outline-none' : 'hidden'}`}
+            className={`${isDropdown ? 'z-10 block fixed inset-0 w-full h-screen cursor-default focus:outline-none' : 'hidden'}`}
             type="button"
             onClick={() => {
               setIsDropdown(false)
