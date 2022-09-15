@@ -92,7 +92,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                   <h3 className="font-light">Failed to load, try to</h3>
                   <button
                     type="button"
-                    className="outline-none font-bold text-[#6b50d8] hover:underline"
+                    className="outline-none font-bold text-tomato-orange hover:underline"
                     onClick={() => refetch()}
                   >
                     Reload
@@ -180,7 +180,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                   <h3 className="font-light">Failed to load, try to</h3>
                   <button
                     type="button"
-                    className="outline-none font-bold text-[#6b50d8] hover:underline"
+                    className="outline-none font-bold text-tomato-orange hover:underline"
                     onClick={() => refetch()}
                   >
                     Reload
@@ -237,7 +237,7 @@ const Rooms: React.FC<IProps> = ({ user }) => {
                               {/* check if the last chat is null (if null it will display the room description otherwise, it will displaying the last chat of the room...) */}
                               {joined_room.lastChat === null
                                 ? (
-                                    <h3 className="text-xs text-[#CDA0F5] line-clamp-2">{ joined_room.room.description }</h3>
+                                    <h3 className="text-xs text-tomato-orange line-clamp-2">{ joined_room.room.description }</h3>
                                   )
                                 : (
                                     <React.Fragment>
