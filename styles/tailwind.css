@@ -4,7 +4,7 @@
 
 @layer components {
   .back-shadow {
-    @apply border border-neutral-200 dark:border-tomato-dark-secondary shadow-md shadow-neutral-300/50 dark:shadow-tomato-dark-secondary/30
+    @apply border border-neutral-200 dark:border-tomato-dark-secondary shadow-md shadow-neutral-300/50 dark:shadow-black/30
   }
 }
 
