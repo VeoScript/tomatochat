@@ -593,7 +593,7 @@ const Chats: React.FC<IProps> = ({ user, room }) => {
                           <button
                             title="Remove"
                             type="button"
-                            className="absolute top-1 right-1 z-auto p-1 rounded-full bg-black bg-opacity-80 hover:bg-opacity-50"
+                            className="absolute top-1 right-1 z-30 p-1 rounded-full bg-black bg-opacity-80 hover:bg-opacity-50"
                             onClick={() => {
                               // for deleting specific photo
                               let previewImages = chatImages.map((photo: any) => photo).indexOf(image)
