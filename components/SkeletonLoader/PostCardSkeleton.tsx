@@ -7,7 +7,7 @@ const PostCardSkeleton = () => {
   return (
     <React.Fragment>
       {skeletonCount.map((count: any) => (
-        <div key={count} className="flex flex-col w-full p-5 space-y-5 rounded-md bg-white dark:bg-tomato-dark-slight">
+        <div key={count} className="flex flex-col w-full p-5 space-y-5 back-shadow rounded-xl bg-white dark:bg-tomato-dark-slight">
           <div className="animate-pulse flex w-full space-x-4">
             <div className="flex flex-col">
               <div className="rounded-full bg-neutral-300 dark:bg-neutral-500 h-12 w-12"></div>
